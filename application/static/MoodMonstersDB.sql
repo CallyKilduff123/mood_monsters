@@ -1,7 +1,3 @@
-CREATE DATABASE mood_monsters; 
-
-USE mood_monsters;
-
 CREATE TABLE Person (
     Person_ID INT AUTO_INCREMENT PRIMARY KEY,
     Firstname VARCHAR(255) NOT NULL,
@@ -12,22 +8,21 @@ CREATE TABLE Person (
 
 CREATE TABLE Child (
     Child_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Person_ID INT NOT NULL,
+    Firstname VARCHAR(255) NOT NULL,
+    Lastname VARCHAR(255) NOT NULL,
+    Parent_ID INT NOT NULL,
     Age INT NOT NULL,
     School_Year INT NOT NULL,
-    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
+    FOREIGN KEY (Parent_ID) REFERENCES Person(Person_ID)
 );
 
 CREATE TABLE Grown_up (
     Grown_Up_ID INT AUTO_INCREMENT PRIMARY KEY,
     Person_ID INT NOT NULL,
-    Child_ID INT NOT NULL,
     Relationship_to_Child VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
-    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID),
-    FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
+    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
 );
-
 
 CREATE TABLE Message (
     Message_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +33,6 @@ CREATE TABLE Message (
     FOREIGN KEY (Receiver_ID) REFERENCES Child(Child_ID),
     FOREIGN KEY (Sender_ID) REFERENCES Grown_Up(Grown_Up_ID)
 );
-
 
 CREATE TABLE Badge (
     Badge_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,7 +53,6 @@ CREATE TABLE Mood (
     FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
 );
 
-
 INSERT INTO Person 
 VALUES 
 (1, 'John', 'Smith', 'jsmith', 1234), 
@@ -75,23 +68,24 @@ VALUES
 (11, 'Ava', 'Martinez', 'avam', NULL), 
 (12, 'Alexander', 'Martinez', 'alexm', NULL);
 
-
-INSERT INTO Child 
+INSERT INTO Child (Firstname, Lastname, Parent_ID, Age, School_Year)
 VALUES 
-(1, 2, 6, 1),
-(2, 4, 8, 4),
-(3, 6, 7, 3),
-(4, 8, 7, 3),
-(5, 10, 6, 1),
-(6, 12, 6, 1);
+('Emily', 'Smith', 1, 6, 1),
+('Sarah', 'Johnson', 3, 8, 4),
+('Olivia', 'Brown', 5, 7, 3),
+('Jane', 'Davis', 7, 8, 3),
+('Emma', 'Wilson', 9, 6, 1),
+('Alexander', 'Martinez', 11, 6, 1),
+('Vanessa', 'Martinez', 11, 8, 4);
 
-INSERT INTO Grown_up (Person_ID, Child_ID, Relationship_to_Child, Email)
+INSERT INTO Grown_up (Person_ID, Relationship_to_Child, Email)
 VALUES 
-(1, 1, 'Dad', 'jsmith@hotmail.com'),
-(3, 2, 'Brother', 'mjohnson@gmail.com'),
-(5, 3, 'Teacher', 'dbrown@hotmail.co.uk'),
-(7, 4, 'Mum', 'jdavis@yahoo.co.uk'),
-(9, 5, 'Teacher', 'ewilson@hotmail.com'),
-(11, 6, 'Mum', 'alexm@hotmail.co.uk');
+(1, 'Dad', 'jsmith@hotmail.com'),
+(3, 'Brother', 'mjohnson@gmail.com'),
+(5, 'Teacher', 'dbrown@hotmail.co.uk'),
+(7, 'Mum', 'jdavis@yahoo.co.uk'),
+(9, 'Teacher', 'ewilson@hotmail.com'),
+(11, 'Mum', 'alexm@hotmail.co.uk');
+
 
 
