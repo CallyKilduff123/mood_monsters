@@ -28,6 +28,7 @@ CREATE TABLE Grown_up (
     FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
 );
 
+
 CREATE TABLE Message (
     Message_ID INT AUTO_INCREMENT PRIMARY KEY,
     Receiver_ID INT NOT NULL,
@@ -73,4 +74,24 @@ VALUES
 (10, 'William', 'Wilson', 'wwilson', NULL), 
 (11, 'Ava', 'Martinez', 'avam', NULL), 
 (12, 'Alexander', 'Martinez', 'alexm', NULL);
+
+
+INSERT INTO Child 
+VALUES 
+(1, 2, 6, 1),
+(2, 4, 8, 4),
+(3, 6, 7, 3),
+(4, 8, 7, 3),
+(5, 10, 6, 1),
+(6, 12, 6, 1);
+
+INSERT INTO Grown_up (Person_ID, Child_ID, Relationship_to_Child, Email)
+VALUES 
+(1, 1, 'Dad', 'jsmith@hotmail.com'),
+(3, 2, 'Brother', 'mjohnson@gmail.com'),
+(5, 3, 'Teacher', 'dbrown@hotmail.co.uk'),
+(7, 4, 'Mum', 'jdavis@yahoo.co.uk'),
+(9, 5, 'Teacher', 'ewilson@hotmail.com'),
+(11, 6, 'Mum', 'alexm@hotmail.co.uk');
+
 
