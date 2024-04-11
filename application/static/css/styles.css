@@ -1,0 +1,98 @@
+/* WEBSITE COLOUR SCHEME */
+/*
+#EF476F - pink
+#FFD166 - yellow
+#06D6A0 - green
+#118AB2 - blue
+#073B4C - dark blue
+*/
+
+:root {
+    --colour-1: #EF476F;
+    --colour-2: #FFD166;
+    --colour-3: #06D6A0;
+    --colour-4: #118AB2;
+    --light: #FDFDFF;
+    --dark: #073B4C;
+}
+
+.hero-section h1, .hero-section p {
+    color: var(--light);
+}
+
+.section-1 h1 {
+    color: var(--colour-4);
+}
+
+.section-2 h1 {
+    color: var(--colour-1);
+}
+
+.custom-colour-light {
+    color: var(--light);
+}
+
+/* blue/green gradient */
+.gradient-colour-1 {
+    background: linear-gradient(45deg, var(--colour-4), var(--colour-3));
+}
+
+.gradient-colour-2 {
+    background: linear-gradient(45deg, var(--colour-1), var(--colour-2));
+}
+
+.wave-bottom {
+    --mask:
+        radial-gradient(156.84px at 50% calc(100% - 217.5px),#000 99%,#0000 101%) calc(50% - 174px) 0/348px 100%,
+        radial-gradient(156.84px at 50% calc(100% + 130.5px),#0000 99%,#000 101%) 50% calc(100% - 87px)/348px 100% repeat-x;
+      -webkit-mask: var(--mask);
+              mask: var(--mask);
+}
+
+.wave-top-bottom {
+    --mask:
+        radial-gradient(194.54px at 50% 261px,#000 99%,#0000 101%) calc(50% - 174px) 0/348px 51% repeat-x,
+        radial-gradient(194.54px at 50% -174px,#0000 99%,#000 101%) 50% 87px/348px calc(51% - 87px) repeat-x,
+        radial-gradient(194.54px at 50% calc(100% - 261px),#000 99%,#0000 101%) calc(50% - 174px) 100%/348px 51% repeat-x,
+        radial-gradient(194.54px at 50% calc(100% + 174px),#0000 99%,#000 101%) 50% calc(100% - 87px)/348px calc(51% - 87px) repeat-x;
+        -webkit-mask: var(--mask);
+              mask: var(--mask);
+}
+
+
+/* ------ NAVBAR ------ */
+
+.navbar-custom {
+    background-color: var(--light);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.navbar-custom .navbar-nav {
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: var(--colour-4);
+}
+
+.navbar-nav .nav-link + .nav-link::before {
+    content: "|";
+    padding: 0 20px;
+    color: var(--colour-4);
+}
+
+/* ------ FONTS ------ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+p {
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--dark);
+}
