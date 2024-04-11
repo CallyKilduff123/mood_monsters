@@ -7,7 +7,7 @@ CREATE TABLE Person (
     Firstname VARCHAR(255) NOT NULL,
     Lastname VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
-    PIN INT(4)
+    PIN INT
 );
 
 CREATE TABLE Child (
@@ -15,7 +15,7 @@ CREATE TABLE Child (
     Person_ID INT NOT NULL,
     Age INT NOT NULL,
     School_Year INT NOT NULL,
-    FOREIGN KEY (Person_ID) REFERENCES Person(PersonID)
+    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
 );
 
 CREATE TABLE Grown_up (
@@ -57,3 +57,20 @@ CREATE TABLE Mood (
     Describe_Emotion TEXT,
     FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
 );
+
+
+INSERT INTO Person 
+VALUES 
+(1, 'John', 'Smith', 'jsmith', 1234), 
+(2, 'Emily', 'Smith', 'emilys', NULL), 
+(3, 'Michael', 'Johnson', 'mjohnson', NULL), 
+(4, 'Sarah', 'Johnson', 'sarahj', NULL), 
+(5, 'David', 'Brown', 'dbrown', NULL), 
+(6, 'Olivia', 'Brown', 'oliviab', NULL), 
+(7, 'Jane', 'Davis', 'jdavis', 5678), 
+(8, 'Jacob', 'Davis', 'jacobd', NULL), 
+(9, 'Emma', 'Wilson', 'ewilson', NULL), 
+(10, 'William', 'Wilson', 'wwilson', NULL), 
+(11, 'Ava', 'Martinez', 'avam', NULL), 
+(12, 'Alexander', 'Martinez', 'alexm', NULL);
+
