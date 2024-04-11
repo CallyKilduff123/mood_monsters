@@ -19,7 +19,7 @@
 }
 
 body {
-    background-color: #fffff2; /* lightened yellow */
+    background-color: var(--colour-1); /* lightened yellow */
 }
 
 a {
@@ -34,20 +34,6 @@ a {
 .hero-section h1 {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
-
-.section-1 h1 {
-    color: var(--colour-4);
-}
-
-.section-2 h1 {
-    color: var(--colour-6);
-}
-
-/*
-.section-2 {
- background-color: #fff;
-}
-*/
 
 /* ------ TEXT COLOUR CLASSES TO USE IN SPANS ------ */
 
@@ -76,28 +62,34 @@ a {
     color: var(--colour-6);
 }
 
-
-
-
-.custom-colour-light {
-    color: var(--light);
-}
+/* ------ GRADIENT BACKGROUNDS ------ */
 
 /* blue/green gradient */
 .gradient-colour-1 {
     background: linear-gradient(45deg, var(--colour-4), var(--colour-3));
 }
 
+/* purple/blue gradient */
 .gradient-colour-2 {
-    background: linear-gradient(45deg, var(--colour-1), var(--colour-2));
+    background: linear-gradient(45deg, var(--colour-5), var(--colour-4));
 }
+
+/* ------ WAVE DIVIDERS ------ */
 
 .wave-bottom {
     --mask:
         radial-gradient(156.84px at 50% calc(100% - 217.5px),#000 99%,#0000 101%) calc(50% - 174px) 0/348px 100%,
         radial-gradient(156.84px at 50% calc(100% + 130.5px),#0000 99%,#000 101%) 50% calc(100% - 87px)/348px 100% repeat-x;
-      -webkit-mask: var(--mask);
-              mask: var(--mask);
+        -webkit-mask: var(--mask);
+            mask: var(--mask);
+}
+
+.wave-top {
+    --mask:
+        radial-gradient(194.54px at 50% 261px,#000 99%,#0000 101%) calc(50% - 174px) 0/348px 100%,
+        radial-gradient(194.54px at 50% -174px,#0000 99%,#000 101%) 50% 87px/348px 100% repeat-x;
+        -webkit-mask: var(--mask);
+            mask: var(--mask);
 }
 
 .wave-top-bottom {
@@ -110,11 +102,10 @@ a {
               mask: var(--mask);
 }
 
-
 /* ------ NAVBAR ------ */
 
 .navbar-custom {
-    background-color: var(--light);
+    background-color: var(--dark);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
     position: relative; /* Set position to relative */
     z-index: 1000; /* Set a high z-index to bring it to the front */
@@ -126,22 +117,26 @@ a {
 }
 
 .navbar-custom .navbar-nav .nav-link {
-    color: var(--colour-4);
+    color: var(--light);
 }
 
 .navbar-nav .nav-link + .nav-link::before {
     content: "|";
-    padding: 0 20px;
-    color: var(--colour-4);
+    padding: 0 30px 0 25px;
+    color: var(--light);
 }
 
 /* ------ FONTS ------ */
+
+.titles {
+    color: var(--colour-2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Bungee", sans-serif;
     font-weight: 400;
     font-style: normal;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 p {
@@ -149,13 +144,13 @@ p {
     font-weight: 400;
     font-style: normal;
     font-size: 1.5rem;
-    color: var(--dark);
+    color: var(--light);
 }
 
 /* ------ BUTTONS ------ */
 
 .btn-primary {
-    background-color: var(--colour-1) !important;
+    background-color: var(--colour-6) !important;
     border-color: var(--colour-5) !important;
 }
 
@@ -164,17 +159,15 @@ p {
 }
 
 .btn-primary:hover {
-    background-color: var(--colour-6) !important;
-    border-color: var(--colour-5) !important;
+    background-color: var(--colour-5) !important;
+    border-color: var(--colour-6) !important;
 }
-
-.btn-primary:hover a {
-    color: var(--dark) !important;
-}
-
-
 
 /* ------ ACCORDION ------ */
+
+.accordion p {
+    color: var(--dark);
+}
 
 .accordion-item .accordion-button {
     background-color: var(--colour-5) !important; /* Green background */
@@ -191,4 +184,38 @@ p {
 .accordion-button:hover {
     background-color: var(--secondary);
     color: var(--light);
+}
+
+/* FORM INPUT FIELDS */
+
+.border-primary {
+    border-color: var(--primary) !important;
+}
+
+.section-form {
+    box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--secondary);
+}
+
+/* FORM FIELDS */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 8px; /* give height to text box, space around text input */
+  margin-bottom: 16px;
+  border: 2px solid var(--primary);
+  border-radius: 4px; /* round the borders */
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  background-color: #FF006E; /* rose colour */
+  color: #FFF; /* white */
+}
+
+input[type="submit"]:hover {
+  background-color: #3A86FF /* changes to azure colour on hover */
 }

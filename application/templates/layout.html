@@ -17,7 +17,8 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid justify-content-center">
       <div class="navbar-nav">
-          <a class="nav-link p-0 {% if page == 'login/register' %}active{% endif %}" aria-current="page" href="/login-register">Login/Register</a>
+          <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/login">Login</a>
+          <a class="nav-link p-0 {% if page == 'register' %}active{% endif %}" aria-current="page" href="/register">Register</a>
           <a class="nav-link {% if page == 'home' %}active{% endif %}" aria-current="page" href="/">Home</a>
       </div>
   </div>
@@ -26,7 +27,10 @@
 {% block body_content %}
 {% endblock %}
 
-<!-- add footer section -->
+<footer>
+    <p>&copy; Mood Monsters, 2024</p>
+    <p>Created by Byte Me</p>
+</footer>
 
 <script src="scripts/js_scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
