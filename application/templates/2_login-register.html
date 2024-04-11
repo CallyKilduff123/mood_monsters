@@ -1,4 +1,13 @@
 {% extends "layout.html" %}
 {% block body_content %}
+    <h2>Parent Login</h2>
+    <form action="{{ url_for('login_register') }}" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
 
+        <label for="pin">PIN:</label><br>
+        <input type="password" id="pin" name="pin" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
 {% endblock %}
