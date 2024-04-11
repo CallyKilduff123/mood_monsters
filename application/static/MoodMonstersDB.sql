@@ -3,7 +3,7 @@ CREATE DATABASE mood_monsters;
 USE mood_monsters;
 
 CREATE TABLE Person (
-    PersonID INT AUTO_INCREMENT PRIMARY KEY,
+    Person_ID INT AUTO_INCREMENT PRIMARY KEY,
     Firstname VARCHAR(255) NOT NULL,
     Lastname VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
