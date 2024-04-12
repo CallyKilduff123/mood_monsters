@@ -1,58 +1,95 @@
 {% extends "layout.html" %}
 {% block body_content %}
+<!-- Hero Section (Wave Bottom) -->
 <div class="container-fluid hero-section wave-bottom gradient-colour-1 py-2 mb-2">
     <div class="container py-5">
         <div class="row justify-content-center py-3">
             <div class="col-lg-10 pb-5">
-                <h1 class="display-1 text-center">Mood Monsters</h1>
+                <h1 class="display-1 text-center"><span class="col-6">Mood</span> <span class="col-5">Monsters</span></h1>
                 <p class="mb-5 text-center">Introducing children to their mental health</p>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container-fluid section-1">
+<!-- Why Mood Monsters Section (No Wave) -->
+<div class="container-fluid">
     <div class="container">
         <div class="row justify-content-center pt-1">
             <div class="col-lg-10">
-                <h1 class="text-center"> Why Mood Monsters</h1>
-                <div class="pt-4">
-                    <p><strong>THE PROBLEM:</strong><br>The Mental Health of Children and Young People in England 2023 report, published by NHS England, found that 20% of 8 to 16-year-olds had a probable mental disorder in 2023 (that is 1 in 5 children!!)</p>
-                    <p><strong>OUR SOLUTION:</strong><br>This platform provides a safe space to guide young children (aged 6-8 years), and their nominated grown-up, to to identify, acknowledge and track their mood in order to learn to navigate their emotions with the help of our Mood Monsters.</p>
+                <h1 class="text-center titles">Why Mood Monsters?</h1>
+                <div class="pt-5">
+                    <p class="text-center titles"><strong>THE PROBLEM:</strong></p>
+                    <br>
+                    <p>The Mental Health of Children and Young People in England 2023 report, published by NHS England, found that <strong>20%</strong> of 8 to 16-year-olds had a probable mental disorder in 2023!</p>
+                    <br><br><br>
+                    <p class="text-center titles"><strong>OUR SOLUTION:</strong></p>
+                    <br>
+                    <p>This platform provides a safe space to guide young children (aged 6-8 years), and their nominated grown-up, to to identify, acknowledge and track their mood in order to learn to navigate their emotions with the help of our Mood Monsters.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<!-- How Does It Work Section (Wave Top & Wave Bottom) -->
 <div class="container-fluid wave-top-bottom gradient-colour-2 pt-5 pb-2 mb-2">
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-lg-10 py-5">
-                <h1 class="text-center pt-5 custom-colour-light">How Does It Work?</h1>
-                <div class="pt-4">
-                    <p><strong>HOW IT WORKS FOR THE CHILD:</strong><br>The child interacts with a dashboard of Mood Monsters. They are invited to select the one that best describes how they are feeling. This is to help them to identify and acknowledge their overriding emotion.</p>
-                    <p>This mood is logged in their mood diary and in return they can unlock pages to receive communication tips and coping strategies via fun, engaging activities related to their selected mood.</p>
-                    <p>The aim is to give them lifelong tools to tackle different, and perhaps sometimes difficult emotions, and for their bravery, they receive badges for their participation in activities, and for engaging with their mood.</p>
-                    <p><strong>HOW IT WORKS FOR THEIR GROWN-UP:</strong><br>The child’s nominated grown-up can track the child's progress via their logged mood diary and their achievement page.</p>
-                    <p>They will receive a notification about the child’s last logged mood, which will unlock tips on starting the conversation about mood with children, as well as resources to help support the child through their mood exploration.</p>
+                <h1 class="text-center p-4 titles">How Does It Work?</h1>
+                <!-- bootstrap accordion -->
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        HOW IT WORKS FOR THE CHILD
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                          <p>The child interacts with a dashboard of Mood Monsters. They are invited to select the one that best describes how they are feeling. This is to help them to identify and acknowledge their overriding emotion.</p>
+                          <p>This mood is logged in their mood diary and in return they can unlock pages to receive communication tips and coping strategies via fun, engaging activities related to their selected mood.</p>
+                          <p>The aim is to give them lifelong tools to tackle different, and perhaps sometimes difficult emotions, and for their bravery, they receive badges for their participation in activities, and for engaging with their mood.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        HOW IT WORKS FOR THEIR GROWN-UP
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                          <p>The child’s nominated grown-up can track the child's progress via their logged mood diary and their achievement page.</p>
+                          <p>They will receive a notification about the child’s last logged mood, which will unlock tips on starting the conversation about mood with children, as well as resources to help support the child through their mood exploration.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container-fluid section-2 pb-5">
+<!-- What We Don't Do Section -->
+<div class="container-fluid pb-0">
     <div class="container">
         <div class="row justify-content-center pt-1">
             <div class="col-lg-10">
-                <h1 class="text-center">What We Can't Do</h1>
+                <h1 class="text-center titles">What We Don't Do</h1>
                 <div class="pt-4">
-                    <p><strong>WHAT WE ARE:</strong><br>A exciting resource to allow young children and their nominated grown-up to navigate mood and learn to tackle different emotions.</p>
-                    <p><strong>WHAT WE ARE NOT:</strong><br>We are not a resource or device to identify or manage mental health conditions. If you are concerned about your child’s mental health, we recommend that you contact your healthcare provider or follow local protocols.</p>
+                    <p>We are not a resource or device to identify or manage mental health conditions. If you are concerned about your child’s mental health, we recommend that you contact your healthcare provider or follow local protocols.</p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- Let's Get Started Section -->
+<div class="container-fluid wave-top gradient-colour-1 p-5">
+    <div class="d-flex justify-content-center align-items-center">
+            <div class="col-lg-10 mt-5 mb-4 pt-5">
+                <!-- button -->
+                <div class="btn btn-primary rounded-pill border-3 mt-5 px-5 py-4 fs-2"><a href="/login-register">Let's Get Started!</a></div>
+            </div>
     </div>
 </div>
 {% endblock %}
