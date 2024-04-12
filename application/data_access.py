@@ -3,7 +3,6 @@ from datetime import datetime
 from flask import request, redirect, url_for, render_template, session
 
 
-
 def get_db_connection():
     mydb = mysql.connector.connect(
         host="localhost",
@@ -57,3 +56,5 @@ def child_login():
             return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=True)
     else:
         return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
+
+

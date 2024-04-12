@@ -19,6 +19,7 @@ def login_route():
             return child_login()
     return render_template('2_login.html', title='Login')
 
+
 @app.route('/register')
 def register():
     return render_template('3_register.html', title='Register')
@@ -27,6 +28,7 @@ def register():
 @app.route('/grownup_dashboard')
 def grownup_dashboard():
     return render_template('4_grownup_dashboard.html', title='Dashboard')
+
 
 @app.route('/child_dashboard')
 def child_dashboard():
