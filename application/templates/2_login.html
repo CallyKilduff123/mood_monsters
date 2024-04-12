@@ -20,7 +20,12 @@
                         <input type="hidden" name="login_type" value="child"> <!-- Added hidden field for child login -->
                         <label for="child_username">Username:</label><br>
                         <input type="text" id="child_username" name="username" required>
+
+                        <label for="child_pin">PIN:</label><br>
+                        <input type="password"  id="child_pin" name="pin" required><br><br>
+
                         <input type="submit" value="Login" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">
+
                     </form>
                 </div>
             </div>
@@ -28,7 +33,7 @@
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form p-5">
-                    <h2 class="text-center titles colour-6">Parent Login</h2>
+                    <h2 class="text-center titles colour-6">Grown Up Login</h2>
                     {% if show_error_grownup %}
                     <p>* invalid username or password details. Try again.</p>
                     {% endif %}

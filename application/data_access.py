@@ -7,7 +7,7 @@ def get_db_connection():
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        # password="",
+        password="password",
         database="mood_monsters"
     )
     return mydb
@@ -68,10 +68,11 @@ def grownup_login():
 def child_login():
     if request.method == 'POST':
         username = request.form.get('username')
+        pin = request.form.get('pin')
         conn = get_db_connection()
         cursor = conn.cursor()
-        sql = "SELECT * FROM Person WHERE Username = %s AND Type = '1'"
-        val = (username,)
+        sql = "SELECT * FROM Person WHERE Username = %s AND PIN = %s AND Type = '1'"
+        val = (username, pin)
         cursor.execute(sql, val)
         person = cursor.fetchone()
         cursor.close()
@@ -85,5 +86,6 @@ def child_login():
             return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=True)
     else:
         return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
+
 
 
