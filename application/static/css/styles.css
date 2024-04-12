@@ -168,6 +168,11 @@ p {
     border-color: var(--colour-6) !important;
 }
 
+.btn-primary:active {
+    background-color: var(--colour-5) !important;
+    border-color: var(--colour-6) !important;
+}
+
 .btn-primary-toggle {
     background-color: var(--colour-5) !important;
     border-color: var(--colour-6) !important;
