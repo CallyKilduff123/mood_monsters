@@ -1,31 +1,37 @@
---CREATE TABLE Person (
---    Person_ID INT AUTO_INCREMENT PRIMARY KEY,
---    Firstname VARCHAR(255) NOT NULL,
---    Lastname VARCHAR(255) NOT NULL,
---    Username VARCHAR(255) NOT NULL,
---    PIN INT
---);
-
-CREATE TABLE Child (
-    Child_ID INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Person (
+    Person_ID INT AUTO_INCREMENT PRIMARY KEY,
     Firstname VARCHAR(255) NOT NULL,
     Lastname VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
-    Grown_Up_ID INT NOT NULL,
-    Age INT NOT NULL,
-    FOREIGN KEY (Grown_Up_ID_ID) REFERENCES Grown_Up(Grown_Up_ID)
+    PIN INT
 );
 
 CREATE TABLE Grown_up (
     Grown_Up_ID INT AUTO_INCREMENT PRIMARY KEY,
---    Person_ID INT NOT NULL,
+    Person_ID INT NOT NULL,
     Firstname VARCHAR(255) NOT NULL,
     Lastname VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
     Relationship_to_Child VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
---    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
+    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
 );
+
+
+CREATE TABLE Child (
+    Child_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Person_ID INT NOT NULL,
+    Firstname VARCHAR(255) NOT NULL,
+    Lastname VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL,
+    Grown_Up_ID INT NOT NULL,
+    Age INT NOT NULL,
+    SCHOOL_YEAR INT NOT NULL,
+    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
+    FOREIGN KEY (Grown_Up_ID_ID) REFERENCES Grown_Up(Grown_Up_ID)
+);
+
+
 
 CREATE TABLE Message (
     Message_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,17 +65,17 @@ CREATE TABLE Mood (
 INSERT INTO Person 
 VALUES 
 (1, 'John', 'Smith', 'jsmith', 1234), 
-(2, 'Emily', 'Smith', 'emilys', NULL), 
-(3, 'Michael', 'Johnson', 'mjohnson', NULL), 
-(4, 'Sarah', 'Johnson', 'sarahj', NULL), 
-(5, 'David', 'Brown', 'dbrown', NULL), 
-(6, 'Olivia', 'Brown', 'oliviab', NULL), 
-(7, 'Jane', 'Davis', 'jdavis', 5678), 
-(8, 'Jacob', 'Davis', 'jacobd', NULL), 
-(9, 'Emma', 'Wilson', 'ewilson', NULL), 
-(10, 'William', 'Wilson', 'wwilson', NULL), 
-(11, 'Ava', 'Martinez', 'avam', NULL), 
-(12, 'Alexander', 'Martinez', 'alexm', NULL);
+(2, 'Emily', 'Smith', 'emilys', 1234),
+(3, 'Michael', 'Johnson', 'mjohnson', 2312),
+(4, 'Sarah', 'Johnson', 'sarahj', 2312),
+(5, 'David', 'Brown', 'dbrown', 5678),
+(6, 'Olivia', 'Brown', 'oliviab', 5678),
+(7, 'Jane', 'Davis', 'jdavis', 2345),
+(8, 'Jacob', 'Davis', 'jacobd', 2345),
+(9, 'Emma', 'Wilson', 'ewilson', 2376),
+(10, 'William', 'Wilson', 'wwilson', 2376),
+(11, 'Ava', 'Martinez', 'avam', 4444),
+(12, 'Alexander', 'Martinez', 'alexm', 4444);
 
 INSERT INTO Child (Firstname, Lastname, Parent_ID, Age, School_Year)
 VALUES 
