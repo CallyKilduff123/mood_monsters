@@ -8,7 +8,7 @@ def get_db_connection():
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        # password="",
+        password="",
         database="mood_monsters"
     )
     return mydb
@@ -57,3 +57,7 @@ def child_login():
             return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=True)
     else:
         return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
+
+
+def register(cfn,cls,)
+    if request
