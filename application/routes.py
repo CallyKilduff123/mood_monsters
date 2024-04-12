@@ -37,9 +37,9 @@ def login_register():
                 return redirect(url_for('child_dashboard'))
         else:
             error_message = "Invalid credentials. Please try again."
-            return render_template('2_login-register.html', title='Login/Register', error_message=error_message)
+            return render_template('2_register.html', title='Login/Register', error_message=error_message)
     else:
-        return render_template('2_login-register.html', title='Login/Register')
+        return render_template('2_register.html', title='Login/Register')
 
 
 

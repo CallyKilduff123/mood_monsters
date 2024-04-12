@@ -1,27 +1,30 @@
-CREATE TABLE Person (
-    Person_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Firstname VARCHAR(255) NOT NULL,
-    Lastname VARCHAR(255) NOT NULL,
-    Username VARCHAR(255) NOT NULL,
-    PIN INT
-);
+--CREATE TABLE Person (
+--    Person_ID INT AUTO_INCREMENT PRIMARY KEY,
+--    Firstname VARCHAR(255) NOT NULL,
+--    Lastname VARCHAR(255) NOT NULL,
+--    Username VARCHAR(255) NOT NULL,
+--    PIN INT
+--);
 
 CREATE TABLE Child (
     Child_ID INT AUTO_INCREMENT PRIMARY KEY,
     Firstname VARCHAR(255) NOT NULL,
     Lastname VARCHAR(255) NOT NULL,
-    Parent_ID INT NOT NULL,
+    Username VARCHAR(255) NOT NULL,
+    Grown_Up_ID INT NOT NULL,
     Age INT NOT NULL,
-    School_Year INT NOT NULL,
-    FOREIGN KEY (Parent_ID) REFERENCES Person(Person_ID)
+    FOREIGN KEY (Grown_Up_ID_ID) REFERENCES Grown_Up(Grown_Up_ID)
 );
 
 CREATE TABLE Grown_up (
     Grown_Up_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Person_ID INT NOT NULL,
+--    Person_ID INT NOT NULL,
+    Firstname VARCHAR(255) NOT NULL,
+    Lastname VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL,
     Relationship_to_Child VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
-    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
+--    FOREIGN KEY (Person_ID) REFERENCES Person(Person_ID)
 );
 
 CREATE TABLE Message (
