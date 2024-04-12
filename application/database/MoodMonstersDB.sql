@@ -12,10 +12,11 @@ CREATE TABLE family (
 CREATE TABLE grown_up (
     grown_up_id INT AUTO_INCREMENT PRIMARY KEY,
     family_id INT,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    email VARCHAR(255),
-    relationship_to_child VARCHAR(100),
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    relationship_to_child VARCHAR(100) NOT NULL,
     FOREIGN KEY (family_id) REFERENCES family(family_id)
 );
 
@@ -27,6 +28,7 @@ CREATE TABLE child (
     family_id INT,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
+    username VARCHAR(100) NOT NULL,
     date_of_birth DATE,
     FOREIGN KEY (family_id) REFERENCES family(family_id)
 );
