@@ -61,7 +61,7 @@ CREATE TABLE Mood (
 INSERT INTO Person 
 VALUES 
 (1, 'John', 'Smith', 'jsmith', 1234, '2'), 
-(2, 'Emily', 'Smith', 'emilys', NULL, '1'), 
+(2, 'Emily', 'Smith', 'emilys', 1234, '1'), 
 (3, 'Michael', 'Johnson', 'mjohnson', 2222, '2'), 
 (4, 'Sarah', 'Johnson', 'sarahj', NULL, '1'), 
 (5, 'David', 'Brown', 'dbrown', 2001, '2'), 

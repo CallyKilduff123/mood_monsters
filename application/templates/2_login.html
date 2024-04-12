@@ -2,24 +2,33 @@
 {% block body_content %}
 <div class="container-xxl py-4">
     <div class="container">
+            <!--  TITLE       -->
         <div class="text-center">
             <h1 class="section-title mb-4">{{title}}</h1>
         </div>
+        <!--  CHILD BUTTON AND PARENT BUTTON LOGIN      -->
         <div class="d-flex justify-content-center mb-4">
             <button id="child-btn" class="btn {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
             <button id="parent-btn" class="btn {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
         </div>
+         <!--  CHILD LOGIN FORM      -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form rounded p-5">
                     <h2>Child Login</h2>
+                    <!--  ERROR HANDLING MESSAGE   -->
                     {% if show_error_child %}
                     <p>* invalid username. Try again.</p>
                     {% endif %}
+                    
                     <form action="{{ url_for('login_route') }}" method="POST">
                         <input type="hidden" name="login_type" value="child"> <!-- Added hidden field for child login -->
                         <label for="child_username">Username:</label><br>
                         <input type="text" id="child_username" name="username" required><br><br>
+
+                        <label for="child_pin">PIN:</label><br>
+                        <input type="password"  id="child_pin" name="pin" required><br><br>
+
                         <input type="submit" value="Login">
                     </form>
                 </div>
@@ -28,7 +37,7 @@
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form rounded p-5">
-                    <h2>Parent Login</h2>
+                    <h2>Grown Up Login</h2>
                     {% if show_error_grownup %}
                     <p>* invalid username or password details. Try again.</p>
                     {% endif %}
@@ -37,8 +46,8 @@
                         <label for="grown_up_username">Username:</label><br>
                         <input type="text" id="grown_up_username" name="username" required><br><br>
 
-                        <label for="pin">PIN:</label><br>
-                        <input type="password" id="pin" name="pin" required><br><br>
+                        <label for="grown_up_pin">PIN:</label><br>
+                        <input type="password"  id=grown_up_pin name="pin" required><br><br>
 
                         <input type="submit" value="Login">
                     </form>
