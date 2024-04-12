@@ -1,11 +1,8 @@
+html, body {
+    height: 100%; /* for sticky footer */
+}
+
 /* WEBSITE COLOUR SCHEME */
-/*
-#EF476F - pink
-#FFD166 - yellow
-#06D6A0 - green
-#118AB2 - blue
-#073B4C - dark blue
-*/
 
 :root {
     --colour-1: #EF476F; /* pink */
@@ -19,7 +16,17 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: var(--colour-1); /* lightened yellow */
+}
+
+.pink-body {
+    background-color: var(--colour-1);
+}
+
+.purple-body {
+    background-color: var(--colour-5);
 }
 
 a {
@@ -38,27 +45,27 @@ a {
 /* ------ TEXT COLOUR CLASSES TO USE IN SPANS ------ */
 
 /* pink text class */
-.col-1 {
+.colour-1 {
     color: var(--colour-1);
 }
 /* yellow text class */
-.col-2 {
+.colour-2 {
     color: var(--colour-2);
 }
 /* green text class */
-.col-3 {
+.colour-3 {
     color: var(--colour-3);
 }
 /* blue text class */
-.col-4 {
+.colour-4 {
     color: var(--colour-4);
 }
 /* purple text class */
-.col-5 {
+.colour-5 {
     color: var(--colour-5);
 }
 /* orange text class */
-.col-6 {
+.colour-6 {
     color: var(--colour-6);
 }
 
@@ -102,10 +109,12 @@ a {
               mask: var(--mask);
 }
 
-/* ------ NAVBAR ------ */
 
-.navbar-custom {
+/* ------ NAVBAR (& FOOTER) ------ */
+
+.navbar-custom, footer {
     background-color: var(--dark);
+    font-size: 16px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
     position: relative; /* Set position to relative */
     z-index: 1000; /* Set a high z-index to bring it to the front */
@@ -126,10 +135,14 @@ a {
     color: var(--light);
 }
 
+footer p {
+    font-size: 16px;
+}
+
+
 /* ------ FONTS ------ */
 
 .titles {
-    color: var(--colour-2);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
@@ -151,7 +164,7 @@ p {
 
 .btn-primary {
     background-color: var(--colour-6) !important;
-    border-color: var(--colour-5) !important;
+    border-color: var(--colour-4) !important;
 }
 
 .btn-primary a {
@@ -159,22 +172,22 @@ p {
 }
 
 .btn-primary:hover {
-    background-color: var(--colour-5) !important;
+    background-color: var(--colour-4) !important;
     border-color: var(--colour-6) !important;
 }
 
 .btn-primary:focus {
-    background-color: var(--colour-5) !important;
+    background-color: var(--colour-4) !important;
     border-color: var(--colour-6) !important;
 }
 
 .btn-primary:active {
-    background-color: var(--colour-5) !important;
+    background-color: var(--colour-4) !important;
     border-color: var(--colour-6) !important;
 }
 
 .btn-primary-toggle {
-    background-color: var(--colour-5) !important;
+    background-color: var(--colour-4) !important;
     border-color: var(--colour-6) !important;
     color: var(--light) !important;
 }
@@ -198,7 +211,7 @@ p {
 }
 
 .accordion-button:hover {
-    background-color: var(--secondary);
+    background-color: var(--colour-4);
     color: var(--light);
 }
 
@@ -210,7 +223,8 @@ p {
 
 .section-form {
     box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
-    border: 2px solid var(--secondary);
+    border: 3px solid var(--colour-3);
+    border-radius: 10px;
 }
 
 /* FORM FIELDS */
@@ -222,16 +236,11 @@ textarea {
   width: 100%;
   padding: 8px; /* give height to text box, space around text input */
   margin-bottom: 16px;
-  border: 2px solid var(--primary);
-  border-radius: 4px; /* round the borders */
+  border: 2px solid var(--colour-6);
+  border-radius: 10px; /* round the borders */
   font-size: 16px;
 }
 
-input[type="submit"] {
-  background-color: #FF006E; /* rose colour */
-  color: #FFF; /* white */
-}
-
-input[type="submit"]:hover {
-  background-color: #3A86FF /* changes to azure colour on hover */
+label {
+    color: var(--light);
 }

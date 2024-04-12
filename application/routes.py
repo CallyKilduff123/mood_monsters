@@ -7,7 +7,7 @@ from application import app
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('1_home.html', title='Home')
+    return render_template('1_home.html', title='Home', body_class="pink-body")
 
 
 @app.route('/register', methods=['GET', 'POST'])
