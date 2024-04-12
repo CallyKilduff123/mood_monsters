@@ -6,10 +6,10 @@
             <h1 class="section-title mb-4">{{title}}</h1>
         </div>
         <div class="d-flex justify-content-center mb-4">
-            <button id="child-btn" class="btn btn-primary-toggle me-2">Child Login</button>
-            <button id="parent-btn" class="btn btn-primary">Parent Login</button>
+            <button id="child-btn" class="btn {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
+            <button id="parent-btn" class="btn {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
         </div>
-        <div class="d-flex align-items-center justify-content-center py-4" id="child-login">
+        <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form rounded p-5">
                     <h2>Child Login</h2>
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center py-4 d-none" id="parent-login">
+        <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form rounded p-5">
                     <h2>Parent Login</h2>
@@ -57,6 +57,8 @@
     childBtn.onclick = function() {
         childBtn.classList.remove('btn-primary-toggle');
         childBtn.classList.add('btn-primary');
+        parentBtn.classList.remove('btn-primary-toggle');
+        parentBtn.classList.add('btn-primary');
         childLogin.classList.remove('d-none');
         parentLogin.classList.add('d-none');
     };
@@ -64,9 +66,10 @@
     parentBtn.onclick = function() {
         childBtn.classList.remove('btn-primary-toggle');
         childBtn.classList.add('btn-primary');
+        parentBtn.classList.remove('btn-primary-toggle');
+        parentBtn.classList.add('btn-primary');
         childLogin.classList.add('d-none');
         parentLogin.classList.remove('d-none');
     };
 </script>
-
 {% endblock %}
