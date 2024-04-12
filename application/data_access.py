@@ -13,6 +13,35 @@ def get_db_connection():
     return mydb
 
 
+# registering family
+def add_family(adult_info, child_info, shared_pin):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO family (shared_pin) VALUES (%s)", (shared_pin,))
+        family_id = cursor.lastrowid
+
+        cursor.execute("""
+            INSERT INTO grown_up (family_id, first_name, last_name, email, relationship_to_child)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (family_id, adult_info['first_name'], adult_info['last_name'], adult_info['email'], adult_info['relationship']))
+
+        cursor.execute("""
+            INSERT INTO child (family_id, first_name, last_name, date_of_birth)
+            VALUES (%s, %s, %s, %s)
+        """, (family_id, child_info['first_name'], child_info['last_name'], child_info['dob']))
+
+        conn.commit()
+        return True
+    except Exception as e:
+        print(e)
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
 def grownup_login():
     if request.method == 'POST':
         username = request.form.get('username')
