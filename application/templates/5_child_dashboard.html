@@ -23,17 +23,19 @@
                 </div>
             </div>
         </div>
-        <!-- Sad Monster -->
+
+        <!-- Sad Monster: Added onclick="showPopupSad()" -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster" style="width: 400px;">
                 <div class="card-body">
                     <h4 class="card-title">Sad</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('sad')">Select</button>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
                 </div>
             </div>
         </div>
-        <!-- Content Monster -->
+
+        <!--   content monsters     -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/7_content_mood.jpg" alt="Content Monster" style="width: 400px;">
@@ -74,7 +76,39 @@
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
 
+    <!-- TODO: Popup -->
+    <div id="popup-sad" class="popup">
+        <p>Is this correct?</p>
+        <button onclick="noFeelSad()">No, I do not feel sad</button>
+        <button onclick="yesFeelSad()">Yes, I feel sad</button>
+        <a href="#" onclick="hidePopupSad()">Close</a>
+    </div>
+
+</div>
+
+<!-- Script to show/hide popup -->
+<script>
+        function showPopupSad() {
+            document.getElementById("popup-sad").style.display = "block";
+        }
+
+        function hidePopupSad() {
+            document.getElementById("popup-sad").style.display = "none";
+        }
+
+        function noFeelSad() {
+            // Handle action when "No" is clicked
+            // For example, redirect or display a message
+            alert("No, I do not feel sad");
+        }
+
+        function yesFeelSad() {
+            // Handle action when "Yes" is clicked
+            // For example, redirect or display a message
+            alert("Yes, I feel sad");
+        }
+</script>
+
+{% endblock %}
 
