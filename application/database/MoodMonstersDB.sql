@@ -85,6 +85,6 @@ CREATE TABLE activity (
     FOREIGN KEY (child_id) REFERENCES child(child_id)
 );
 
-
+SELECT * FROM activity;
 
 
