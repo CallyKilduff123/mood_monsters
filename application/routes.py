@@ -94,3 +94,6 @@ def grownup_dashboard(family_id):
         return redirect(url_for('login'))  # or redirect to login
 
 
+@app.route('/sad_page')
+def sad_page():
+    return render_template('6_sad_page.html')

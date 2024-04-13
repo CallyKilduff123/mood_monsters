@@ -35,6 +35,17 @@
             </div>
         </div>
 
+        <!-- Popup for sad monster with additional div for styling -->
+<div id="popup-sad" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="noFeelSad()">No, I do not feel sad</button>
+        <button onclick="yesFeelSad()">Yes, I feel sad</button>
+        <a href="#" onclick="hidePopupSad()">Close</a>
+    </div>
+</div>
+
+
         <!--   content monsters     -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
@@ -77,38 +88,56 @@
         </div>
     </div>
 
-    <!-- TODO: Popup -->
-    <div id="popup-sad" class="popup">
-        <p>Is this correct?</p>
-        <button onclick="noFeelSad()">No, I do not feel sad</button>
-        <button onclick="yesFeelSad()">Yes, I feel sad</button>
-        <a href="#" onclick="hidePopupSad()">Close</a>
-    </div>
+<!--     TODO: Popup -->
+<!--    <div id="popup-sad" class="popup">-->
+<!--        <p>Is this correct?</p>-->
+<!--        <button onclick="noFeelSad()">No, I do not feel sad</button>-->
+<!--        <button onclick="yesFeelSad()">Yes, I feel sad</button>-->
+<!--        <a href="#" onclick="hidePopupSad()">Close</a>-->
+<!--    </div>-->
 
-</div>
+<!--</div>-->
 
 <!-- Script to show/hide popup -->
-<script>
-        function showPopupSad() {
-            document.getElementById("popup-sad").style.display = "block";
-        }
+<!--<script>-->
+<!--        function showPopupSad() {-->
+<!--            document.getElementById("popup-sad").style.display = "block";-->
+<!--        }-->
 
-        function hidePopupSad() {
-            document.getElementById("popup-sad").style.display = "none";
-        }
+<!--        function hidePopupSad() {-->
+<!--            document.getElementById("popup-sad").style.display = "none";-->
+<!--        }-->
 
-        function noFeelSad() {
-            // Handle action when "No" is clicked
-            // For example, redirect or display a message
-            alert("No, I do not feel sad");
-        }
+<!--        function noFeelSad() {-->
+<!--            // Handle action when "No" is clicked-->
+<!--            // For example, redirect or display a message-->
+<!--            alert("No, I do not feel sad");-->
+<!--        }-->
 
-        function yesFeelSad() {
-            // Handle action when "Yes" is clicked
-            // For example, redirect or display a message
-            alert("Yes, I feel sad");
-        }
+<!--        function yesFeelSad() {-->
+<!--            // Handle action when "Yes" is clicked-->
+<!--            // For example, redirect or display a message-->
+<!--            alert("Yes, I feel sad");-->
+<!--        }-->
+<!--</script>-->
+    <script>
+    function showPopupSad() {
+        document.getElementById("popup-sad").style.display = "block";
+    }
+
+    function hidePopupSad() {
+        document.getElementById("popup-sad").style.display = "none";
+    }
+
+    function noFeelSad() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelSad() {
+        window.location.href = "/sad_page/{{ session['family_id'] }}";
+    }
 </script>
+
 
 {% endblock %}
 
