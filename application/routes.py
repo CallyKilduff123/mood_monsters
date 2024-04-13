@@ -91,9 +91,20 @@ def grownup_dashboard(family_id):
         first_name = session.get('first_name')  # Assuming first_name is stored in the session
         return render_template('4_grownup_dashboard.html', first_name=first_name, family_id=family_id)
     else:
-        return redirect(url_for('login'))  # or redirect to login
+        return redirect(url_for('login'))
 
 
-@app.route('/sad_page')
-def sad_page():
-    return render_template('6_sad_page.html')
+@app.route('/sad_page/<int:family_id>')
+def sad_page(family_id):
+    # You can now use family_id within this function to fetch specific data, perform checks, etc.
+    return render_template('6_sad_page.html', family_id=family_id)
+
+
+@app.route('/worried_page/<int:family_id>')
+def worried_page(family_id):
+    return render_template('8_worried_page.html', family_id=family_id)
+
+
+@app.route('/angry_page/<int:family_id>')
+def angry_page(family_id):
+    return render_template('7_angry_page.html', family_id=family_id)

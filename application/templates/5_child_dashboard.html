@@ -39,8 +39,8 @@
 <div id="popup-sad" class="popup" style="display: none;">
     <div class="popup-content">
         <p>Is this correct?</p>
-        <button onclick="noFeelSad()">No, I do not feel sad</button>
         <button onclick="yesFeelSad()">Yes, I feel sad</button>
+        <button onclick="noFeelSad()">No, I do not feel sad</button>
         <a href="#" onclick="hidePopupSad()">Close</a>
     </div>
 </div>
@@ -56,16 +56,31 @@
                 </div>
             </div>
         </div>
+
+
         <!-- Worried Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster" style="width: 400px;">
                 <div class="card-body">
                     <h4 class="card-title">Worried</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('worried')">Select</button>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupWorried()">Select</button>
                 </div>
             </div>
         </div>
+
+        <!-- Popup for worried monster with additional div for styling -->
+<div id="popup-worried" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelWorried()">Yes, I feel worried</button>
+        <button onclick="noFeelWorried()">No, I do not feel worried</button>
+        <a href="#" onclick="hidePopupWorried()">Close</a>
+    </div>
+</div>
+
+
+
         <!-- Lonely Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
@@ -76,51 +91,33 @@
                 </div>
             </div>
         </div>
+
+
         <!-- Angry Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster" style="width: 400px;">
                 <div class="card-body">
                     <h4 class="card-title">Angry</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('angry')">Select</button>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
                 </div>
             </div>
         </div>
     </div>
 
-<!--     TODO: Popup -->
-<!--    <div id="popup-sad" class="popup">-->
-<!--        <p>Is this correct?</p>-->
-<!--        <button onclick="noFeelSad()">No, I do not feel sad</button>-->
-<!--        <button onclick="yesFeelSad()">Yes, I feel sad</button>-->
-<!--        <a href="#" onclick="hidePopupSad()">Close</a>-->
-<!--    </div>-->
+    <!-- Popup for angry monster with additional div for styling -->
+    <div id="popup-angry" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelAngry()">Yes, I feel angry</button>
+        <button onclick="noFeelAngry()">No, I do not feel angry</button>
+        <a href="#" onclick="hidePopupAngry()">Close</a>
+    </div>
+</div>
 
-<!--</div>-->
-
-<!-- Script to show/hide popup -->
-<!--<script>-->
-<!--        function showPopupSad() {-->
-<!--            document.getElementById("popup-sad").style.display = "block";-->
-<!--        }-->
-
-<!--        function hidePopupSad() {-->
-<!--            document.getElementById("popup-sad").style.display = "none";-->
-<!--        }-->
-
-<!--        function noFeelSad() {-->
-<!--            // Handle action when "No" is clicked-->
-<!--            // For example, redirect or display a message-->
-<!--            alert("No, I do not feel sad");-->
-<!--        }-->
-
-<!--        function yesFeelSad() {-->
-<!--            // Handle action when "Yes" is clicked-->
-<!--            // For example, redirect or display a message-->
-<!--            alert("Yes, I feel sad");-->
-<!--        }-->
-<!--</script>-->
+<!--    javascript function for popups-->
     <script>
+
     function showPopupSad() {
         document.getElementById("popup-sad").style.display = "block";
     }
@@ -135,6 +132,42 @@
 
     function yesFeelSad() {
         window.location.href = "/sad_page/{{ session['family_id'] }}";
+    }
+
+
+
+  function showPopupWorried() {
+        document.getElementById("popup-worried").style.display = "block";
+    }
+
+    function hidePopupWorried() {
+        document.getElementById("popup-worried").style.display = "none";
+    }
+
+    function noFeelWorried() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelWorried() {
+        window.location.href = "/worried_page/{{ session['family_id'] }}";
+    }
+
+
+
+        function showPopupAngry() {
+        document.getElementById("popup-angry").style.display = "block";
+    }
+
+    function hidePopupAngry() {
+        document.getElementById("popup-angry").style.display = "none";
+    }
+
+    function noFeelAngry() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelAngry() {
+        window.location.href = "/angry_page/{{ session['family_id'] }}";
     }
 </script>
 
