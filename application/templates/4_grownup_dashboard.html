@@ -1,4 +1,14 @@
- <div class="col-lg-10 pb-5">
-                <h1 class="display-1 text-center"><span class="col-6">adulttt</span> <span class="col-5">Monsters</span></h1>
-                <p class="mb-5 text-center">page</p>
+{% extends "layout.html" %}
+{% block body_content %}
+
+<div class="col-lg-10 pb-5">
+                <h1 class="display-1 text-center"><span class="col-6">Grown-up</span> <span class="col-5">Monsters</span></h1>
+                <p class="mb-5 text-center">Hello, {{ first_name }}</p>
             </div>
+
+<div>
+<!--    button to see child's dashboard-->
+   <!-- HTML button with a link -->
+<a href="{{ url_for('child_dashboard', family_id=family_id) }}" class="btn btn-secondary">Child's Dashboard</a>
+
+{% endblock %}

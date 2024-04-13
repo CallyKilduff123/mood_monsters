@@ -9,6 +9,7 @@
             <button id="child-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
             <button id="parent-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
         </div>
+        <!-- ERROR HANDLING MESSAGE -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form p-5">
@@ -16,6 +17,7 @@
                     {% if show_error_child %}
                     <p>* invalid username. Try again.</p>
                     {% endif %}
+<!--                    CHILD LOGIN FORM-->
                     <form action="{{ url_for('login_route') }}" method="POST">
                         <input type="hidden" name="login_type" value="child"> <!-- Added hidden field for child login -->
                         <label for="child_username">Username:</label><br>
@@ -30,6 +32,7 @@
                 </div>
             </div>
         </div>
+        <!-- ERROR HANDLING MESSAGE -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form p-5">
@@ -37,6 +40,7 @@
                     {% if show_error_grownup %}
                     <p>* invalid username or password details. Try again.</p>
                     {% endif %}
+<!--                    GROWN-UP LOGIN FORM-->
                     <form action="{{ url_for('login_route') }}" method="POST">
                         <input type="hidden" name="login_type" value="grownup"> <!-- Added hidden field for grownup login -->
                         <label for="grown_up_username">Username:</label><br>

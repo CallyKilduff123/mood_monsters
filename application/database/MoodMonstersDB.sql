@@ -2,12 +2,14 @@ CREATE DATABASE mood_monsters;
 
 USE mood_monsters;
 
+
 CREATE TABLE family (
     family_id INT AUTO_INCREMENT PRIMARY KEY,
     shared_pin VARCHAR(255) NOT NULL
 );
 
---SELECT * FROM family;
+SELECT * FROM family;
+
 
 CREATE TABLE grown_up (
     grown_up_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,7 +22,7 @@ CREATE TABLE grown_up (
     FOREIGN KEY (family_id) REFERENCES family(family_id)
 );
 
---SELECT * FROM grown_up;
+SELECT * FROM grown_up;
 
 
 CREATE TABLE child (
@@ -33,36 +35,45 @@ CREATE TABLE child (
     FOREIGN KEY (family_id) REFERENCES family(family_id)
 );
 
---SELECT * FROM child;
+SELECT * FROM child;
 
-CREATE TABLE Message (
-    Message_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Receiver_ID INT NOT NULL,
-    Sender_ID INT NOT NULL,
-    Message VARCHAR(255),
-    Date_Sent DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (Receiver_ID) REFERENCES Child(Child_ID),
-    FOREIGN KEY (Sender_ID) REFERENCES Grown_Up(Grown_Up_ID)
+
+CREATE TABLE message (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    grown_up_id INT NOT NULL,
+    message VARCHAR(255),
+    date_sent DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (child_id) REFERENCES child(child_id),
+    FOREIGN KEY (grown_up_id) REFERENCES grown_up(grown_up_id)
 );
 
-CREATE TABLE Badge (
-    Badge_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Child_ID INT NOT NULL,
-    Badge_Name VARCHAR(255) NOT NULL,
-    Badge_Description TEXT,
-    Date_Awarded DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Criteria TEXT,
+SELECT * FROM message;
+
+
+CREATE TABLE badge (
+    badge_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    badge_name VARCHAR(255) NOT NULL,
+    badge_description TEXT,
+    date_awarded DATETIME DEFAULT CURRENT_TIMESTAMP,
+    criteria TEXT,
+    FOREIGN KEY (child_ID) REFERENCES child(child_ID)
+);
+
+SELECT * FROM badge;
+
+
+CREATE TABLE mood (
+    mood_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    mood ENUM('Happy', 'Sad', 'Worried', 'Excited', 'Frustrated', 'Surprised', 'Scared') NOT NULL,
+    date_logged DATETIME DEFAULT CURRENT_TIMESTAMP,
+    describe_emotion TEXT,
     FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
 );
 
-CREATE TABLE Mood (
-    Mood_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Child_ID INT NOT NULL,
-    Mood ENUM('Happy', 'Sad', 'Worried', 'Excited', 'Frustrated', 'Surprised', 'Scared') NOT NULL,
-    Date_Logged DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Describe_Emotion TEXT,
-    FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
-);
+SELECT * FROM mood;
 
 --INSERT INTO Person
 --VALUES

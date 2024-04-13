@@ -1,10 +1,16 @@
-<div class="col-lg-10 pb-5">
-                <h1 class="display-1 text-center"><span class="col-6">Mood</span> <span class="col-5">Monsters</span></h1>
-                <p class="mb-5 text-center">page</p>
-            </div>
-
 {% extends "layout.html" %}
 {% block body_content %}
+
+<div class="col-lg-10 pb-5">
+                <h1 class="display-1 text-center"><span class="col-6">Mood</span> <span class="col-5">Monsters</span></h1>
+            </div>
+
+<div class="col-lg-10 pb-5">
+    <p class="text-center">Hello {{ first_name }},
+<!--        insert logic for child first_name-->
+        how are you feeling today?</p>
+    <p class="text-center"> Select the monster that best fits your mood</p>
+
 <div class="container">
     <div class="row">
         <!-- Happy Monster -->
