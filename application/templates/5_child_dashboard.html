@@ -1,4 +1,176 @@
- <div class="col-lg-10 pb-5">
-                <h1 class="display-1 text-center"><span class="col-6">childdd</span> <span class="col-5">Monsters</span></h1>
-                <p class="mb-5 text-center">page</p>
+{% extends "layout.html" %}
+{% block body_content %}
+
+<div class="col-lg-10 pb-5">
+                <h1 class="display-1 text-center"><span class="col-6">Mood</span> <span class="col-5">Monsters</span></h1>
             </div>
+
+<div class="col-lg-10 pb-5">
+    <p class="text-center">Hello {{ first_name }},
+<!--        insert logic for child first_name-->
+        how are you feeling today?</p>
+    <p class="text-center"> Select the monster that best fits your mood</p>
+
+<div class="container">
+    <div class="row">
+        <!-- Happy Monster -->
+        <div class="col-lg-4 col-md-3 mb-3">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Happy</h4>
+                    <button class="btn btn-primary btn-lg" onclick="selectMood('happy')">Select</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sad Monster: Added onclick="showPopupSad()" -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Sad</h4>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup for sad monster with additional div for styling -->
+<div id="popup-sad" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelSad()">Yes, I feel sad</button>
+        <button onclick="noFeelSad()">No, I do not feel sad</button>
+        <a href="#" onclick="hidePopupSad()">Close</a>
+    </div>
+</div>
+
+
+        <!--   content monsters     -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/7_content_mood.jpg" alt="Content Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Content</h4>
+                    <button class="btn btn-primary btn-lg" onclick="selectMood('content')">Select</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Worried Monster -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Worried</h4>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupWorried()">Select</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup for worried monster with additional div for styling -->
+<div id="popup-worried" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelWorried()">Yes, I feel worried</button>
+        <button onclick="noFeelWorried()">No, I do not feel worried</button>
+        <a href="#" onclick="hidePopupWorried()">Close</a>
+    </div>
+</div>
+
+
+
+        <!-- Lonely Monster -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Lonely</h4>
+                    <button class="btn btn-primary btn-lg" onclick="selectMood('lonely')">Select</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Angry Monster -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Angry</h4>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for angry monster with additional div for styling -->
+    <div id="popup-angry" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelAngry()">Yes, I feel angry</button>
+        <button onclick="noFeelAngry()">No, I do not feel angry</button>
+        <a href="#" onclick="hidePopupAngry()">Close</a>
+    </div>
+</div>
+
+<!--    javascript function for popups-->
+    <script>
+
+    function showPopupSad() {
+        document.getElementById("popup-sad").style.display = "block";
+    }
+
+    function hidePopupSad() {
+        document.getElementById("popup-sad").style.display = "none";
+    }
+
+    function noFeelSad() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelSad() {
+        window.location.href = "/sad_page/{{ session['family_id'] }}";
+    }
+
+
+
+  function showPopupWorried() {
+        document.getElementById("popup-worried").style.display = "block";
+    }
+
+    function hidePopupWorried() {
+        document.getElementById("popup-worried").style.display = "none";
+    }
+
+    function noFeelWorried() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelWorried() {
+        window.location.href = "/worried_page/{{ session['family_id'] }}";
+    }
+
+
+
+        function showPopupAngry() {
+        document.getElementById("popup-angry").style.display = "block";
+    }
+
+    function hidePopupAngry() {
+        document.getElementById("popup-angry").style.display = "none";
+    }
+
+    function noFeelAngry() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+}
+
+    function yesFeelAngry() {
+        window.location.href = "/angry_page/{{ session['family_id'] }}";
+    }
+</script>
+
+
+{% endblock %}
+

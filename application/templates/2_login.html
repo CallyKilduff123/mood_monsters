@@ -4,13 +4,14 @@
     <div class="container">
             <!--  TITLE       -->
         <div class="text-center">
-            <h1 class="section-title mb-4">{{title}}</h1>
+            <h1 class=" titles colour-3 m-4">{{title}}</h1>
         </div>
         <!--  CHILD BUTTON AND PARENT BUTTON LOGIN      -->
         <div class="d-flex justify-content-center mb-4">
-            <button id="child-btn" class="btn {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
-            <button id="parent-btn" class="btn {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
+            <button id="child-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
+            <button id="parent-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
         </div>
+<<<<<<< HEAD
          <!--  CHILD LOGIN FORM      -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
@@ -25,31 +26,63 @@
                         <input type="hidden" name="login_type" value="child"> <!-- Added hidden field for child login -->
                         <label for="child_username">Username:</label><br>
                         <input type="text" id="child_username" name="username" required><br><br>
+=======
+        <!-- ERROR HANDLING MESSAGE -->
+        <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
+            <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+                <div class="section-form p-5">
+                    <h2 class="text-center titles colour-6">Child Login</h2>
+                    {% if show_error_child %}
+                    <p>* invalid username. Try again.</p>
+                    {% endif %}
+<!--                    CHILD LOGIN FORM-->
+                    <form action="{{ url_for('login_route') }}" method="POST">
+                        <input type="hidden" name="login_type" value="child"> <!-- Added hidden field for child login -->
+                        <label for="child_username">Username:</label><br>
+                        <input type="text" id="child_username" name="username" required>
+>>>>>>> 1e9abd8e039eb003fee227a358a0e8dffe4aaed8
 
                         <label for="child_pin">PIN:</label><br>
                         <input type="password"  id="child_pin" name="pin" required><br><br>
 
+<<<<<<< HEAD
                         <input type="submit" value="Login">
+=======
+                        <input type="submit" value="Login" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">
+
+>>>>>>> 1e9abd8e039eb003fee227a358a0e8dffe4aaed8
                     </form>
                 </div>
             </div>
         </div>
+        <!-- ERROR HANDLING MESSAGE -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+<<<<<<< HEAD
                 <div class="section-form rounded p-5">
                     <h2>Grown Up Login</h2>
+=======
+                <div class="section-form p-5">
+                    <h2 class="text-center titles colour-6">Grown Up Login</h2>
+>>>>>>> 1e9abd8e039eb003fee227a358a0e8dffe4aaed8
                     {% if show_error_grownup %}
                     <p>* invalid username or password details. Try again.</p>
                     {% endif %}
+<!--                    GROWN-UP LOGIN FORM-->
                     <form action="{{ url_for('login_route') }}" method="POST">
                         <input type="hidden" name="login_type" value="grownup"> <!-- Added hidden field for grownup login -->
                         <label for="grown_up_username">Username:</label><br>
                         <input type="text" id="grown_up_username" name="username" required><br><br>
 
+<<<<<<< HEAD
                         <label for="grown_up_pin">PIN:</label><br>
                         <input type="password"  id=grown_up_pin name="pin" required><br><br>
+=======
+                        <label for="pin">PIN:</label><br>
+                        <input type="password" id="pin" name="pin" required>
+>>>>>>> 1e9abd8e039eb003fee227a358a0e8dffe4aaed8
 
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Login" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">
                     </form>
                 </div>
             </div>
