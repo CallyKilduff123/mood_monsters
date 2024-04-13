@@ -7,7 +7,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        # password="password",  # Uncomment and set your password here
+        password="password",  # Uncomment and set your password here
         database="mood_monsters"
     )
 
@@ -28,7 +28,8 @@ def add_family(adult_info, child_info, shared_pin):
         cursor.execute("""
             INSERT INTO grown_up (family_id, first_name, last_name, username, email, relationship_to_child)
             VALUES (%s, %s, %s, %s, %s, %s)
-        """, (family_id, adult_info['first_name'], adult_info['last_name'], adult_info['username'], adult_info['email'], adult_info['relationship']))
+        """, (family_id, adult_info['first_name'], adult_info['last_name'], adult_info['username'], adult_info['email'],
+              adult_info['relationship']))
 
         cursor.execute("""
             INSERT INTO child (family_id, first_name, last_name, username, date_of_birth)
@@ -136,3 +137,14 @@ def get_child_info_by_family_id(family_id):
         conn.close()
 
 
+# # LETICIA - ADDING IMAGES TO FRONT END - Function to fetch mood data from the database
+# def get_mood_data():
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
+#     try:
+#         cursor.execute("SELECT mood_image FROM mood")
+#         mood_data = cursor.fetchall()
+#         return mood_data
+#     finally:
+#         cursor.close()
+#         conn.close()
