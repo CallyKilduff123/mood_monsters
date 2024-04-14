@@ -13,6 +13,7 @@ html, body {
     --colour-6: #FB5607; /* orange - additional colour */
     --light: #FDFDFF;
     --dark: #073B4C;
+    --red: #F04A49;
 }
 
 body {
@@ -38,7 +39,7 @@ a {
     color: var(--light);
 }
 
-.hero-section h1 {
+h1 {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -67,6 +68,11 @@ a {
 /* orange text class */
 .colour-6 {
     color: var(--colour-6);
+}
+
+/* light for text */
+.colour-light {
+    color: var(--light);
 }
 
 /* ------ GRADIENT BACKGROUNDS ------ */
@@ -131,6 +137,7 @@ a {
 }
 
 footer p {
+    color: var(--light);
     font-size: 16px;
 }
 
@@ -245,86 +252,50 @@ label {
     color: var(--light);
 }
 
-.popup {
-  display: none;
-  position: fixed;
-  padding: 10px;
-  width: 280px;
-  left: 50%;
-  margin-left: -150px;
-  height: 180px;
-  top: 50%;
-  margin-top: -100px;
-  background: #FFF;
-  border: 3px solid #F04A49;
-  z-index: 20;
+/* CARD IMAGE ZOOM ANIMATION */
+
+.card {
+    position: relative;
+    overflow: hidden;
 }
 
-.popup:after {
-  position: fixed;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: -2;
+.card-img-top {
+    width: 100%;  /* Ensures the image is responsive */
+    height: auto;  /* Maintains the aspect ratio */
+    transition: transform 0.5s ease; /* Ensures the scaling effect is smooth */
 }
 
-.popup:before {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: #FFF;
-  z-index: -1;
+.card-img-top:hover {
+    transform: scale(1.1); /* Enlarges the image by 10% */
+    z-index: 0;  /* Ensure the image is behind the card-body */
 }
 
-body {
-  background: offwhite;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-
-button {
-    margin-top: 50px;
-    background-color: rgba(255,255,255,0.3);
-    border: 3px solid #F04A49;
-    color: #F04A49;
-    font-size: 25px;
-    padding: 10px 20px;
-}
-
-button:hover {
-    background-color: #F04A49;
-    color: #FFF;
-    border: 3px solid #F04A49;
-    transition: all 0.3s ease 0s;
-}
-
-p {
-	margin: 1em 0;
-  font-size: 16px;
+.card-body {
+    background-color: #FFF;  /* Fully opaque white */
+    padding: 20px;  /* Spacing inside the card-body */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 
 /* POP UP */
-
 .popup {
   display: none;
   position: fixed;
   padding: 10px;
-  width: 280px;
+  min-width: 280px; /* Ensures the popup doesn't get too narrow */
+  max-width: 380px;
   left: 50%;
-  margin-left: -150px;
-  height: 180px;
   top: 50%;
-  margin-top: -100px;
-  background: #FFF;
-  border: 3px solid #F04A49;
+  transform: translate(-50%, -50%); /* Centers the popup perfectly */
+  background: var(--light);
+  border: 3px solid var(--red);
+  border-radius: 10px;
   z-index: 20;
+  overflow: hidden;
 }
 
 .popup:after {
@@ -345,28 +316,45 @@ p {
   left: 0;
   bottom: 0;
   right: 0;
-  background: #FFF;
+  background: var(--light);
   z-index: -1;
 }
 
-body {
-  background: offwhite;
-  font-family: Arial, sans-serif;
-  text-align: center;
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px; /* Added more padding for better spacing */
+}
+
+.popup-content button {
+    background-color: var(--colour-4);
+    color: var(--light);
+    border: 2px solid var(--colour-6);
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 10px; /* Space between buttons */
+}
+
+.popup-content button:first-of-type {
+    margin-top: 0; /* No top margin for the first button */
+}
+
+.popup-content button:hover {
+    background-color: var(--red);
+    color: var(--light);
+    border: 3px solid var(--red);
+    transition: all 0.3s ease;
+}
+
+.popup-content a, p{
+    color: var(--dark);
+    display: block; /* Ensures the link has its own line */
+    margin-top: 10px; /* Space after the last button */
 }
 
 
-button:hover {
-    background-color: #F04A49;
-    color: #FFF;
-    border: 3px solid #F04A49;
-    transition: all 0.3s ease 0s;
-}
-
-p {
-	margin: 1em 0;
-  font-size: 16px;
-}
 
 
 

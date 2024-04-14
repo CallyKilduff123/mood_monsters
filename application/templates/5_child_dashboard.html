@@ -1,22 +1,18 @@
 {% extends "layout.html" %}
 {% block body_content %}
-
-<div class="col-lg-10 pb-5">
-                <h1 class="display-1 text-center"><span class="col-6">Mood</span> <span class="col-5">Monsters</span></h1>
-            </div>
-
-<div class="col-lg-10 pb-5">
-    <p class="text-center">Hello {{ first_name }},
-        how are you feeling today?</p>
-    <p class="text-center"> Select the monster that best fits your mood</p>
-
-<div class="container">
-    <div class="row">
-
+<div class="container-xxl py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h1 class="display-1 text-center mb-4"><span class="colour-6">Mood</span> <span class="colour-3">Monsters</span></h1>
+            <p class="text-center colour-light">Hello {{ first_name }}, how are you feeling today?</p>
+            <p class="text-center colour-light"> Select the monster that best fits your mood</p>
+        </div>
+    </div>
+    <div class="row px-3 mt-4">
         <!-- Happy Monster -->
-        <div class="col-lg-4 col-md-3 mb-3">
+        <div class="col-lg-4 col-md-6 mb-3">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
                 <div class="card-body">
                     <h4 class="card-title">Happy</h4>
                     <button class="btn btn-primary btn-lg" onclick="selectMood('happy')">Select</button>
@@ -27,7 +23,7 @@
         <!-- Sad Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                 <div class="card-body">
                     <h4 class="card-title">Sad</h4>
                     <button class="btn btn-primary btn-lg" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
@@ -36,20 +32,20 @@
         </div>
 
         <!-- Popup for sad monster with additional div for styling -->
-<div id="popup-sad" class="popup" style="display: none;">
-    <div class="popup-content">
-        <p>Is this correct?</p>
-        <button onclick="yesFeelSad()">Yes, I feel sad</button>
-        <button onclick="noFeelSad()">No, I do not feel sad</button>
-        <a href="#" onclick="hidePopupSad()">Close</a>
-    </div>
-</div>
-
+        <div id="popup-sad" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Is this correct?</p>
+                <button onclick="yesFeelSad()">Yes, I feel sad</button>
+                <button onclick="noFeelSad()">No, I do not feel sad</button>
+                <br>
+                <a href="#" onclick="hidePopupSad()" class="ps-2">Close</a>
+            </div>
+        </div>
 
         <!-- Angry Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster">
                 <div class="card-body">
                     <h4 class="card-title">Angry</h4>
                     <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
@@ -57,22 +53,21 @@
             </div>
         </div>
 
-
-    <!-- Popup for angry monster with additional div for styling -->
-    <div id="popup-angry" class="popup" style="display: none;">
-    <div class="popup-content">
-        <p>Is this correct?</p>
-        <button onclick="yesFeelAngry()">Yes, I feel angry</button>
-        <button onclick="noFeelAngry()">No, I do not feel angry</button>
-        <a href="#" onclick="hidePopupAngry()">Close</a>
-    </div>
-     </div>
-
+        <!-- Popup for angry monster with additional div for styling -->
+        <div id="popup-angry" class="popup" style="display: none;">
+        <div class="popup-content">
+            <p>Is this correct?</p>
+            <button onclick="yesFeelAngry()">Yes, I feel angry</button>
+            <button onclick="noFeelAngry()">No, I do not feel angry</button>
+            <br>
+            <a href="#" onclick="hidePopupAngry()" class="ps-2">Close</a>
+        </div>
+        </div>
 
         <!--   Ashamed monster     -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster">
                 <div class="card-body">
                     <h4 class="card-title">Ashamed</h4>
                     <button class="btn btn-primary btn-lg" onclick="selectMood('Ashamed')">Select</button>
@@ -80,11 +75,10 @@
             </div>
         </div>
 
-
         <!-- Worried Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster">
                 <div class="card-body">
                     <h4 class="card-title">Worried</h4>
                     <button class="btn btn-primary btn-lg" onclick="showPopupWorried()">Select</button>
@@ -93,32 +87,31 @@
         </div>
 
         <!-- Popup for worried monster with additional div for styling -->
-<div id="popup-worried" class="popup" style="display: none;">
-    <div class="popup-content">
-        <p>Is this correct?</p>
-        <button onclick="yesFeelWorried()">Yes, I feel worried</button>
-        <button onclick="noFeelWorried()">No, I do not feel worried</button>
-        <a href="#" onclick="hidePopupWorried()">Close</a>
-    </div>
-</div>
-
+        <div id="popup-worried" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Is this correct?</p>
+                <button onclick="yesFeelWorried()">Yes, I feel worried</button>
+                <button onclick="noFeelWorried()">No, I do not feel worried</button>
+                <br>
+                <a href="#" onclick="hidePopupWorried()" class="ps-2">Close</a>
+            </div>
+        </div>
 
         <!-- Lonely Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
                 <div class="card-body">
                     <h4 class="card-title">Lonely</h4>
                     <button class="btn btn-primary btn-lg" onclick="selectMood('lonely')">Select</button>
                 </div>
             </div>
         </div>
-
-<!--          </div>-->
-<!--</div>-->
+    </div>
+</div>
 
 <!--    javascript function for popups-->
-    <script>
+<script>
 
     function showPopupSad() {
         document.getElementById("popup-sad").style.display = "block";
@@ -130,7 +123,7 @@
 
     function noFeelSad() {
     window.location.href = "/child_dashboard/{{ session['family_id'] }}";
-}
+    }
 
     function yesFeelSad() {
         window.location.href = "/sad_page/{{ session['family_id'] }}";
@@ -138,7 +131,7 @@
 
 
 
-  function showPopupWorried() {
+    function showPopupWorried() {
         document.getElementById("popup-worried").style.display = "block";
     }
 
@@ -148,7 +141,7 @@
 
     function noFeelWorried() {
     window.location.href = "/child_dashboard/{{ session['family_id'] }}";
-}
+    }
 
     function yesFeelWorried() {
         window.location.href = "/worried_page/{{ session['family_id'] }}";
@@ -166,7 +159,7 @@
 
     function noFeelAngry() {
     window.location.href = "/child_dashboard/{{ session['family_id'] }}";
-}
+    }
 
     function yesFeelAngry() {
         window.location.href = "/angry_page/{{ session['family_id'] }}";
