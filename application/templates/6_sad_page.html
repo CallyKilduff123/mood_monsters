@@ -4,13 +4,15 @@
 <div class="container-fluid wave-bottom gradient-colour-1 py-5">
      <div class="container">
         <div class="row justify-content-center py-1">
-            <h1 class="text-center titles colour-2 pb-4">You are feeling sad</h1>
+            <h1 class="text-center titles colour-2 pb-4">Activity page to address feelings of sadness</h1>
         </div>
     </div>
     <div class="row justify-content-center">
         <!-- Sad Monster -->
         <div class="col-lg-4 col-md-6 mb-5">
-                <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
+            <img class="img-fluid rounded border custom-border mb-3" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
+            <p class="colour-light text-center">Today {{ first_name }}, you feel sad</p>
+            <br>
         </div>
     </div>
 </div>
@@ -19,35 +21,49 @@
     <div class="container">
         <div class="row justify-content-center pt-1">
             <div class="col-lg-10">
-                <h1 class="text-center titles colour-2">What Page Does Section</h1>
+                <h1 class="text-center titles colour-2">What Page Does Section... delete or rename?</h1>
                 <div class="pt-5">
-                    <p class="text-center titles colour-2"><strong>SUB-HEADING:</strong></p>
-                    <br>
-                    <p class="colour-light">Blurb goes here......</p>
-                    <br><br><br>
-                    <p class="text-center titles colour-2"><strong>SUB-HEADING:</strong></p>
-                    <br>
-                    <p class="colour-light">Blurb goes here......</p>
+                    <p class="colour-light">It is never nice to feel sad but sometimes we all do.</p>
+                    <p class="colour-light">Let's look at why you feel sad and how your grown-up can help.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Mood Diary Section (Wave Top & Wave Bottom) -->
-<div class="container-fluid wave-top-bottom gradient-colour-2 pt-3 pb-2 mb-2">
+<!-- Mood Journal Section (Wave Top & Wave Bottom) -->
+<div class="container-fluid wave-top-bottom gradient-colour-2 pb-2 mb-2">
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-lg-10 py-5">
-                <h1 class="text-center p-4 titles colour-2">Mood Diary</h1>
+                <h1 class="text-center p-4 titles colour-2">Exploring Feeling Sad</h1>
                 <div class="row justify-content-center">
-                <!-- Mood Diary Image -->
+                <!-- Mood Journal Image -->
                     <div class="col-lg-4 col-md-6 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                     </div>
                     <div>
-                        <p class="colour-light">Mood diary blurb goes here... swap out image</p>
+                        <p class="colour-light">Let's look at feelings of sadness in your journal.</p>
+                        <p class="colour-light">Use your journal to talk to your grown-up about how you are feeling.</p>
+                        <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
+                    <!-- journal -->
+                    <form action="/submit-journal" method="POST" class="journal-entry">
+                        <p class="text-center">Today, I feel sad.</p>
+                        <div class="entry">
+                            <label for="reason">I feel sad because:</label>
+                            <textarea id="reason" name="reason" placeholder="Enter your reason here"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="action">When I feel sad, I want to:</label>
+                            <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="solution">To make me feel happy, I can:</label>
+                            <textarea id="solution" name="solution" placeholder="Enter your solution"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fs-5 fixed-width">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -59,14 +75,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <h1 class="text-center pb-4 titles colour-2">Activity</h1>
+                <h1 class="text-center pb-4 titles colour-2">Activity for when you feel sad</h1>
                 <div class="row justify-content-center">
                 <!-- Activity Image -->
                     <div class="col-lg-4 col-md-6 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                     </div>
                     <div>
-                        <p class="colour-light">Activity blurb goes here... swap out image</p>
+                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>
+                        <p class="colour-light">Play your favourite song and dance!</p>
+                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>
                     </div>
                 </div>
             </div>
@@ -79,14 +97,15 @@
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-lg-10 py-5">
-                <h1 class="text-center p-4 titles colour-2">Animal Fact</h1>
+                <h1 class="text-center p-4 titles colour-2">Sad Animal Fact</h1>
                 <div class="row justify-content-center">
                 <!-- Animal Fact Image -->
                     <div class="col-lg-4 col-md-6 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                     </div>
                     <div>
-                        <p class="colour-light">Animal fact blurb goes here... swap out image or delete if text only</p>
+                        <p class="text-center titles colour-2"><strong>Did you know?</strong></p>
+                        <p class="colour-light">Cows have a best friend. Cows get sad when their best friend is not around.</p>
                     </div>
                 </div>
             </div>
@@ -99,15 +118,16 @@
     <div class="d-flex justify-content-center align-items-center">
         <div class="col-lg-10 text-center">
             <!-- buttons -->
-            <div class="btn btn-primary rounded-pill border-2 m-1 px-5 py-3 fs-5 fixed-width">
-                <a href="#">Diary</a>
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
+                <a href="#">Back to my mood monsters</a>
             </div>
-            <div class="btn btn-primary rounded-pill border-2 m-1 px-5 py-3 fs-5 fixed-width">
-                <a href="#">Badges</a>
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
+                <a href="#">I want to see my mood diary</a>
             </div>
-            <div class="btn btn-primary rounded-pill border-2 m-1 px-5 py-3 fs-5 fixed-width">
-                <a href="#">Dashboard</a>
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
+                <a href="#">I want to see my badges</a>
             </div>
+
         </div>
     </div>
 </div>

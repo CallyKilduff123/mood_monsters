@@ -150,6 +150,7 @@ a.nav-link {
 /* ------ FONTS ------ */
 
 .titles {
+    text-transform: uppercase;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
@@ -159,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
 }
 
-p, a {
+p, a, .entry {
     font-family: "Baloo 2", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -171,6 +172,13 @@ p, a {
 
 .fixed-width {
     width: 180px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fixed-width-wide {
+    width: 260px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -259,6 +267,45 @@ textarea {
 label {
     color: var(--light);
 }
+
+
+/* ------ JOURNAL FORM FIELDS ------ */
+
+.journal-entry {
+    border: 3px solid var(--colour-1);
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--light);
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+.journal-entry *,
+.journal-entry *:focus {
+    border: none;
+    outline: none;
+}
+
+.entry {
+    display: block;
+    margin: 10px 0;
+}
+
+.entry label {
+    display: block;
+    color: var(--dark);
+    margin-bottom: 5px;
+}
+
+.entry textarea {
+    font-size: 1.3rem;
+    width: 100%;
+    height: 70px;
+    padding: 8px;
+    border: 1px solid var(--colour-6);
+    resize: vertical;
+}
+
 
 /* ------ BORDERS ------ */
 

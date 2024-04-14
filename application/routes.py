@@ -97,7 +97,9 @@ def grownup_dashboard(family_id):
 @app.route('/sad_page/<int:family_id>')
 def sad_page(family_id):
     # You can now use family_id within this function to fetch specific data, perform checks, etc.
-    return render_template('6_sad_page.html', family_id=family_id)
+    # Fetch child and related family information using family_id
+    first_name = session.get('first_name')  # Default to 'Unknown' if not set
+    return render_template('6_sad_page.html', first_name=first_name, family_id=family_id)
 
 
 @app.route('/worried_page/<int:family_id>')
