@@ -7,12 +7,12 @@
 
 <div class="col-lg-10 pb-5">
     <p class="text-center">Hello {{ first_name }},
-<!--        insert logic for child first_name-->
         how are you feeling today?</p>
     <p class="text-center"> Select the monster that best fits your mood</p>
 
 <div class="container">
     <div class="row">
+
         <!-- Happy Monster -->
         <div class="col-lg-4 col-md-3 mb-3">
             <div class="card h-100 text-center">
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <!-- Sad Monster: Added onclick="showPopupSad()" -->
+        <!-- Sad Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster" style="width: 400px;">
@@ -46,13 +46,36 @@
 </div>
 
 
-        <!--   content monsters     -->
+        <!-- Angry Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/7_content_mood.jpg" alt="Content Monster" style="width: 400px;">
+                <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster" style="width: 400px;">
                 <div class="card-body">
-                    <h4 class="card-title">Content</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('content')">Select</button>
+                    <h4 class="card-title">Angry</h4>
+                    <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Popup for angry monster with additional div for styling -->
+    <div id="popup-angry" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Is this correct?</p>
+        <button onclick="yesFeelAngry()">Yes, I feel angry</button>
+        <button onclick="noFeelAngry()">No, I do not feel angry</button>
+        <a href="#" onclick="hidePopupAngry()">Close</a>
+    </div>
+     </div>
+
+
+        <!--   Ashamed monster     -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 text-center">
+                <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster" style="width: 400px;">
+                <div class="card-body">
+                    <h4 class="card-title">Ashamed</h4>
+                    <button class="btn btn-primary btn-lg" onclick="selectMood('Ashamed')">Select</button>
                 </div>
             </div>
         </div>
@@ -80,7 +103,6 @@
 </div>
 
 
-
         <!-- Lonely Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
@@ -92,28 +114,8 @@
             </div>
         </div>
 
-
-        <!-- Angry Monster -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster" style="width: 400px;">
-                <div class="card-body">
-                    <h4 class="card-title">Angry</h4>
-                    <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popup for angry monster with additional div for styling -->
-    <div id="popup-angry" class="popup" style="display: none;">
-    <div class="popup-content">
-        <p>Is this correct?</p>
-        <button onclick="yesFeelAngry()">Yes, I feel angry</button>
-        <button onclick="noFeelAngry()">No, I do not feel angry</button>
-        <a href="#" onclick="hidePopupAngry()">Close</a>
-    </div>
-</div>
+<!--          </div>-->
+<!--</div>-->
 
 <!--    javascript function for popups-->
     <script>
