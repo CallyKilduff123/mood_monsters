@@ -408,6 +408,19 @@ label {
 	left: calc(0.5vw - 50px);
 }
 
+/* ------ MEDIA QUERIES ------ */
+
+/* adjust padding on smaller screens */
+
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+
 
 
 
