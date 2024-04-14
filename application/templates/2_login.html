@@ -7,7 +7,7 @@
         </div>
         <div class="d-flex justify-content-center mb-4">
             <button id="child-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary {%else %}btn-primary-toggle{% endif %} me-2">Child Login</button>
-            <button id="parent-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Parent Login</button>
+            <button id="parent-btn" class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5 {% if show_error_grownup %} btn-primary-toggle {%else %}btn-primary{% endif %}">Adult Login</button>
         </div>
         <!-- ERROR HANDLING MESSAGE -->
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} d-none {% endif %}" id="child-login">
@@ -36,7 +36,7 @@
         <div class="d-flex align-items-center justify-content-center py-4 {% if show_error_grownup %} {% else %} d-none {% endif %}" id="parent-login">
             <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
                 <div class="section-form p-5">
-                    <h2 class="text-center titles colour-6">Grown Up Login</h2>
+                    <h2 class="text-center titles colour-6">Adult Login</h2>
                     {% if show_error_grownup %}
                     <p>* invalid username or password details. Try again.</p>
                     {% endif %}
