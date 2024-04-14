@@ -77,7 +77,7 @@ def child_dashboard(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         # Fetch child and related family information using family_id
         child_info = get_child_info_by_family_id(family_id)
-        first_name = session.get('first_name', 'Unknown')  # Default to 'Unknown' if not set
+        first_name = session.get('first_name')  # Default to 'Unknown' if not set
         return render_template('5_child_dashboard.html', child_info=child_info, first_name=first_name, family_id=family_id)
     else:
         return redirect(url_for('login'))  # Redirect to login page if unauthorized
@@ -89,7 +89,7 @@ def grownup_dashboard(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         grownup_info = get_grownup_info_by_family_id(family_id)
         first_name = session.get('first_name')  # Assuming first_name is stored in the session
-        return render_template('4_grownup_dashboard.html', first_name=first_name, family_id=family_id)
+        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name, family_id=family_id)
     else:
         return redirect(url_for('login'))
 

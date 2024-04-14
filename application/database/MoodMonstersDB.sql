@@ -51,38 +51,66 @@ CREATE TABLE message (
 SELECT * FROM message;
 
 
-CREATE TABLE badge (
-    badge_id INT AUTO_INCREMENT PRIMARY KEY,
-    child_id INT NOT NULL,
-    badge_name VARCHAR(255) NOT NULL,
-    badge_description TEXT,
-    date_awarded DATETIME DEFAULT CURRENT_TIMESTAMP,
-    criteria TEXT,
-    FOREIGN KEY (child_ID) REFERENCES child(child_ID)
-);
-
-SELECT * FROM badge;
-
-
 CREATE TABLE mood (
     mood_id INT AUTO_INCREMENT PRIMARY KEY,
-    child_id INT NOT NULL,
-    mood ENUM('Happy', 'Sad', 'Worried', 'Excited', 'Frustrated', 'Surprised', 'Scared') NOT NULL,
-    date_logged DATETIME DEFAULT CURRENT_TIMESTAMP,
-    describe_emotion TEXT,
-    FOREIGN KEY (Child_ID) REFERENCES Child(Child_ID)
+    mood_name ENUM('Happy', 'Sad', 'Worried', 'Excited', 'Frustrated', 'Surprised', 'Scared') NOT NULL,
+    mood_image_url VARCHAR(255) Default null,
+    mood_description TEXT
 );
 
 SELECT * FROM mood;
 
 
+
+CREATE TABLE badge (
+    badge_id INT AUTO_INCREMENT PRIMARY KEY,
+    badge_name VARCHAR(255) NOT NULL,
+    Badge_image_url  VARCHAR(255) Default null,
+    badge_description TEXT,
+    criteria TEXT
+);
+
+SELECT * FROM badge;
+
+
+
 CREATE TABLE activity (
-    activity_id INT AUTO_INCREMENT PRIMARY KEY,
-    child_id INT NOT NULL,
-    activity_type ENUM('Coping Strategy', 'Communication', 'Journal Entry', 'Other') NOT NULL,
-    date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
-    details TEXT,
-    FOREIGN KEY (child_id) REFERENCES child(child_id)
+   activity_id INT AUTO_INCREMENT PRIMARY KEY,
+   activity_name ENUM('Log Mood', 'Journal Entry’, ‘Communication Activity’, ‘Breathing Activity’, ‘Dance Activity') NOT NULL,
 );
 
 SELECT * FROM activity;
+
+
+
+CREATE TABLE track_activity (
+    track_activity_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    activity_id INT NOT NULL,
+    mood_id INT DEFAULT NULL,
+    date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (child_id) REFERENCES child(child_id),
+    FOREIGN KEY (activity_id) REFERENCES action(activity_id),
+    FOREIGN KEY (mood_id) REFERENCES mood(mood_id)
+);
+
+SELECT * FROM track_activity;
+
+
+
+CREATE TABLE badge_progress (
+    progress_id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT NOT NULL,
+    badge_id INT NOT NULL,
+    activity_id INT DEFAULT NULL,  -- Links to specific activities that contribute to this badge
+    track_activity_id INT DEFAULT NULL,  -- New addition: Links to specific actions directly related to badge criteria
+    is_completed BOOLEAN DEFAULT FALSE,
+    date_completed DATETIME,
+    FOREIGN KEY (child_id) REFERENCES child(child_id),
+    FOREIGN KEY (badge_id) REFERENCES badge(badge_id),
+    FOREIGN KEY (activity_id) REFERENCES activity(activity_id),  -- Link to the activity that contributes to badge earning
+    FOREIGN KEY (track_activity_id) REFERENCES action(track_activity_id)  -- Link to the specific action that contributes to badge earning
+);
+
+SELECT * FROM badge_progress;
+
