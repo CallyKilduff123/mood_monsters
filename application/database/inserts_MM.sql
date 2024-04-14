@@ -27,7 +27,7 @@ VALUES
 (1, "Evelyn", "Leith-Kilduff", "Elvie", '2017-10-11'),
 (2, "Margaux", "Kilduff", "Gargoz", '2017-10-30'),
 (3, "Louie", "Gray", "Poobear", '2018-01-08'),
-(4, "Rose", "O Brien", "Ro Ro", '2017-12-01'),
+(4, "Rose", "O Brien", "Rosie", '2017-12-01'),
 (5, "Emma", "McBroom", "Em", '2017-09-12');
 
 
@@ -46,7 +46,7 @@ VALUES
 SELECT * from mood;
 
 
-INSERT INTO badge (badge_name, badge_image, badge_description, criteria)
+INSERT INTO badge (badge_name, badge_image_url, badge_description, criteria)
 VALUES
 ("First Feelings Finder", "images/badge_first_feelings_finder.jpg", "Awarded for logging your mood for the first time.", "Child logs their mood in the app for the first time." ),
 ("Week of Wonders", "images/badge_week_of_wonders.jpg", "Celebrates a week of consistent mood logging.", "Child logs their mood every day for 5 consecutive days." ),
@@ -60,13 +60,13 @@ VALUES
 SELECT * FROM badge;
 
 
-INSERT INTO activity (activity_name)
+INSERT INTO activity (activity_name, mood_id)
 VALUES
-('Log Mood'),
-('Journal Entry’),
-('Communication Activity'),
-('Breathing Activity'),
-('Dance Activity');
+('Log Mood', NULL),
+('Journal Entry', NULL),
+('Communication Activity', NULL),
+('Breathing Activity', NULL),
+('Dance Activity', NULL);
 
 SELECT * FROM activity;
 

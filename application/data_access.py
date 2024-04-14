@@ -13,8 +13,10 @@ def get_db_connection():
 
 
 # Common function to get cursor with dictionary results
+# def get_cursor(conn):
+#     return conn.cursor(dictionary=True)
 def get_cursor(conn):
-    return conn.cursor(dictionary=True)
+    return conn.cursor(dictionary=True, buffered=True)
 
 
 # Function for adding family, grown up, and child data into the database
@@ -93,6 +95,7 @@ def get_grownup_info_by_family_id(family_id):
 
 
 # Child login function with improved error handling and redirection
+
 def child_login():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -108,11 +111,12 @@ def child_login():
             val = (username, pin)
             cursor.execute(sql, val)
             child = cursor.fetchone()
-
+            cursor.fetchall()  # Ensure all results are fetched and cursor is cleared
             if child:
                 session['username'] = username
                 session['user_type'] = 'child'
                 session['family_id'] = child['family_id']
+                session['child_id'] = child['child_id']
                 session['first_name'] = child['first_name']
                 return redirect(url_for('child_dashboard', family_id=child['family_id']))
             else:
@@ -120,21 +124,61 @@ def child_login():
         finally:
             cursor.close()
             conn.close()
-    else:
-        return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
 
 
-# Fetch child info based on family ID with dictionary cursor
 def get_child_info_by_family_id(family_id):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     try:
         cursor.execute("SELECT * FROM child WHERE family_id = %s", (family_id,))
         result = cursor.fetchone()
+        cursor.fetchall()  # Ensure any additional results are fetched to clear the cursor
         return result
     finally:
         cursor.close()
         conn.close()
+
+
+def log_mood_to_db(child_id, mood_name):
+    conn = get_db_connection()
+    try:
+        with conn.cursor(dictionary=True) as cursor:
+            # Find the mood_id from the mood table using a safe, parameterized query
+            cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
+            mood_id = cursor.fetchone()
+            if mood_id:
+                # Insert the mood log with the retrieved mood_id
+                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())", (mood_id['mood_id'], child_id))
+                conn.commit()
+                return True
+        return False
+    except Exception as e:
+        print(f"Error logging mood: {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()
+
+
+def get_logged_moods(child_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("""
+            SELECT mood_name, mood_image_url, date_logged
+            FROM mood_logged
+            JOIN mood ON mood_logged.mood_id = mood.mood_id
+            WHERE mood_logged.child_id = %s
+            ORDER BY date_logged DESC
+        """, (child_id,))
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"Error fetching moods: {e}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
 
 
 # # LETICIA - ADDING IMAGES TO FRONT END - Function to fetch mood data from the database
@@ -148,3 +192,17 @@ def get_child_info_by_family_id(family_id):
 #     finally:
 #         cursor.close()
 #         conn.close()
+
+
+# Cally - testing out logging the mood to the mood diary
+
+
+
+
+
+
+
+
+
+
+

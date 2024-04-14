@@ -120,9 +120,13 @@
                     <p class="colour-light">Mood diary blurb / images go here...</p>
                 </div>
                 <!-- button -->
+<!--                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width">-->
+<!--                    <a href="#">Diary</a>-->
+<!--                </div>-->
                 <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width">
-                    <a href="#">Diary</a>
+                    <a href="{{ url_for('mood_diary', family_id=session['family_id']) }}" class="text-decoration-none text-white">View Mood Diary</a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -163,6 +167,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 <!--    javascript function for popups-->
 <script>
 
@@ -179,8 +187,9 @@
     }
 
     function yesFeelSad() {
-        window.location.href = "/sad_page/{{ session['family_id'] }}";
-    }
+    window.location.href = "/sad_page/{{ session['family_id'] }}";
+}
+
 
 
 
