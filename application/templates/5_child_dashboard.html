@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<div class="container-xxl py-4">
+<div class="container-xxl pt-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <h1 class="display-1 text-center mb-4"><span class="colour-6">Mood</span> <span class="colour-3">Monsters</span></h1>
@@ -10,12 +10,12 @@
     </div>
     <div class="row px-3 mt-4">
         <!-- Happy Monster -->
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
                 <div class="card-body">
                     <h4 class="card-title">Happy</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('happy')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('happy')">Select</button>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                 <div class="card-body">
                     <h4 class="card-title">Sad</h4>
-                    <button class="btn btn-primary btn-lg" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
                 </div>
             </div>
         </div>
@@ -35,10 +35,10 @@
         <div id="popup-sad" class="popup" style="display: none;">
             <div class="popup-content">
                 <p>Is this correct?</p>
-                <button onclick="yesFeelSad()">Yes, I feel sad</button>
-                <button onclick="noFeelSad()">No, I do not feel sad</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelSad()">Yes, I feel sad</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelSad()">No, I do not feel sad</button>
                 <br>
-                <a href="#" onclick="hidePopupSad()" class="ps-2">Close</a>
+                <a href="#" onclick="hidePopupSad()">Close</a>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
                 <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster">
                 <div class="card-body">
                     <h4 class="card-title">Angry</h4>
-                    <button class="btn btn-primary btn-lg" onclick="showPopupAngry()">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupAngry()">Select</button>
                 </div>
             </div>
         </div>
@@ -57,10 +57,10 @@
         <div id="popup-angry" class="popup" style="display: none;">
         <div class="popup-content">
             <p>Is this correct?</p>
-            <button onclick="yesFeelAngry()">Yes, I feel angry</button>
-            <button onclick="noFeelAngry()">No, I do not feel angry</button>
+            <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelAngry()">Yes, I feel angry</button>
+            <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelAngry()">No, I do not feel angry</button>
             <br>
-            <a href="#" onclick="hidePopupAngry()" class="ps-2">Close</a>
+            <a href="#" onclick="hidePopupAngry()">Close</a>
         </div>
         </div>
 
@@ -70,7 +70,7 @@
                 <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster">
                 <div class="card-body">
                     <h4 class="card-title">Ashamed</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('Ashamed')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('Ashamed')">Select</button>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster">
                 <div class="card-body">
                     <h4 class="card-title">Worried</h4>
-                    <button class="btn btn-primary btn-lg" onclick="showPopupWorried()">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupWorried()">Select</button>
                 </div>
             </div>
         </div>
@@ -90,10 +90,10 @@
         <div id="popup-worried" class="popup" style="display: none;">
             <div class="popup-content">
                 <p>Is this correct?</p>
-                <button onclick="yesFeelWorried()">Yes, I feel worried</button>
-                <button onclick="noFeelWorried()">No, I do not feel worried</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelWorried()">Yes, I feel worried</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelWorried()">No, I do not feel worried</button>
                 <br>
-                <a href="#" onclick="hidePopupWorried()" class="ps-2">Close</a>
+                <a href="#" onclick="hidePopupWorried()">Close</a>
             </div>
         </div>
 
@@ -103,13 +103,66 @@
                 <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
                 <div class="card-body">
                     <h4 class="card-title">Lonely</h4>
-                    <button class="btn btn-primary btn-lg" onclick="selectMood('lonely')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('lonely')">Select</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Section for Mood Diary (No Wave)-->
+<div class="container-fluid pt-5">
+    <div class="container">
+        <div class="row justify-content-center pt-1">
+            <div class="col-lg-10">
+                <h1 class="text-center titles colour-2">View Your Mood Diary</h1>
+                <div class="pt-4">
+                    <p class="colour-light">Mood diary blurb / images go here...</p>
+                </div>
+                <!-- button -->
+                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width">
+                    <a href="#">Diary</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section for Achievements (Wave Top & Wave Bottom) -->
+<div class="container-fluid wave-top-bottom gradient-colour-1 pt-5 pb-2">
+    <div class="container pb-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-lg-10 py-4">
+                <h1 class="text-center p-4 titles colour-2">View Your Achievements</h1>
+                <div class="pt-2">
+                    <p class="colour-light">Achievements blurb / badge images go here...</p>
+                </div>
+                <!-- button -->
+                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width">
+                    <a href="#">Badges</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section for Grown Up Support (No Wave) -->
+<div class="container-fluid pb-5">
+    <div class="container">
+        <div class="row justify-content-center pt-1">
+            <div class="col-lg-10">
+                <h1 class="text-center titles colour-2">View Your Messages</h1>
+                <div class="pt-4">
+                    <div class="bubble">
+                        <p>Message from your grown-up...</p>
+                        <p> This is where dynamic text will go... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed libero ornare, accumsan arcu et, sodales nisi. Ut placerat ligula ut rutrum dignissim. Duis fermentum mi quis justo ullamcorper cursus. Quisque fermentum at turpis quis fermentum. Duis quam lectus, malesuada ut tellus ut, efficitur commodo dui. Proin vitae facilisis nibh, sit amet mattis eros. Sed urna urna, maximus eget imperdiet eu, malesuada vel tellus. In luctus semper augue nec porttitor.</p>
+                    </div>
+                    <div class="pointer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--    javascript function for popups-->
 <script>
 
