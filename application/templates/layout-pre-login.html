@@ -18,15 +18,10 @@
 <body class="{{ body_class | default('purple-body') }}">
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
-      <div class="d-flex">
-          <a class="nav-link p-0" href="#"><i class="fa-solid fa-chevron-left  me-1"></i>Back</a> <!-- Placeholder - code needs adjusting to go back to previous page -->
-      </div>
       <div class="navbar-nav mx-auto">
-          <a class="nav-link {% if page == 'child_dashboard' %}active{% endif %}" aria-current="page" href="{{ url_for('child_dashboard', family_id=family_id) }}">Home</a>
-          <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/logout">Logout</a>
-      </div>
-      <div class="d-flex">
-          <a class="nav-link p-0" href="#"><i class="fa-solid fa-chevron-right  me-1"></i>Next</a> <!-- Placeholder - code needs adjusting to go forward to next page -->
+          <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/login">Login</a>
+          <a class="nav-link p-0 {% if page == 'register' %}active{% endif %}" aria-current="page" href="/register">Register</a>
+          <a class="nav-link {% if page == 'home' %}active{% endif %}" aria-current="page" href="/">Home</a>
       </div>
   </div>
 </nav>

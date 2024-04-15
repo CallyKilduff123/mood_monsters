@@ -63,6 +63,12 @@ def login_route():
     return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
 
 
+@app.route('/logout')
+def logout():
+    session.clear() # Clear the session, removing stored user information
+    return redirect(url_for('home'))  # Redirect to home page
+
+
 # dashboards
 @app.route('/child_dashboard/<int:family_id>')
 def child_dashboard(family_id):
