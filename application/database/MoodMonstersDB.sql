@@ -62,6 +62,19 @@ CREATE TABLE mood (
 SELECT * FROM mood;
 
 
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    child_id INT,
+    mood_id INT,
+    date_logged TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (child_id) REFERENCES child(child_id),
+    FOREIGN KEY (mood_id) REFERENCES mood(mood_id)
+);
+
+SELECT * FROM notifications;
+
+
 CREATE TABLE mood_logged (
 mood_logged_id INT AUTO_INCREMENT PRIMARY KEY,
 mood_id INT NOT NULL,
