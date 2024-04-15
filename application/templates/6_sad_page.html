@@ -125,12 +125,11 @@
                 <a href="#">Back to my mood monsters</a>
             </div>
             <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
-                <a href="#">I want to see my mood diary</a>
+                <a href="{{ url_for('mood_diary', family_id=family_id) }}">I want to see my mood diary</a>
             </div>
             <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
                 <a href="#">I want to see my badges</a>
             </div>
-
         </div>
     </div>
 </div>

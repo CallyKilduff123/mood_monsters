@@ -1,19 +1,35 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<div class="container">
-    <h2>Mood Diary</h2>
-    {% if moods %}
-        <ul>
-        {% for mood in moods %}
-            <li>
-                <img src="{{ url_for('static', filename=mood['mood_image_url']) }}" alt="{{ mood['mood_name'] }} Monster">
-                <p>Mood: {{ mood['mood_name'] }}</p>
-                <p>Date Logged: {{ mood['date_logged'].strftime('%Y-%m-%d %H:%M:%S') }}</p>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No moods logged yet.</p>
-    {% endif %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center py-1">
+            <h1 class="text-center titles colour-2 pb-4">Mood Diary</h1>
+        </div>
+        <div class="row">
+            <!-- Dynamic Card Creation based on moods from the database -->
+            {% if moods %}
+                {% for mood in moods %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 text-center">
+                            <!-- Image dynamically loaded from database -->
+                            <img class="card-img-top img-fluid" src="{{ url_for('static', filename=mood['mood_image_url']) }}" alt="{{ mood['mood_name'] }} Monster">
+                            <div class="card-body">
+                                <!-- Mood name dynamically loaded from database -->
+                                <h4 class="card-title colour-1">{{ mood['mood_name'] }}</h4>
+                                <p class="diary-date">Date Logged: <br>{{ mood['date_logged'].strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <p class="colour-light">No moods logged yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
+
+
+

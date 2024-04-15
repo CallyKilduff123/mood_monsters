@@ -69,10 +69,13 @@ h1 {
 .colour-6 {
     color: var(--colour-6);
 }
-
 /* light for text */
 .colour-light {
     color: var(--light);
+}
+/* dark for text */
+.colour-dark {
+    color: var(--dark);
 }
 
 /* ------ GRADIENT BACKGROUNDS ------ */
@@ -166,6 +169,10 @@ p, a, .entry {
     font-style: normal;
     font-size: 1.5rem;
     color: var(--light);
+}
+
+.diary-date {
+    font-size: 1.2rem;
 }
 
 /* ------ BUTTONS ------ */
