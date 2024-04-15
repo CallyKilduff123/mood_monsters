@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
-                                     log_mood_to_db, get_logged_moods)
+                                     log_mood_to_db, get_logged_moods,send_message, get_messages_for_child, get_db_connection, get_notifications_for_grown_up)
 from datetime import datetime, timedelta
-from application import app
 
-from mood_monsters.application.data_access import send_message, get_messages_for_child, get_db_connection, \
-    get_notifications_for_grown_up
+from application import app
 
 
 @app.route('/')

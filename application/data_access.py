@@ -151,7 +151,7 @@ def log_mood_to_db(child_id, mood_name):
                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
                                (mood_id['mood_id'], child_id))
                 # Create a notification for the grown-up
-                grown_up_id = get_grownup_id_by_family_id(get_family_id_by_child_id(child_id))
+                grown_up_id = get_grownup_info_by_family_id(get_child_info_by_family_id(child_id))
                 cursor.execute(
                     "INSERT INTO notifications (grown_up_id, child_id, mood_id, date_logged) VALUES (%s, %s, %s, NOW())",
                     (grown_up_id, child_id, mood_id['mood_id']))
