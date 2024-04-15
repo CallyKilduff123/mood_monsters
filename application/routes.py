@@ -117,12 +117,13 @@ def grownup_dashboard(family_id):
 def sad_page(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         child_id = session.get('child_id')
+        first_name = session.get('first_name')
         if not child_id:
             return redirect(url_for('login_route'))
 
         # Log the mood when navigating to the sad page
         log_mood_to_db(child_id, 'Sad')  # Log the mood without checking the success
-        return render_template('6_sad_page.html', family_id=family_id)
+        return render_template('6_sad_page.html', first_name=first_name, family_id=family_id)
     else:
         return redirect(url_for('login_route'))
 
