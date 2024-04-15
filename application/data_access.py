@@ -150,11 +150,6 @@ def log_mood_to_db(child_id, mood_name):
                 # Insert the mood log with the retrieved mood_id
                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
                                (mood_id['mood_id'], child_id))
-                # Create a notification for the grown-up
-                grown_up_id = get_grownup_info_by_family_id(get_child_info_by_family_id(child_id))
-                cursor.execute(
-                    "INSERT INTO notifications (grown_up_id, child_id, mood_id, date_logged) VALUES (%s, %s, %s, NOW())",
-                    (grown_up_id, child_id, mood_id['mood_id']))
                 conn.commit()
                 return True
         return False
@@ -164,28 +159,6 @@ def log_mood_to_db(child_id, mood_name):
         return False
     finally:
         conn.close()
-
-
-# def log_mood_to_db(child_id, mood_name):
-#     conn = get_db_connection()
-#     try:
-#         with conn.cursor(dictionary=True) as cursor:
-#             # Find the mood_id from the mood table using a safe, parameterized query
-#             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
-#             mood_id = cursor.fetchone()
-#             if mood_id:
-#                 # Insert the mood log with the retrieved mood_id
-#                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
-#                                (mood_id['mood_id'], child_id))
-#                 conn.commit()
-#                 return True
-#         return False
-#     except Exception as e:
-#         print(f"Error logging mood: {e}")
-#         conn.rollback()
-#         return False
-#     finally:
-#         conn.close()
 
 
 def get_logged_moods(child_id):
@@ -208,24 +181,37 @@ def get_logged_moods(child_id):
         conn.close()
 
 
-def send_message(conn, child_id, grown_up_id, message):
-    """
-    Function to send a message from a grown-up to a child.
-    """
+def send_message(grown_up_id, child_id, message):
+    conn = get_db_connection()
     try:
         with conn.cursor() as cursor:
-            # Insert the message into the database
-            sql = "INSERT INTO message (child_id, grown_up_id, message, date_sent) VALUES (%s, %s, %s, %s)"
-            date_sent = datetime.now()
-            cursor.execute(sql, (child_id, grown_up_id, message, date_sent))
-        # Commit the transaction
-        conn.commit()
-        return True
+            # Verify if both grown-up and child belong to the same family before sending a message
+            verify_sql = """
+                SELECT 1 FROM grown_up
+                JOIN child ON grown_up.family_id = child.family_id
+                WHERE grown_up.grown_up_id = %s AND child.child_id = %s
+            """
+            cursor.execute(verify_sql, (grown_up_id, child_id))
+            if cursor.fetchone() is None:
+                print("Error: Grown-up and child do not belong to the same family.")
+                return False
+
+            # Proceed with inserting the message if verification is successful
+            sql = """
+                INSERT INTO message (child_id, grown_up_id, message, date_sent)
+                VALUES (%s, %s, %s, NOW())
+            """
+            cursor.execute(sql, (child_id, grown_up_id, message))
+            conn.commit()
+            return True
+
     except Exception as e:
-        print("Error:", e)
-        # Rollback in case of error
+        print("Error during sending message:", e)
         conn.rollback()
         return False
+
+    finally:
+        conn.close()
 
 
 def get_messages_for_child(child_id, limit=5):

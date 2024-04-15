@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
-                                     log_mood_to_db, get_logged_moods,send_message, get_messages_for_child, get_db_connection, get_notifications_for_grown_up)
+                                     log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
+                                     get_db_connection, get_notifications_for_grown_up)
 from datetime import datetime, timedelta
 
 from application import app
@@ -202,28 +203,20 @@ def mood_diary(family_id):
 
 @app.route('/send_message', methods=['POST'])
 def send_message_route():
-    try:
-        grown_up_id = request.form['grown_up_id']
-        message = request.form['message']
-        child_id = session.get('child_id')
+    if 'family_id' not in session:
+        # Redirect to login if there's no family_id in session indicating user is not logged in
+        flash('You must be logged in to send messages.', 'error')
+        return redirect(url_for('login_route'))
 
-        # Establish the database connection
-        conn = get_db_connection()
+    grown_up_id = request.form.get('grown_up_id')
+    message = request.form.get('message')
+    child_id = session.get('child_id')
 
-        # Call the function to send the message with all required arguments
-        send_message(conn, child_id, grown_up_id, message)
-
-        # Close the database connection after use
-        conn.close()
-
-        # Flash a success message
+    # Ensure that grown_up_id is also stored in session upon login or fetched from the database
+    if send_message(grown_up_id, child_id, message):
         flash('Message sent successfully!', 'success')
+    else:
+        flash('Failed to send message. Please try again.', 'error')
 
-        # Redirect to the grown-up dashboard
-        return redirect(url_for('grownup_dashboard', family_id=session['family_id']))
-    except KeyError as e:
-        print("KeyError:", e)  # Debugging output
-        # Flash an error message
-        flash('Error sending message!', 'error')
-        # Redirect to the grown-up dashboard
-        return redirect(url_for('grownup_dashboard', family_id=session['family_id']))
+    # Assuming you have a function to redirect to the correct dashboard based on the role
+    return redirect(url_for('grownup_dashboard', family_id=session['family_id']))
