@@ -153,6 +153,7 @@
     </div>
 </div>
 
+
 <!-- Section for Grown Up Support (No Wave) -->
 <div class="container-fluid pb-5">
     <div class="container">
@@ -160,9 +161,16 @@
             <div class="col-lg-10">
                 <h1 class="text-center titles colour-2">View Your Messages</h1>
                 <div class="pt-4">
+                    <!-- Display child welcome message and parent messages -->
                     <div class="bubble">
-                        <p>Message from your grown-up...</p>
-                        <p> This is where dynamic text will go... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed libero ornare, accumsan arcu et, sodales nisi. Ut placerat ligula ut rutrum dignissim. Duis fermentum mi quis justo ullamcorper cursus. Quisque fermentum at turpis quis fermentum. Duis quam lectus, malesuada ut tellus ut, efficitur commodo dui. Proin vitae facilisis nibh, sit amet mattis eros. Sed urna urna, maximus eget imperdiet eu, malesuada vel tellus. In luctus semper augue nec porttitor.</p>
+                        <h2>{{ child_info['first_name'] }}, your {{ grown_up_info['relationship_to_child'] }}'s Recent messages to you!</h2>
+                        <!-- Display messages from parent -->
+                        <h2>Messages from {{ grown_up_info['first_name'] }}:</h2>
+                        <ul>
+                            {% for message in messages %}
+                                <div>{{ message.date_sent }}: {{ message.message }} </div>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="pointer"></div>
                 </div>
@@ -170,7 +178,6 @@
         </div>
     </div>
 </div>
-
 
 
 

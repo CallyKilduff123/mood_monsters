@@ -70,3 +70,5 @@ VALUES
 
 SELECT * FROM activity;
 
+INSERT INTO message (child_id, grown_up_id, message)
+VALUES ();
