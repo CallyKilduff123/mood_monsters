@@ -180,3 +180,8 @@ def mood_diary(family_id):
         return render_template('10_mood_diary.html', moods=moods, family_id=family_id)
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/printable-journal/<int:family_id>')
+def printable_journal(family_id):
+    return render_template('9_printable_journal_page.html', family_id=family_id)

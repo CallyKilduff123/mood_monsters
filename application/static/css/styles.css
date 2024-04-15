@@ -170,6 +170,12 @@ p, a, .entry {
 
 /* ------ BUTTONS ------ */
 
+.center-button {
+    display: flex;
+    justify-content: center; /* Aligns horizontally */
+    width: 100%; /* Takes full width of the parent */
+}
+
 .fixed-width {
     width: 180px;
     display: inline-flex;
@@ -186,7 +192,8 @@ p, a, .entry {
 
 .btn-primary {
     background-color: var(--colour-6) !important;
-    border-color: var(--colour-4) !important;
+    border-color: var(--dark) !important;
+    border-style: solid;
 }
 
 .btn-primary a {
@@ -278,12 +285,6 @@ label {
     background-color: var(--light);
     max-width: 100%;
     margin: 20px auto;
-}
-
-.journal-entry *,
-.journal-entry *:focus {
-    border: none;
-    outline: none;
 }
 
 .entry {
