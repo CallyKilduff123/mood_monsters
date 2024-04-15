@@ -3,7 +3,17 @@
 <div class="container">
     <h2>Mood Diary</h2>
     {% if moods %}
-        <ul>
+      <div>
+            <!-- Display messages -->
+            <h2>Messages:</h2>
+            <ul>
+                {% for message in messages %}
+                    <li>
+                        <strong>From: {{ message['grown_up_name'] }}</strong> - {{ message['message'] }} - {{ message['date_sent'] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% for mood in moods %}
             <li>
                 <img src="{{ url_for('static', filename=mood['mood_image_url']) }}" alt="{{ mood['mood_name'] }} Monster">

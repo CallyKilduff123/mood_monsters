@@ -5,6 +5,9 @@ from application.data_access import (child_login, grownup_login, add_family,
 from datetime import datetime, timedelta
 from application import app
 
+from mood_monsters.application.data_access import send_message, get_messages_for_child, get_db_connection, \
+    get_notifications_for_grown_up
+
 
 @app.route('/')
 @app.route('/home')
@@ -63,28 +66,41 @@ def login_route():
     return render_template('2_login.html', title='Login', show_error_grownup=False, show_error_child=False)
 
 
-# dashboards
 @app.route('/child_dashboard/<int:family_id>')
 def child_dashboard(family_id):
     # Verify the family_id stored in session to prevent unauthorized access
     if 'family_id' in session and session['family_id'] == family_id:
         # Fetch child and related family information using family_id
         child_info = get_child_info_by_family_id(family_id)
-        first_name = session.get('first_name')  # Default to 'Unknown' if not set
-        return render_template('5_child_dashboard.html', child_info=child_info, first_name=first_name, family_id=family_id)
+        grown_up_info = get_grownup_info_by_family_id(family_id)  # Fetch grown-up info
+        # Assuming first_name is stored in the session, default to 'Unknown' if not set
+        first_name = session.get('first_name', 'Unknown')
+        relationship_to_child = session.get('relationship_to_child', 'Unknown')
+        # Retrieve messages for the child
+        messages = get_messages_for_child(child_info['child_id'])
+        return render_template('5_child_dashboard.html', child_info=child_info, first_name=first_name,
+                               grown_up_info=grown_up_info, messages=messages, family_id=family_id)
     else:
         return redirect(url_for('login'))  # Redirect to login page if unauthorized
 
 
+# Modify the grownup_dashboard route to include notifications
 @app.route('/grownup_dashboard/<int:family_id>')
 def grownup_dashboard(family_id):
     # Optional: Verify that the user logged in has access to this family_id
     if 'family_id' in session and session['family_id'] == family_id:
         grownup_info = get_grownup_info_by_family_id(family_id)
-        first_name = session.get('first_name')  # Assuming first_name is stored in the session
-        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name, family_id=family_id)
+        # Fetch child information to pass to the template
+        child_info = get_child_info_by_family_id(family_id)
+        # Get notifications for the grown-up
+        notifications = get_notifications_for_grown_up(grownup_info['grown_up_id'])
+        # Assuming first_name is stored in the session, default to 'Unknown' if not set
+        first_name = session.get('first_name', 'Unknown')
+        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name,
+                               family_id=family_id, child_info=child_info, notifications=notifications)
     else:
         return redirect(url_for('login'))
+
 
 # activity pages:
 # @app.route('/sad_page/<int:family_id>')
@@ -134,6 +150,7 @@ def angry_page(family_id):
     else:
         return redirect(url_for('login_route'))
 
+
 # @app.route('/angry_page/<int:family_id>')
 # def angry_page(family_id):
 #     if 'family_id' in session and session['family_id'] == family_id:
@@ -155,6 +172,7 @@ def worried_page(family_id):
     else:
         return redirect(url_for('login_route'))
 
+
 # @app.route('/worried_page/<int:family_id>')
 # def worried_page(family_id):
 #     if 'family_id' in session and session['family_id'] == family_id:
@@ -174,3 +192,32 @@ def mood_diary(family_id):
         return render_template('10_mood_diary.html', moods=moods, family_id=family_id)
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/send_message', methods=['POST'])
+def send_message_route():
+    try:
+        grown_up_id = request.form['grown_up_id']
+        message = request.form['message']
+        child_id = session.get('child_id')
+
+        # Establish the database connection
+        conn = get_db_connection()
+
+        # Call the function to send the message with all required arguments
+        send_message(conn, child_id, grown_up_id, message)
+
+        # Close the database connection after use
+        conn.close()
+
+        # Flash a success message
+        flash('Message sent successfully!', 'success')
+
+        # Redirect to the grown-up dashboard
+        return redirect(url_for('grownup_dashboard', family_id=session['family_id']))
+    except KeyError as e:
+        print("KeyError:", e)  # Debugging output
+        # Flash an error message
+        flash('Error sending message!', 'error')
+        # Redirect to the grown-up dashboard
+        return redirect(url_for('grownup_dashboard', family_id=session['family_id']))

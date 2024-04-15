@@ -148,7 +148,13 @@ def log_mood_to_db(child_id, mood_name):
             mood_id = cursor.fetchone()
             if mood_id:
                 # Insert the mood log with the retrieved mood_id
-                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())", (mood_id['mood_id'], child_id))
+                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+                               (mood_id['mood_id'], child_id))
+                # Create a notification for the grown-up
+                grown_up_id = get_grownup_id_by_family_id(get_family_id_by_child_id(child_id))
+                cursor.execute(
+                    "INSERT INTO notifications (grown_up_id, child_id, mood_id, date_logged) VALUES (%s, %s, %s, NOW())",
+                    (grown_up_id, child_id, mood_id['mood_id']))
                 conn.commit()
                 return True
         return False
@@ -158,6 +164,28 @@ def log_mood_to_db(child_id, mood_name):
         return False
     finally:
         conn.close()
+
+
+# def log_mood_to_db(child_id, mood_name):
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor(dictionary=True) as cursor:
+#             # Find the mood_id from the mood table using a safe, parameterized query
+#             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
+#             mood_id = cursor.fetchone()
+#             if mood_id:
+#                 # Insert the mood log with the retrieved mood_id
+#                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+#                                (mood_id['mood_id'], child_id))
+#                 conn.commit()
+#                 return True
+#         return False
+#     except Exception as e:
+#         print(f"Error logging mood: {e}")
+#         conn.rollback()
+#         return False
+#     finally:
+#         conn.close()
 
 
 def get_logged_moods(child_id):
@@ -180,6 +208,73 @@ def get_logged_moods(child_id):
         conn.close()
 
 
+def send_message(conn, child_id, grown_up_id, message):
+    """
+    Function to send a message from a grown-up to a child.
+    """
+    try:
+        with conn.cursor() as cursor:
+            # Insert the message into the database
+            sql = "INSERT INTO message (child_id, grown_up_id, message, date_sent) VALUES (%s, %s, %s, %s)"
+            date_sent = datetime.now()
+            cursor.execute(sql, (child_id, grown_up_id, message, date_sent))
+        # Commit the transaction
+        conn.commit()
+        return True
+    except Exception as e:
+        print("Error:", e)
+        # Rollback in case of error
+        conn.rollback()
+        return False
+
+
+def get_messages_for_child(child_id, limit=5):
+    """
+    Function to retrieve the latest messages for a specific child.
+    """
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Query the database for the latest messages related to the child
+        sql = """
+            SELECT message.message, message.date_sent, grown_up.first_name AS from_name
+            FROM message
+            JOIN grown_up ON message.grown_up_id = grown_up.grown_up_id
+            WHERE message.child_id = %s
+            ORDER BY message.date_sent DESC
+            LIMIT %s
+        """
+        cursor.execute(sql, (child_id, limit))
+
+        messages = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return messages
+    except Exception as e:
+        print("Error:", e)
+        return []
+
+
+# Function to retrieve notifications for the grown-up
+def get_notifications_for_grown_up(grown_up_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("""
+            SELECT * FROM notifications
+            WHERE grown_up_id = %s
+            ORDER BY date_logged DESC
+        """, (grown_up_id,))
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"Error fetching notifications: {e}")
+        return []
+    finally:
+        cursor.close()
+        conn.close()
 
 # # LETICIA - ADDING IMAGES TO FRONT END - Function to fetch mood data from the database
 # def get_mood_data():
@@ -195,14 +290,3 @@ def get_logged_moods(child_id):
 
 
 # Cally - testing out logging the mood to the mood diary
-
-
-
-
-
-
-
-
-
-
-
