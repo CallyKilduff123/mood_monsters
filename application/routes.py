@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
-                                     log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
-                                     get_db_connection, get_notifications_for_grown_up)
+                                     log_mood_to_db, get_logged_moods, send_message, get_messages_for_child)
 from datetime import datetime, timedelta
-
 from application import app
 
 
@@ -67,7 +65,7 @@ def login_route():
 
 @app.route('/logout')
 def logout():
-    session.clear()  # Clear the session, removing stored user information
+    session.clear() # Clear the session, removing stored user information
     return redirect(url_for('home'))  # Redirect to home page
 
 
@@ -78,35 +76,25 @@ def child_dashboard(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         # Fetch child and related family information using family_id
         child_info = get_child_info_by_family_id(family_id)
-        grown_up_info = get_grownup_info_by_family_id(family_id)  # Fetch grown-up info
-        # Assuming first_name is stored in the session, default to 'Unknown' if not set
-        first_name = session.get('first_name', 'Unknown')
-        relationship_to_child = session.get('relationship_to_child', 'Unknown')
-        # Retrieve messages for the child
+        first_name = session.get('first_name')  # Default to 'Unknown' if not set
+        grown_up_info = get_grownup_info_by_family_id(family_id)
         messages = get_messages_for_child(child_info['child_id'])
-        return render_template('5_child_dashboard.html', child_info=child_info, first_name=first_name,
-                               grown_up_info=grown_up_info, messages=messages, family_id=family_id)
+        return render_template('5_child_dashboard.html', child_info=child_info,
+                               first_name=first_name, grown_up_info=grown_up_info, messages=messages, family_id=family_id)
     else:
         return redirect(url_for('login'))  # Redirect to login page if unauthorized
 
 
-# Modify the grownup_dashboard route to include notifications
 @app.route('/grownup_dashboard/<int:family_id>')
 def grownup_dashboard(family_id):
     # Optional: Verify that the user logged in has access to this family_id
     if 'family_id' in session and session['family_id'] == family_id:
         grownup_info = get_grownup_info_by_family_id(family_id)
-        # Fetch child information to pass to the template
+        first_name = session.get('first_name')  # Assuming first_name is stored in the session
         child_info = get_child_info_by_family_id(family_id)
-        # Get notifications for the grown-up
-        notifications = get_notifications_for_grown_up(grownup_info['grown_up_id'])
-        # Assuming first_name is stored in the session, default to 'Unknown' if not set
-        first_name = session.get('first_name', 'Unknown')
-        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name,
-                               family_id=family_id, child_info=child_info, notifications=notifications)
+        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name, child_info=child_info, family_id=family_id)
     else:
         return redirect(url_for('login'))
-
 
 # activity pages:
 # @app.route('/sad_page/<int:family_id>')
@@ -157,7 +145,6 @@ def angry_page(family_id):
     else:
         return redirect(url_for('login_route'))
 
-
 # @app.route('/angry_page/<int:family_id>')
 # def angry_page(family_id):
 #     if 'family_id' in session and session['family_id'] == family_id:
@@ -178,7 +165,6 @@ def worried_page(family_id):
         return render_template('8_worried_page.html', family_id=family_id)
     else:
         return redirect(url_for('login_route'))
-
 
 # @app.route('/worried_page/<int:family_id>')
 # def worried_page(family_id):
@@ -204,19 +190,17 @@ def mood_diary(family_id):
 @app.route('/send_message', methods=['POST'])
 def send_message_route():
     if 'family_id' not in session:
-        # Redirect to login if there's no family_id in session indicating user is not logged in
-        flash('You must be logged in to send messages.', 'error')
-        return redirect(url_for('login_route'))
+        return redirect(url_for('login'))
 
-    grown_up_id = request.form.get('grown_up_id')
-    message = request.form.get('message')
-    child_id = session.get('child_id')
+    child_id = request.form['child_id']
+    grown_up_id = request.form['grown_up_id']
+    message = request.form['message']
 
-    # Ensure that grown_up_id is also stored in session upon login or fetched from the database
-    if send_message(grown_up_id, child_id, message):
-        flash('Message sent successfully!', 'success')
+    # Assuming send_message is imported correctly and working
+    if send_message(child_id, grown_up_id, message):
+        # Assume a flash method or similar feedback mechanism
+        flash("Message sent successfully!", "success")
     else:
-        flash('Failed to send message. Please try again.', 'error')
+        flash("Failed to send message. Please try again.", "error")
 
-    # Assuming you have a function to redirect to the correct dashboard based on the role
     return redirect(url_for('grownup_dashboard', family_id=session['family_id']))

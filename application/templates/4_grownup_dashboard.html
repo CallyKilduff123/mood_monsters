@@ -8,35 +8,18 @@
     </div>
 
     <div>
-        <!-- button to see child's dashboard -->
-        <!-- HTML button with a link -->
+         button to see child's dashboard
+         HTML button with a link
         <a href="{{ url_for('child_dashboard', family_id=family_id) }}" class="btn btn-secondary">Child's Dashboard</a>
-        <!-- Display notifications -->
-        <div class="notifications">
-            <h2>Notifications:</h2>
-            <ul>
-                {% for notification in notifications %}
-                    <li>{{ notification.date_logged.strftime('%Y-%m-%d %H:%M:%S') }} - Mood logged by {{ child_info['first_name'] }}</li>
-                {% endfor %}
-            </ul>
-        </div>
 
-        <!-- Display form to send message -->
+<!--         Display form to send message -->
         <form action="{{ url_for('send_message_route') }}" method="post">
-            <input type="hidden" name="child_id" value="{{ child_info['child_id'] }}">
-            <input type="hidden" name="grown_up_id" value="{{ grown_up_info['grown_up_id'] }}">
-            <textarea name="message" placeholder="Type your message here"></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+    <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
+    <input type="hidden" name="grown_up_id" value="{{ grown_up_info.grown_up_id }}">
+    <textarea name="message" placeholder="Enter your message here..." required></textarea>
+    <button type="submit">Send Message</button>
+</form>
+
     </div>
 {% endblock %}
 

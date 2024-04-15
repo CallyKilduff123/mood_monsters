@@ -161,16 +161,19 @@
             <div class="col-lg-10">
                 <h1 class="text-center titles colour-2">View Your Messages</h1>
                 <div class="pt-4">
-                    <!-- Display child welcome message and parent messages -->
                     <div class="bubble">
-                        <h2>{{ child_info['first_name'] }}, your {{ grown_up_info['relationship_to_child'] }}'s Recent messages to you!</h2>
-                        <!-- Display messages from parent -->
-                        <h2>Messages from {{ grown_up_info['first_name'] }}:</h2>
-                        <ul>
-                            {% for message in messages %}
-                                <div>{{ message.date_sent }}: {{ message.message }} </div>
-                            {% endfor %}
-                        </ul>
+                        <p>Message from your grown-up...</p>
+
+    {% for message in messages %}
+    <div class="messages-section">
+        <p><strong>From:</strong> {{ message.from_name }}</p>
+        <p><strong>Date:</strong> {{ message.date_sent.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p><strong>Message:</strong> {{ message.message }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+
                     </div>
                     <div class="pointer"></div>
                 </div>

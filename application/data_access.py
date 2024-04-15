@@ -88,6 +88,7 @@ def get_grownup_info_by_family_id(family_id):
     try:
         cursor.execute("SELECT * FROM grown_up WHERE family_id = %s", (family_id,))
         result = cursor.fetchone()
+        cursor.fetchall()
         return result
     finally:
         cursor.close()
@@ -148,8 +149,7 @@ def log_mood_to_db(child_id, mood_name):
             mood_id = cursor.fetchone()
             if mood_id:
                 # Insert the mood log with the retrieved mood_id
-                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
-                               (mood_id['mood_id'], child_id))
+                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())", (mood_id['mood_id'], child_id))
                 conn.commit()
                 return True
         return False
@@ -214,65 +214,20 @@ def send_message(grown_up_id, child_id, message):
         conn.close()
 
 
-def get_messages_for_child(child_id, limit=5):
-    """
-    Function to retrieve the latest messages for a specific child.
-    """
+def get_messages_for_child(child_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
     try:
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-
-        # Query the database for the latest messages related to the child
         sql = """
             SELECT message.message, message.date_sent, grown_up.first_name AS from_name
             FROM message
             JOIN grown_up ON message.grown_up_id = grown_up.grown_up_id
             WHERE message.child_id = %s
             ORDER BY message.date_sent DESC
-            LIMIT %s
         """
-        cursor.execute(sql, (child_id, limit))
-
+        cursor.execute(sql, (child_id,))
         messages = cursor.fetchall()
-
-        cursor.close()
-        conn.close()
-
         return messages
-    except Exception as e:
-        print("Error:", e)
-        return []
-
-
-# Function to retrieve notifications for the grown-up
-def get_notifications_for_grown_up(grown_up_id):
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    try:
-        cursor.execute("""
-            SELECT * FROM notifications
-            WHERE grown_up_id = %s
-            ORDER BY date_logged DESC
-        """, (grown_up_id,))
-        return cursor.fetchall()
-    except Exception as e:
-        print(f"Error fetching notifications: {e}")
-        return []
     finally:
         cursor.close()
         conn.close()
-
-# # LETICIA - ADDING IMAGES TO FRONT END - Function to fetch mood data from the database
-# def get_mood_data():
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     try:
-#         cursor.execute("SELECT mood_image FROM mood")
-#         mood_data = cursor.fetchall()
-#         return mood_data
-#     finally:
-#         cursor.close()
-#         conn.close()
-
-
-# Cally - testing out logging the mood to the mood diary
