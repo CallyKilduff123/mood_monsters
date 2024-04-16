@@ -14,7 +14,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Happy</h4>
+                    <h4 class="card-title titles colour-6">Happy</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('happy')">Select</button>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Sad</h4>
+                    <h4 class="card-title titles colour-4">Sad</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupSad()">Select</button> <!-- Call showPopupSad() here -->
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Angry</h4>
+                    <h4 class="card-title titles colour-red">Angry</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupAngry()">Select</button>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Ashamed</h4>
+                    <h4 class="card-title titles colour-1">Ashamed</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('Ashamed')">Select</button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Worried</h4>
+                    <h4 class="card-title titles colour-3">Worried</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupWorried()">Select</button>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
                 <div class="card-body">
-                    <h4 class="card-title">Lonely</h4>
+                    <h4 class="card-title titles colour-4">Lonely</h4>
                     <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('lonely')">Select</button>
                 </div>
             </div>
@@ -119,10 +119,6 @@
                 <div class="pt-4">
                     <p class="colour-light">Mood diary blurb / images go here...</p>
                 </div>
-                <!-- button -->
-<!--                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width">-->
-<!--                    <a href="#">Diary</a>-->
-<!--                </div>-->
                 <div class="center-button">
                 <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width-wide">
                     <a href="{{ url_for('mood_diary', family_id=session['family_id']) }}" class="text-decoration-none text-white">View Mood Diary</a>
@@ -153,7 +149,6 @@
     </div>
 </div>
 
-
 <!-- Section for Grown Up Support (No Wave) -->
 <div class="container-fluid pb-5">
     <div class="container">
@@ -163,26 +158,19 @@
                 <div class="pt-4">
                     <div class="bubble">
                         <p>Message from your grown-up...</p>
-
-    {% for message in messages %}
-    <div class="messages-section">
-        <p><strong>From:</strong> {{ message.from_name }}</p>
-        <p><strong>Date:</strong> {{ message.date_sent.strftime('%Y-%m-%d %H:%M') }}</p>
-        <p><strong>Message:</strong> {{ message.message }}</p>
-    </div>
-    {% endfor %}
-
-</div>
-
+                        {% for message in messages %}
+                        <div class="messages-section">
+                            <p><strong>From:</strong> {{ message.from_name }}</p>
+                            <p><strong>Date:</strong> {{ message.date_sent.strftime('%Y-%m-%d %H:%M') }}</p>
+                            <p><strong>Message:</strong> {{ message.message }}</p>
+                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="pointer"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 
 <!--    javascript function for popups-->
 <script>
@@ -201,7 +189,7 @@
 
     function yesFeelSad() {
     window.location.href = "/sad_page/{{ session['family_id'] }}";
-}
+    }
 
 
 

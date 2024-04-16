@@ -13,9 +13,9 @@
                         <div class="card h-100 text-center">
                             <!-- Image dynamically loaded from database -->
                             <img class="card-img-top img-fluid" src="{{ url_for('static', filename=mood['mood_image_url']) }}" alt="{{ mood['mood_name'] }} Monster">
-                            <div class="card-body">
+                            <div class="card-body mood-diary-info">
                                 <!-- Mood name dynamically loaded from database -->
-                                <h4 class="card-title colour-1">{{ mood['mood_name'] }}</h4>
+                                <h4 class="card-title titles colour-6">{{ mood['mood_name'] }}</h4>
                                 <p class="diary-date">Date Logged: <br>{{ mood['date_logged'].strftime('%Y-%m-%d %H:%M:%S') }}</p>
                             </div>
                         </div>
