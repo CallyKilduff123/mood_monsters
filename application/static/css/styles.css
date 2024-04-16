@@ -39,7 +39,7 @@ h1 {
 }
 
 .spacer {
-  height: 400px; /* add empty space below login form */
+  height: 580px; /* add empty space below login form */
 }
 
 .container, .container-fluid {
