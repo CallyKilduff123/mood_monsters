@@ -93,7 +93,13 @@ def grownup_dashboard(family_id):
         grownup_info = get_grownup_info_by_family_id(family_id)
         first_name = session.get('first_name')  # Assuming first_name is stored in the session
         child_info = get_child_info_by_family_id(family_id)
-        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info, first_name=first_name, child_info=child_info, family_id=family_id)
+        if child_info:
+            logged_moods = get_logged_moods(child_info['child_id'])
+            last_mood = logged_moods[0] if logged_moods else None
+        else:
+            last_mood = None
+        return render_template('4_grownup_dashboard.html', grown_up_info=grownup_info,
+                               first_name=first_name, child_info=child_info, last_mood=last_mood, family_id=family_id)
     else:
         return redirect(url_for('login'))
 

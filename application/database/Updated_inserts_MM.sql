@@ -61,7 +61,7 @@ SELECT * FROM badge;
 -- UPDATED ACTIVITY TABLE  
 INSERT INTO activity(activity_name, activity_image_url, description, instructions)
 VALUES
-("Write in your journal", "images/journal_entry_activity.jpg", "Writing down the things that make us feel bad, can help us to thing of ways to overcome them and ask for help", "Write down the things that are making you feel the way you do in the form below. Or use the button to print off a page to write at home. When you have finished, show your entry to your grown-up so they can help you to feel better"),
+("Write in your journal", "images/journal_entry.jpeg", "Writing down the things that make us feel bad, can help us to thing of ways to overcome them and ask for help", "Write down the things that are making you feel the way you do in the form below. Or use the button to print off a page to write at home. When you have finished, show your entry to your grown-up so they can help you to feel better"),
 ("Dance Activity", "images/dance_activity.jpg", "Dancing releases happy hormones (called endorphins)", "Play your favourite song and dance! Ask your grown-up to dance too - that might make you laugh!"),
 ("Bubble Breathing Activity", "images/breathing_activity.jpg", "Special breathing exercises can calm down our minds and help make our mood better",  "Imagine you are creating a big bubble. Take a deep breath in, and then a long slow breath out to blow that giant bubble into the air"),
 ("54321 Sensory Activity", "images/54321_sensory_activity.jpg", "Sensory activities allow you to focus on things in front of you and calm your mood", "Name 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste"),
