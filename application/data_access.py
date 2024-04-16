@@ -149,7 +149,8 @@ def log_mood_to_db(child_id, mood_name):
             mood_id = cursor.fetchone()
             if mood_id:
                 # Insert the mood log with the retrieved mood_id
-                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())", (mood_id['mood_id'], child_id))
+                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+                               (mood_id['mood_id'], child_id))
                 conn.commit()
                 return True
         return False
@@ -228,6 +229,105 @@ def get_messages_for_child(child_id):
         cursor.execute(sql, (child_id,))
         messages = cursor.fetchall()
         return messages
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# TODO: LETICIA BADGE LOGIC
+# LOGGING THE MOOD AND ACTIVITY
+# FUNCTION - GETS ACTIVITY BY NAME
+# TODO: ASSESS IS THIS NECESSARY FUNCTION FOR BADGES (MIGHT WANT TO LEAVE IT FOR CALLY FOR TOMORROW)
+def get_activity_id_by_name(activity_name):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT activity_id FROM activity WHERE activity_name = %s", (activity_name,))
+        activity_id = cursor.fetchone()[0]
+        return activity_id
+    except Exception as e:
+        print(f"Error fetching activity ID: {e}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# CHECKS WHETHER THIS ACTIVITY HAS BEEN DONE BY THE MOOD BEFORE, IF IT HAS THEN IT WON'T ADD BUT IF YES THEN IT WILL ADD IT
+# TODO: CHECK IF THIS IS NECESSARY AND HOW DOES IT HELP WITH USER JOURNEY OR TABLES
+def is_first_activity_for_mood(child_id, activity_id, mood_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            SELECT COUNT(*) 
+            FROM track_activity ta
+            JOIN activity_and_mood am ON ta.activity_and_mood_id = am.activity_and_mood_id
+            WHERE ta.child_id = %s AND am.activity_id = %s AND am.mood_id = %s
+        """, (child_id, activity_id, mood_id))
+        count = cursor.fetchone()[0]
+        return count == 0
+    except Exception as e:
+        print(f"Error checking first activity for mood: {e}")
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def log_activity_and_mood(child_id, activity_id, mood_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO activity_and_mood (activity_id, mood_id) VALUES (%s, %s)", (activity_id, mood_id))
+        activity_and_mood_id = cursor.lastrowid
+        cursor.execute("INSERT INTO track_activity (child_id, activity_and_mood_id) VALUES (%s, %s)",
+                       (child_id, activity_and_mood_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error logging activity and mood: {e}")
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# TODO LETICIA: AWARD CHILD BADGE
+def award_badge(child_id, activity_id, mood_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT badge_id FROM badge WHERE criteria LIKE %s", (f"%{activity_id}% AND %{mood_id}%",))
+        badge_id = cursor.fetchone()[0]
+        cursor.execute(
+            "INSERT INTO badge_progress (child_id, badge_id, activity_id, date_completed) VALUES (%s, %s, %s, CURRENT_TIMESTAMP)",
+            (child_id, badge_id, activity_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error awarding badge: {e}")
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def get_earned_badges(child_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        cursor.execute("""
+             SELECT b.badge_name, b.badge_image_url, bp.date_completed
+             FROM badge_progress bp
+             JOIN badge b ON bp.badge_id = b.badge_id
+             WHERE bp.child_id = %s
+         """, (child_id,))
+        earned_badges = cursor.fetchall()
+        return earned_badges
+    except Exception as e:
+        print(f"Error fetching earned badges: {e}")
+        return []
     finally:
         cursor.close()
         conn.close()
