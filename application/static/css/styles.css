@@ -87,7 +87,12 @@ h1 {
 
 /* purple/blue gradient */
 .gradient-colour-2 {
-    background: linear-gradient(45deg, var(--colour-5), var(--colour-4));
+    background: linear-gradient(45deg, #563e77, var(--colour-4)); /* darkened default purple colour for contrast between sections */
+}
+
+/* pink/blue gradient */
+.gradient-colour-3 {
+    background: linear-gradient(45deg, var(--colour-1), var(--colour-6));
 }
 
 /* ------ WAVE DIVIDERS ------ */
@@ -201,6 +206,7 @@ p, a, .entry {
     background-color: var(--colour-6) !important;
     border-color: var(--dark) !important;
     border-style: solid;
+    font-size: 1.5rem;
 }
 
 .btn-primary a {
@@ -310,7 +316,7 @@ label {
     width: 100%;
     height: 70px;
     padding: 8px;
-    border: 1px solid var(--colour-6);
+    border: 3px solid var(--colour-6);
     resize: vertical;
 }
 

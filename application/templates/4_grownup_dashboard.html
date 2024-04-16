@@ -2,24 +2,34 @@
 
 {% block body_content %}
     <!-- Your HTML content here -->
+<div class="container-xxl pt-5">
+    <div class="row justify-content-center">
     <div class="col-lg-10 pb-5">
-        <h1 class="display-1 text-center"><span class="col-6">Grown-up</span> <span class="col-5">Monsters</span></h1>
-        <p class="mb-5 text-center">Hello, {{ first_name }}</p>
+        <h1 class="display-1 text-center"><span class="colour-3">Grown-up</span> <span class="colour-6">Monsters</span></h1>
+        <p class="mb-5 text-center colour-light">Hello, {{ first_name }}</p>
     </div>
 
     <div>
-         button to see child's dashboard
-         HTML button with a link
-        <a href="{{ url_for('child_dashboard', family_id=family_id) }}" class="btn btn-secondary">Child's Dashboard</a>
+        <div class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5 fixed-width-wide">
+            <a href="{{ url_for('child_dashboard', family_id=family_id) }}">Child's Dashboard</a>
+        </div>
+
 
 <!--         Display form to send message -->
         <form action="{{ url_for('send_message_route') }}" method="post">
-    <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
-    <input type="hidden" name="grown_up_id" value="{{ grown_up_info.grown_up_id }}">
-    <textarea name="message" placeholder="Enter your message here..." required></textarea>
-    <button type="submit">Send Message</button>
+            <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
+            <input type="hidden" name="grown_up_id" value="{{ grown_up_info.grown_up_id }}">
+            <div class="entry">
+                <textarea id="message" name="message" placeholder="Enter your message here..."></textarea>
+            </div>
+
+
+            <div>
+                <input type="submit" value="Send Message" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fixed-width-wide">
+            </div>
 </form>
 
     </div>
+    </div></div>
 {% endblock %}
 

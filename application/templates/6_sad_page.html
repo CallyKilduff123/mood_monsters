@@ -64,8 +64,10 @@
                             <label for="solution">To make me feel happy, I can:</label>
                             <textarea id="solution" name="solution" placeholder="Enter your solution"></textarea>
                         </div>
-                        <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fs-5 fixed-width">
+                        <div>
+                        <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
                         <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fs-5 fixed-width">Print</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -104,7 +106,7 @@
                 <div class="row justify-content-center">
                 <!-- Animal Fact Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/sad_cow.jpg" alt="Sad Cow">
                     </div>
                     <div>
                         <p class="text-center titles colour-2"><strong>Did you know?</strong></p>
@@ -122,7 +124,7 @@
         <div class="col-lg-10 text-center">
             <!-- buttons -->
             <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
-                <a href="#">Back to my mood monsters</a>
+                <a href="{{ url_for('child_dashboard', family_id=family_id) }}">Back to my mood monsters</a>
             </div>
             <div class="btn btn-primary rounded-pill border-2 m-1 px-3 py-2 fs-5 fixed-width-wide">
                 <a href="{{ url_for('mood_diary', family_id=family_id) }}">I want to see my mood diary</a>
