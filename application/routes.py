@@ -179,12 +179,12 @@ def mood_diary(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         child_id = session.get('child_id')
         if not child_id:
-            return redirect(url_for('login'))
+            return redirect(url_for('login_route'))
 
         moods = get_logged_moods(child_id)
         return render_template('10_mood_diary.html', moods=moods, family_id=family_id)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('login_route'))
 
 
 @app.route('/send_message', methods=['POST'])
