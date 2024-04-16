@@ -263,3 +263,8 @@ def achievements(child_id):
 
     earned_badges = get_earned_badges(child_id)  # Implement this function in data_access
     return render_template('achievements.html', earned_badges=earned_badges)
+
+
+@app.route('/add_badge/<mood>')
+def add_badge(mood):
+    return redirect(url_for('badges_page', family_id=session['family_id']))

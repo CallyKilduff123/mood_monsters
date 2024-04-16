@@ -1,4 +1,16 @@
 {% extends "layout.html" %}
 {% block body_content %}
 
+<div class="row">
+    {% for badge in user_badges %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100 text-center">
+            <img class="card-img-top img-fluid" src="/static/images/{{ badge.image_filename }}" alt="{{ badge.badge_type }}">
+            <div class="card-body">
+                <h4 class="card-title titles colour-{{ badge.colour }}">{{ badge.badge_type }}</h4>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
