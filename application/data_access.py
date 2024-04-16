@@ -181,6 +181,23 @@ def get_logged_moods(child_id):
         conn.close()
 
 
+def validate_child_family_association(child_id, family_id):
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT 1 FROM child
+                WHERE child_id = %s AND family_id = %s
+            """, (child_id, family_id))
+            result = cursor.fetchone()
+            return bool(result)
+    except Exception as e:
+        print(f"Error validating family association: {e}")
+        return False
+    finally:
+        conn.close()
+
+
 def send_message(grown_up_id, child_id, message):
     conn = get_db_connection()
     try:
@@ -224,6 +241,7 @@ def get_messages_for_child(child_id):
             JOIN grown_up ON message.grown_up_id = grown_up.grown_up_id
             WHERE message.child_id = %s
             ORDER BY message.date_sent DESC
+            LIMIT 1
         """
         cursor.execute(sql, (child_id,))
         messages = cursor.fetchall()
