@@ -1,35 +1,151 @@
 {% extends "layout.html" %}
-
 {% block body_content %}
-    <!-- Your HTML content here -->
+
+<!-- Section for Child's last logged mood (No Wave) -->
 <div class="container-xxl pt-5">
     <div class="row justify-content-center">
-    <div class="col-lg-10 pb-5">
-        <h1 class="display-1 text-center"><span class="colour-3">Grown-up</span> <span class="colour-6">Monsters</span></h1>
-        <p class="mb-5 text-center colour-light">Hello, {{ first_name }}</p>
-    </div>
-
-    <div>
-        <div class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5 fixed-width-wide">
-            <a href="{{ url_for('child_dashboard', family_id=family_id) }}">Child's Dashboard</a>
+        <div class="col-lg-10 pb-5">
+            <h1 class="display-1 text-center pb-3"><span class="colour-3">Grown-up</span> <span class="colour-6">Monsters</span></h1>
+            <p class="text-center colour-light">Hello, {{ first_name }}</p>
         </div>
-
-
-<!--         Display form to send message -->
-        <form action="{{ url_for('send_message_route') }}" method="post">
-            <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
-            <input type="hidden" name="grown_up_id" value="{{ grown_up_info.grown_up_id }}">
-            <div class="entry">
-                <textarea id="message" name="message" placeholder="Enter your message here..."></textarea>
-            </div>
-
-
-            <div>
-                <input type="submit" value="Send Message" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fixed-width-wide">
-            </div>
-</form>
-
     </div>
-    </div></div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="text-center titles colour-2 pb-5">Your Child's Last Logged Mood</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 text-center">
+                        <!-- Image dynamically loaded from database -->
+                        <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="">
+                        <div class="card-body mood-diary-info">
+                            <!-- Mood name dynamically loaded from database -->
+                            <h4 class="card-title titles colour-6">(Dynamic Mood)</h4>
+                            <p class="diary-date">Date Logged: <br>Update to dynamic date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-4">
+                <p class="colour-light">Your child's emotions are important. Send a personalized message to cheer them up, soothe their worries, or celebrate their happiness.</p>
+                <p class="colour-light">Choose your words with love and encouragement, reminding them that they are supported no matter how they feel.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 pt-4">
+            <!-- Display form to send message -->
+            <form action="{{ url_for('send_message_route') }}" method="post">
+                <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
+                <input type="hidden" name="grown_up_id" value="{{ grown_up_info.grown_up_id }}">
+                <div class="entry grownup-entry">
+                    <textarea id="message" name="message" placeholder="Send your child a message of support..."></textarea>
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Send Message" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Section for Monitoring Child's Mood (Wave Top)-->
+<div class="container-fluid wave-top-bottom gradient-colour-1 pt-5 pb-2">
+    <div class="container py-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-lg-10 py-4">
+                <h1 class="text-center titles colour-2">Monitor Your Child's Mood</h1>
+                <div class="py-4">
+                <p class="colour-light">Keep track of your child's emotional journey by visiting their mood diary and checking the badges they've earned. This insight can help you understand their feelings better and guide them through their emotions with greater empathy and support.</p>
+                </div>
+                <div class="center-button d-flex flex-column flex-md-row justify-content-center align-items-center w-100">
+                    <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
+                        <a href="{{ url_for('mood_diary', family_id=session['family_id']) }}" class="text-decoration-none text-white">View Your Child's Mood Diary</a>
+                    </div>
+                    <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
+                        <a href="#">View Your Child's Badges</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section for Mood Resources for Grown-ups (No Wave)-->
+<div class="container-fluid pb-3">
+    <div class="container col-lg-8">
+        <h1 class="text-center titles colour-2 pb-4">Mood Resources for Grown-ups</h1>
+        <div class="pt-4">
+                <p class="colour-light">Explore a variety of resources tailored to help you guide your child through their emotions, whether they're feeling happy, sad, angry, ashamed, worried, or lonely.</p>
+                <p class="colour-light">Each mood has specific strategies and tips designed to equip you with the best ways to respond and connect with your child.</p>
+            </div>
+        <div class="row px-3 py-5">
+            <!-- Happy Monster -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-6">Happy Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sad Monster -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-4">Sad Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Angry Monster -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/3_angry_monster.jpeg" alt="Angry Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-red">Angry Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--   Ashamed monster     -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-1">Ashamed Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Worried Monster -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-3">Worried Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lonely Monster -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
+                    <div class="card-body">
+                        <h4 class="card-title titles colour-4">Lonely Child</h4>
+                        <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">View Resources</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 

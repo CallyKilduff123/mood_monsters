@@ -114,13 +114,13 @@
 <div class="container-fluid pt-5">
     <div class="container">
         <div class="row justify-content-center pt-1">
-            <div class="col-lg-10">
+            <div class="col-lg-6">
                 <h1 class="text-center titles colour-2">View Your Mood Diary</h1>
                 <div class="pt-4">
                     <p class="colour-light">Mood diary blurb / images go here...</p>
                 </div>
                 <div class="center-button">
-                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width-wide">
+                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fixed-width-wide">
                     <a href="{{ url_for('mood_diary', family_id=session['family_id']) }}" class="text-decoration-none text-white">View Mood Diary</a>
                 </div>
                 </div>
@@ -133,14 +133,14 @@
 <div class="container-fluid wave-top-bottom gradient-colour-1 pt-5 pb-2">
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
-            <div class="col-lg-10 py-4">
+            <div class="col-lg-6 py-4">
                 <h1 class="text-center p-4 titles colour-2">View Your Achievements</h1>
                 <div class="pt-2">
                     <p class="colour-light">Achievements blurb / badge images go here...</p>
                 </div>
                 <!-- button -->
                 <div class="center-button">
-                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fs-5 fixed-width-wide">
+                <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fixed-width-wide">
                     <a href="#">View Badges</a>
                 </div>
                 </div>
@@ -166,6 +166,7 @@
                         </div>
                         {% endfor %}
                     </div>
+                    <div class="pointer"></div>
                 </div>
             </div>
         </div>
