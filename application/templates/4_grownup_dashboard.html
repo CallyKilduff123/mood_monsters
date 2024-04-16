@@ -59,7 +59,7 @@
                 </div>
                 <div class="center-button d-flex flex-column flex-md-row justify-content-center align-items-center w-100">
                     <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
-                        <a href="{{ url_for('mood_diary', family_id=session['family_id']) }}" class="text-decoration-none text-white">View Your Child's Mood Diary</a>
+                        <a href="{{ url_for('mood_diary', child_id=child_info.child_id) }}" class="text-decoration-none text-white">View Your Child's Mood Diary</a>
                     </div>
                     <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
                         <a href="#">View Your Child's Badges</a>

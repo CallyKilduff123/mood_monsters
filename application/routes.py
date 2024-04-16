@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
-                                     log_mood_to_db, get_logged_moods, send_message, get_messages_for_child)
+                                     log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
+                                     validate_child_family_association)
 from datetime import datetime, timedelta
 from application import app
 
@@ -82,7 +83,7 @@ def child_dashboard(family_id):
         return render_template('5_child_dashboard.html', child_info=child_info,
                                first_name=first_name, grown_up_info=grown_up_info, messages=messages, family_id=family_id)
     else:
-        return redirect(url_for('login'))  # Redirect to login page if unauthorized
+        return redirect(url_for('login_route'))  # Redirect to login page if unauthorized
 
 
 @app.route('/grownup_dashboard/<int:family_id>')
@@ -174,17 +175,65 @@ def worried_page(family_id):
 #         return redirect(url_for('login_route'))
 
 
-@app.route('/mood_diary/<int:family_id>')
-def mood_diary(family_id):
-    if 'family_id' in session and session['family_id'] == family_id:
-        child_id = session.get('child_id')
-        if not child_id:
-            return redirect(url_for('login'))
+@app.route('/mood_diary/', defaults={'child_id': None})
+@app.route('/mood_diary/<int:child_id>')
+def mood_diary(child_id):
+    family_id = session.get('family_id')
 
-        moods = get_logged_moods(child_id)
-        return render_template('10_mood_diary.html', moods=moods, family_id=family_id)
-    else:
-        return redirect(url_for('login'))
+    if not family_id:
+        return redirect(url_for('login_route'))
+
+    # Use the session child_id if no child_id is passed as a parameter (child accessing their own diary)
+    if child_id is None:
+        child_id = session.get('child_id')
+
+    if not child_id:
+        # If there's still no child_id, redirect to login or an error page
+        flash("No child specified.", "error")
+        return redirect(url_for('grownup_dashboard', family_id=family_id))
+
+    # Validate that the requested child belongs to the logged-in user's family
+    if not validate_child_family_association(child_id, family_id):
+        flash('You do not have permission to view this page.', 'error')
+        return redirect(url_for('grownup_dashboard', family_id=family_id))
+
+    moods = get_logged_moods(child_id)
+    return render_template('10_mood_diary.html', moods=moods, family_id=family_id, child_id=child_id)
+
+# @app.route('/mood_diary/')
+# def mood_diary():
+#     family_id = session.get('family_id')
+#     child_id = request.args.get('child_id', type=int)  # Get child_id from query parameters
+#
+#     if not family_id:
+#         # Redirect to login if no family_id in session
+#         return redirect(url_for('login_route'))
+#
+#     if not child_id:
+#         # Redirect or show an error if no child_id is provided
+#         flash("No child specified.", "error")
+#         return redirect(url_for('grownup_dashboard', family_id=family_id))
+#
+#     # Validate that the requested child belongs to the logged-in user's family
+#     if not validate_child_family_association(child_id, family_id):
+#         flash('You do not have permission to view this page.', 'error')
+#         return redirect(url_for('grownup_dashboard', family_id=family_id))
+#
+#     # Retrieve the moods for the specified child
+#     moods = get_logged_moods(child_id)
+#     return render_template('10_mood_diary.html', moods=moods, family_id=family_id, child_id=child_id)
+
+# @app.route('/mood_diary/<int:family_id>')
+# def mood_diary(family_id):
+#     if 'family_id' in session and session['family_id'] == family_id:
+#         child_id = session.get('child_id')
+#         if not child_id:
+#             return redirect(url_for('login_route'))
+#
+#         moods = get_logged_moods(child_id)
+#         return render_template('10_mood_diary.html', moods=moods, family_id=family_id)
+#     else:
+#         return redirect(url_for('login_route'))
 
 
 @app.route('/send_message', methods=['POST'])
