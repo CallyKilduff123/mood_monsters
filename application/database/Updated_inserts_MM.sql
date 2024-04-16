@@ -57,20 +57,35 @@ VALUES
 
 SELECT * FROM badge;
 
+
 -- UPDATED ACTIVITY TABLE  
-INSERT INTO activity (activity_name)
+INSERT INTO activity(activity_name, activity_image_url, description, instructions)
 VALUES
-('Log Mood'),
-('Journal Entry'),
-('54321 Activity'),
-('Breathing Activity'),
-('Dance Activity');
+("Write in your journal", "images/journal_entry_activity.jpg", "Writing down the things that make us feel bad, can help us to thing of ways to overcome them and ask for help", "Write down the things that are making you feel the way you do in the form below. Or use the button to print off a page to write at home. When you have finished, show your entry to your grown-up so they can help you to feel better"),
+("Dance Activity", "images/dance_activity.jpg", "Dancing releases happy hormones (called endorphins)", "Play your favourite song and dance! Ask your grown-up to dance too - that might make you laugh!"),
+("Bubble Breathing Activity", "images/breathing_activity.jpg", "Special breathing exercises can calm down our minds and help make our mood better",  "Imagine you are creating a big bubble. Take a deep breath in, and then a long slow breath out to blow that giant bubble into the air"),
+("54321 Sensory Activity", "images/54321_sensory_activity.jpg", "Sensory activities allow you to focus on things in front of you and calm your mood", "Name 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste"),
+("Jungle Activity", "images/jungle_activity.jpg", "Pretending to be animals is fun and can make us feel happy when we are having a bad day", "Imagine you are a jungle animal, move around your room like you are that animal. Make the animal noises. Be loud! Ask your grown-up to join in and have fun!"),
+("Space Activity", "images/space_activity.jpg", "Space is a very calm place, pretending to be in space can give us a break from the things that are not making us happy", "Imagine you are floating in space. Lie on the floor and close your eyes. Take deep breaths in and out, relax and imagine floating around, seeing the stars"),
+("Superhero Activity", "superhero_activity.jpg", "Superheroes have magic powers that can help them to deal with their problems", "Imagine you are a superhero. What would your magic power be? Run around as your superhero using your magic power! Ask your grown-up to be a superhero too!");
 
 SELECT * FROM activity;
 
+
 -- INSERTED ACTIVITY AND MOOD TABLE WITH NO VALUES AT THIS STAGE
-INSERT INTO activity_and_mood(activity_id, mood_id)
-VALUES();
+INSERT INTO mood_and_activity (mood_id, activity_id)
+VALUES
+(2, 2),
+(2, 5),
+(2, 7),
+(3, 3),
+(3, 4),
+(3, 6),
+(4, 4),
+(4, 5),
+(4, 7);
+
+SELECT * FROM mood_and_activity;
 
 
 INSERT INTO message (child_id, grown_up_id, message)
