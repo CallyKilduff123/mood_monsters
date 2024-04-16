@@ -29,6 +29,63 @@ h1 {
 }
 
 
+/* MOOD MONSTER IMAGES AROUND BORDER */
+
+
+.page-wrapper {
+    position: relative;
+    z-index: 0;
+    /*min-height: 100vh;*/
+}
+
+.spacer {
+  height: 400px; /* add empty space below login form */
+}
+
+.container, .container-fluid {
+    position: relative;
+    z-index: 1; /* text and containers above images */
+}
+
+.monster-image {
+    position: absolute;
+    width: 20vw;
+    height: auto;
+    z-index: 2; /* image behind content */
+}
+
+.text-content {
+    position: relative; /* Ensures z-index is effective */
+    z-index: 3; /* Highest to ensure it appears above images */
+ }
+
+
+.top-left { top: 0; left: 0; }
+.one-third-left { top: 40%; left: 0; transform: translateY(-50%); }
+.two-thirds-left { top: 66%; left: 0; transform: translateY(-50%); }
+.bottom-left { bottom: 0; left: 0; }
+
+.top-right { top: 0; right: 0; }
+.one-third-right { top: 36%; right: 0; transform: translateY(-50%); }
+.two-thirds-right { top: 66%; right: 0; transform: translateY(-50%); }
+.bottom-right { bottom: 0; right: 0; }
+
+/*
+@media (max-width: 768px) {
+    .monster-image { width: 50px; }
+    .one-third-left, .two-thirds-left, .one-third-right, .two-thirds-right {
+        top: calc(33% + 20px);
+    }
+}
+*/
+
+@media (max-width: 767px) {
+    .monster-image {
+        display: none;  /* hide images on screens narrower than 768px */
+    }
+}
+
+
 /* WEBSITE COLOUR SCHEME */
 
 :root {
@@ -127,6 +184,7 @@ h1 {
   -webkit-mask: var(--mask);
           mask: var(--mask);
 }
+
 
 /* ------ FONTS ------ */
 

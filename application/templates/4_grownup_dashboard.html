@@ -4,13 +4,13 @@
 <!-- Section for Child's last logged mood (No Wave) -->
 <div class="container-xxl pt-5">
     <div class="row justify-content-center">
-        <div class="col-lg-10 pb-5">
+        <div class="col-md-10 pb-5">
             <h1 class="display-1 text-center pb-3"><span class="colour-3">Grown-up</span> <span class="colour-6">Monsters</span></h1>
             <p class="text-center colour-light">Hello, {{ first_name }}</p>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-md-10">
             <h1 class="text-center titles colour-2 pb-5">Your Child's Last Logged Mood</h1>
             <div class="row justify-content-center">
                 <div class="col-md-6 mb-4">
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 pt-4">
+        <div class="col-md-10 pt-4">
             <!-- Display form to send message -->
             <form action="{{ url_for('send_message_route') }}" method="post">
                 <input type="hidden" name="child_id" value="{{ child_info.child_id }}">
@@ -52,7 +52,7 @@
 <div class="container-fluid wave-top-bottom gradient-colour-1 pt-5 pb-2">
     <div class="container py-5">
         <div class="row justify-content-center py-5">
-            <div class="col-lg-10 py-4">
+            <div class="col-md-10 py-4">
                 <h1 class="text-center titles colour-2">Monitor Your Child's Mood</h1>
                 <div class="py-4">
                 <p class="colour-light">Keep track of your child's emotional journey by visiting their mood diary and checking the badges they've earned. This insight can help you understand their feelings better and guide them through their emotions with greater empathy and support.</p>
@@ -71,8 +71,8 @@
 </div>
 
 <!-- Section for Mood Resources for Grown-ups (No Wave)-->
-<div class="container-fluid pb-3">
-    <div class="container col-lg-8">
+<div class="container-fluid pb-5">
+    <div class="container col-md-10">
         <h1 class="text-center titles colour-2 pb-4">Mood Resources for Grown-ups</h1>
         <div class="pt-4">
                 <p class="colour-light">Explore a variety of resources tailored to help you guide your child through their emotions, whether they're feeling happy, sad, angry, ashamed, worried, or lonely.</p>

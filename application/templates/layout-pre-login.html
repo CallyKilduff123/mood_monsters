@@ -26,8 +26,21 @@
   </div>
 </nav>
 
+<div class="page-wrapper position-relative">
+    <!-- Positioning images around the content -->
+    <img src="{{ url_for('static', filename='images/monster-top-left.png') }}" class="monster-image top-left">
+    <img src="{{ url_for('static', filename='images/monster-one-third-left.png') }}" class="monster-image one-third-left">
+    <img src="{{ url_for('static', filename='images/monster-two-thirds-left.png') }}" class="monster-image two-thirds-left">
+    <img src="{{ url_for('static', filename='images/monster-bottom-left.png') }}" class="monster-image bottom-left">
+    <img src="{{ url_for('static', filename='images/monster-top-right.png') }}" class="monster-image top-right">
+    <img src="{{ url_for('static', filename='images/monster-one-third-right.png') }}" class="monster-image one-third-right">
+    <img src="{{ url_for('static', filename='images/monster-two-thirds-right.png') }}" class="monster-image two-thirds-right">
+    <img src="{{ url_for('static', filename='images/monster-bottom-right.png') }}" class="monster-image bottom-right">
+
 {% block body_content %}
 {% endblock %}
+
+</div>
 
 <footer class="footer mt-auto py-3">
     <div class="container d-flex flex-column flex-sm-row justify-content-center align-items-center text-center">
