@@ -7,7 +7,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        # password="password",  # Uncomment and set your password here
+        password="password",  # Uncomment and set your password here
         database="mood_monsters"
     )
 
@@ -92,6 +92,23 @@ def get_grownup_info_by_family_id(family_id):
         return result
     finally:
         cursor.close()
+        conn.close()
+
+
+def validate_child_family_association(child_id, family_id):
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                SELECT 1 FROM child
+                WHERE child_id = %s AND family_id = %s
+            """, (child_id, family_id))
+            result = cursor.fetchone()
+            return bool(result)
+    except Exception as e:
+        print(f"Error validating family association: {e}")
+        return False
+    finally:
         conn.close()
 
 
@@ -282,6 +299,7 @@ def log_activity_and_mood(child_id, activity_id, mood_id):
         cursor.execute("INSERT INTO activity_and_mood (activity_id, mood_id) VALUES (%s, %s)", (activity_id, mood_id))
         activity_and_mood_id = cursor.lastrowid
         cursor.execute("INSERT INTO track_activity (child_id, activity_and_mood_id) VALUES (%s, %s)",
+                       # CHANGE TO SELECT
                        (child_id, activity_and_mood_id))
         conn.commit()
         return True

@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 from application.data_access import (child_login, grownup_login, add_family,
-                                                   get_child_info_by_family_id, get_grownup_info_by_family_id,
-                                                   log_mood_to_db, get_logged_moods, send_message,
-                                                   get_messages_for_child,
-    # ADDED FUNCTIONS FOR BADGES FROM DATA.ACCESS
-                                                   get_activity_id_by_name, is_first_activity_for_mood,
-                                                   log_activity_and_mood,
-                                                   award_badge, get_earned_badges)
+                                     get_child_info_by_family_id, get_grownup_info_by_family_id,
+                                     log_mood_to_db, get_logged_moods, send_message,
+                                     get_messages_for_child, validate_child_family_association,
+                                       # ADDED FUNCTIONS FOR BADGES FROM DATA.ACCESS
+                                     get_activity_id_by_name, is_first_activity_for_mood,
+                                     log_activity_and_mood,
+                                     award_badge, get_earned_badges)
 from datetime import datetime, timedelta
 from application import app
 
@@ -56,6 +56,7 @@ def register():
 #         elif request.form.get('login_type') == 'child':
 #             return child_login()
 #     return render_template('2_login.html', title='Login')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
     if request.method == 'POST':
@@ -126,19 +127,39 @@ def grownup_dashboard(family_id):
 
 # cally - testing logging mood to mood diary
 
+# LETICIA CHANGED AREAS OF CODE TO STORE THE MOOD IN THE CHILD'S SESSION
 @app.route('/sad_page/<int:family_id>')
 def sad_page(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         child_id = session.get('child_id')
         first_name = session.get('first_name')
+        mood_id = session.get('mood_id')      # added mood ID sesssion
         if not child_id:
             return redirect(url_for('login_route'))
 
-        # Log the mood when navigating to the sad page
         log_mood_to_db(child_id, 'Sad')  # Log the mood without checking the success
-        return render_template('6_sad_page.html', first_name=first_name, family_id=family_id)
+
+        return render_template('6_sad_page.html', first_name=first_name, family_id=family_id, mood_id=mood_id)
     else:
         return redirect(url_for('login_route'))
+
+
+# CALLY ORIGINAL CODE - DOES NOT STORE MOOD FOR THE SESSION - NECESSARY FOR BADGE LOGIC
+
+# @app.route('/sad_page/<int:family_id>')
+# def sad_page(family_id):
+#     if 'family_id' in session and session['family_id'] == family_id:
+#         child_id = session.get('child_id')
+#         first_name = session.get('first_name')
+#         if not child_id:
+#             return redirect(url_for('login_route'))
+#
+#         # Log the mood when navigating to the sad page
+#         log_mood_to_db(child_id, 'Sad')  # Log the mood without checking the success
+#
+#         return render_template('6_sad_page.html', first_name=first_name, family_id=family_id)
+#     else:
+#         return redirect(url_for('login_route'))
 
 
 @app.route('/angry_page/<int:family_id>')
@@ -153,6 +174,7 @@ def angry_page(family_id):
         return render_template('7_angry_page.html', family_id=family_id)
     else:
         return redirect(url_for('login_route'))
+
 
 
 # @app.route('/angry_page/<int:family_id>')
@@ -218,29 +240,28 @@ def send_message_route():
 
 
 # TODO: LETICIA TEST AND FIND HOW TO GET IT WORKING
-# TODO: NEED TO ADD OTHER ACTIVITIES RELATED TO MOOD
-@app.route('/submit_journal', methods=['POST'])
+
+@app.route('/submit-journal', methods=['POST'])
 def submit_journal():
     # checks if the family_id and child_id are present in the session
     if 'family_id' not in session or 'child_id' not in session:
         return redirect(url_for('login'))
 
     # retrieves the child_id, mood_id and journal_entry from the session
-    # todo - consider changing it to activity_id (have to think and ask questions around this one)
     child_id = session['child_id']
-    mood_id = request.form['mood_id']
-    # TODO:
-    journal_entry = request.form['journal_entry']
+    mood_id = session.get('mood_id')  # retrieves mood_id from the session
+    # # TODO: where to store the journal entries
+    # journal_entry = request.form['journal_entry']
 
-    # It calls the get_activity_id_by_name function from the data_access module to get the activity_id for the "Journal Entry" activity.
     # Get the activity_id for 'Journal Entry'
     activity_id = get_activity_id_by_name('Journal Entry')  # Implement this function in data_access
 
     # Log the activity and mood
     if log_activity_and_mood(child_id, activity_id, mood_id):
+        # todo: get this logic working code to work from here to below
         # Check if it's the first journal entry for this mood
         is_first_entry = is_first_activity_for_mood(child_id, activity_id,
-                                                    mood_id)  # Implement this function in data_access
+                                                    mood_id)
 
         if is_first_entry:
             # Award the corresponding badge
@@ -248,7 +269,7 @@ def submit_journal():
 
         # todo: Save the journal entry to the database (code for this step not shown)
 
-        return redirect(url_for('achievements', child_id=child_id))
+        return redirect(url_for('badges_page', child_id=child_id))
     else:
         # Handle error
         flash("Error logging activity and mood", "error")
@@ -256,15 +277,19 @@ def submit_journal():
 
 
 # Add a new route for the achievements page
-@app.route('/achievements/<int:child_id>')
-def achievements(child_id):
+@app.route('/badges_page/<int:child_id>')
+def badges_page(child_id):
     if 'family_id' not in session or 'child_id' not in session or session['child_id'] != child_id:
         return redirect(url_for('login'))
 
     earned_badges = get_earned_badges(child_id)  # Implement this function in data_access
-    return render_template('achievements.html', earned_badges=earned_badges)
+    return render_template('11_badges_page.html', earned_badges=earned_badges, child_id=child_id, family_id=session['family_id'])
 
 
-@app.route('/add_badge/<mood>')
-def add_badge(mood):
-    return redirect(url_for('badges_page', family_id=session['family_id']))
+
+
+#
+#
+# @app.route('/add_badge/<mood>')
+# def add_badge(mood):
+#     return redirect(url_for('badges_page', family_id=session['family_id']))
