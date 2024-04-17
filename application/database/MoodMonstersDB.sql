@@ -126,13 +126,28 @@ CREATE TABLE track_activity (
     	child_id INT NOT NULL,
     	mood_logged_id INT NOT NULL,
         activity_id INT NOT NULL,
+        journal_text TEXT DEFAULT NULL,
     	date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
     	FOREIGN KEY (child_id) REFERENCES child(child_id),
     	FOREIGN KEY (mood_logged_id) REFERENCES mood_logged(mood_logged_id),
-    	FOREIGN KEY (activity_id) REFERENCES activity(activity_id),
+    	FOREIGN KEY (activity_id) REFERENCES activity(activity_id)
 );
 
 SELECT * FROM track_activity;
+
+
+CREATE TABLE badge_criteria (
+    criteria_id INT AUTO_INCREMENT PRIMARY KEY,
+    badge_id INT NOT NULL,
+    mood_id INT,
+    activity_id INT,
+    criteria_type ENUM('activity', 'journal') NOT NULL,  -- 'activity' for activity completion, 'journal' for journal entries
+    FOREIGN KEY (badge_id) REFERENCES badge(badge_id),
+    FOREIGN KEY (mood_id) REFERENCES mood(mood_id),
+    FOREIGN KEY (activity_id) REFERENCES activity(activity_id)
+);
+
+SELECT * FROM badge_criteria;
 
 
 CREATE TABLE badge_progress (
