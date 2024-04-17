@@ -3,7 +3,8 @@ from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
                                      log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
                                      validate_child_family_association, get_random_activity_for_mood,
-                                     get_awarded_badges, log_activity, check_badge_criteria)
+                                     get_awarded_badges, log_activity, check_badge_criteria,
+                                     get_mood_id_by_mood_logged_id)
 from datetime import datetime, timedelta
 from application import app
 
@@ -248,25 +249,107 @@ def send_message_route():
 
 # badges page and logic:
 
-@app.route('/log_activity/<int:child_id>/<int:mood_logged_id>/<int:activity_id>', methods=['POST'])
-def log_activity_route(child_id, mood_logged_id, activity_id):
+# @app.route('/log_activity/<int:child_id>/<int:mood_logged_id>', methods=['POST'])
+# def log_activity_route(child_id, mood_logged_id):
+#     family_id = session.get('family_id')
+#
+#     if not validate_child_family_association(child_id, family_id):
+#         flash('Unauthorized access.', 'error')
+#         return redirect(url_for('login_route'))
+#
+#     # Retrieve mood_id and mood name from mood_logged_id before logging the activity
+#     mood_id, mood_name = get_mood_id_and_name_by_mood_logged_id(mood_logged_id)
+#     if mood_name is None:
+#         flash('Mood not found.', 'error')
+#         return redirect(url_for('child_dashboard', family_id=family_id))
+#
+#     activity_id = request.form.get('activity_id', type=int)
+#     journal_text = request.form.get('journal_text') if activity_id == 1 else None
+#
+#     track_activity_id = log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text)
+#
+#     if track_activity_id:
+#         check_badge_criteria(child_id, track_activity_id)
+#         flash('Activity logged successfully! Check for new badges.')
+#     else:
+#         flash('Failed to log activity.')
+#
+#     # Redirect to the specific mood page based on the mood_name
+#     return redirect(url_for(f'{mood_name}_page', family_id=family_id))
+
+
+@app.route('/log_activity/<int:child_id>/<int:mood_logged_id>', methods=['POST'])
+def log_activity_route(child_id, mood_logged_id):
     family_id = session.get('family_id')
+
     if not validate_child_family_association(child_id, family_id):
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
 
-    journal_text = request.form.get('journal_text', None)
-    track_activity_id = log_activity(child_id, mood_logged_id, activity_id, journal_text)
+    # Retrieve mood_id from mood_logged_id before logging the activity
+    mood_id = get_mood_id_by_mood_logged_id(mood_logged_id)
+    if mood_id is None:
+        flash('Mood not found.', 'error')
+        return redirect(url_for('child_dashboard', family_id=family_id))
+
+    # Map mood_id to specific page routes
+    mood_page_map = {
+        2: 'sad_page',  # Assuming '2' is the ID for 'Sad'
+        3: 'angry_page',  # Assuming '3' is the ID for 'Angry'
+        4: 'worried_page'  # Assuming '4' is the ID for 'Worried'
+    }
+
+    # Check if the activity is a journal entry; assume activity_id = 1 is for journals
+    activity_id = request.form.get('activity_id', type=int)
+    journal_text = request.form.get('journal_text') if activity_id == 1 else None
+
+    # Log the activity; handle journal text only if it's a journal entry
+    track_activity_id = log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text)
+
     if track_activity_id:
+        # Now pass both child_id and track_activity_id to check_badge_criteria
         check_badge_criteria(child_id, track_activity_id)
-        message = 'Activity completed successfully!'
-        # print('Activity completed successfully!')
+        message = 'Activity logged successfully! Check for new badges.'
     else:
         message = 'Failed to log activity.'
-        # print('Failed to log activity.')
 
     flash(message)
-    return redirect(url_for('child_dashboard', family_id=family_id))
+
+    # Redirect to the specific mood page based on the mood_id
+    mood_page_route = mood_page_map.get(mood_id, 'child_dashboard')  # Default to dashboard if mood_id is not mapped
+    return redirect(url_for(mood_page_route, family_id=family_id))
+
+# @app.route('/log_activity/<int:child_id>/<int:mood_logged_id>', methods=['POST'])
+# def log_activity_route(child_id, mood_logged_id):
+#     family_id = session.get('family_id')
+#
+#     # Check for authorization
+#     if not validate_child_family_association(child_id, family_id):
+#         flash('Unauthorized access.', 'error')
+#         return redirect(url_for('login_route'))
+#
+#     # Retrieve mood_id from mood_logged_id before logging the activity
+#     mood_id = get_mood_id_by_mood_logged_id(mood_logged_id)
+#     if mood_id is None:
+#         flash('Mood not found.', 'error')
+#         return redirect(url_for('child_dashboard', family_id=family_id))
+#
+#     # Check if the activity is a journal entry; assume activity_id = 1 is for journals
+#     activity_id = request.form.get('activity_id', type=int)
+#     journal_text = request.form.get('journal_text') if activity_id == 1 else None
+#
+#     # Log the activity; handle journal text only if it's a journal entry
+#     track_activity_id = log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text)
+#
+#     if track_activity_id:
+#         # Now pass both child_id and track_activity_id to check_badge_criteria
+#         check_badge_criteria(child_id, track_activity_id)
+#         message = 'You have a new badge!'
+#     else:
+#         message = 'Failed to log activity.'
+#
+#     flash(message)
+#     return redirect(url_for('mood_page', family_id=family_id, mood=mood_id))
 
 
 @app.route('/badges_page/<int:child_id>')

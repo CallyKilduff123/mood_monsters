@@ -125,15 +125,15 @@ CREATE TABLE track_activity (
     	track_activity_id INT AUTO_INCREMENT PRIMARY KEY,
     	child_id INT NOT NULL,
     	mood_logged_id INT NOT NULL,
+        mood_id INT NOT NULL,
         activity_id INT NOT NULL,
         journal_text TEXT DEFAULT NULL,
     	date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
     	FOREIGN KEY (child_id) REFERENCES child(child_id),
     	FOREIGN KEY (mood_logged_id) REFERENCES mood_logged(mood_logged_id),
+        FOREIGN KEY (mood_id) REFERENCES mood(mood_id),
     	FOREIGN KEY (activity_id) REFERENCES activity(activity_id)
 );
-
-SELECT * FROM track_activity;
 
 
 CREATE TABLE badge_criteria (

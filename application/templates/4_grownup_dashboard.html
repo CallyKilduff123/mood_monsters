@@ -84,7 +84,7 @@
                         <a href="{{ url_for('mood_diary', child_id=child_info.child_id) }}" class="text-decoration-none text-white">View Your Child's Mood Diary</a>
                     </div>
                     <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
-                        <a href="#">View Your Child's Badges</a>
+                        <a href="{{ url_for('badges_page', child_id=child_info.child_id) }}">View Your Child's Badges</a>
                     </div>
                 </div>
             </div>

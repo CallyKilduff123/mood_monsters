@@ -50,21 +50,22 @@
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
-                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id) }}" method="post">
                         <p class="text-center">Today, I feel sad.</p>
                         <div class="entry">
                             <label for="reason">I feel sad because:</label>
-                            <textarea id="reason" name="reason" placeholder="Enter your reason here"></textarea>
+                            <textarea id="reason" name="journal_text" placeholder="Enter your reason here"></textarea>
                         </div>
                         <div class="entry">
                             <label for="action">When I feel sad, I want to:</label>
-                            <textarea id="action" name="journal_text" placeholder="What do you want to do?"></textarea>
+                            <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
                         </div>
                         <div class="entry">
                             <label for="solution">To make me feel happy, I can:</label>
-                            <textarea id="solution" name="solution" placeholder="Enter your solution"></textarea>
+                            <textarea id="solution" name="action" placeholder="Enter your solution"></textarea>
                         </div>
                         <div>
+                            <input type="hidden" name="activity_id" value="1">
                             <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
                             <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">Print</a>
                         </div>
@@ -95,7 +96,8 @@
             <p class="colour-light">{{ activity['instructions'] }}</p>
         </div>
                         <div class="text-center">
-                <button type="submit" class="btn btn-success">I did it!</button>
+                            <input type="hidden" name="activity_id" value="{{ activity['activity_id'] }}">
+                <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
             </div>
         </form>
     {% else %}
