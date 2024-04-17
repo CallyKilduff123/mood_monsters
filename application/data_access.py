@@ -314,24 +314,25 @@ def check_badge_criteria(child_id):
     conn = get_db_connection()
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Check if all required activities or journal entries for each badge are completed
+            # Enhanced query to ensure accurate badge criteria checking
             sql = """
-            SELECT badge_id, badge_name, COUNT(DISTINCT badge_criteria.criteria_id) AS required_count,
-                   COUNT(DISTINCT track_activity.track_activity_id) AS completed_count
-            FROM badge_criteria
-            JOIN badge ON badge.badge_id = badge_criteria.badge_id
-            LEFT JOIN track_activity ta ON track_activity.activity_id = badge_criteria.activity_id 
-                                       AND track_activity.mood_logged_id IN (SELECT mood_logged.mood_logged_id FROM 
-                                       mood_logged WHERE mood_logged.mood_id = badge_criteria.mood_id 
-                                       AND mood_logged.child_id = %s)
-            WHERE badge_criteria.child_id = %s
-            GROUP BY badge_criteria.badge_id
-            HAVING completed_count >= required_count
+            SELECT bc.badge_id, b.badge_name, COUNT(DISTINCT bc.criteria_id) AS required_count,
+                   COUNT(DISTINCT CASE WHEN ta.track_activity_id IS NOT NULL THEN bc.criteria_id ELSE NULL END) AS completed_count
+            FROM badge_criteria bc
+            JOIN badge b ON b.badge_id = bc.badge_id
+            LEFT JOIN track_activity ta ON ta.activity_id = bc.activity_id
+                                         AND ta.mood_logged_id IN (SELECT ml.mood_logged_id
+                                                                   FROM mood_logged ml
+                                                                   WHERE ml.mood_id = bc.mood_id
+                                                                     AND ml.child_id = %s)
+            WHERE bc.child_id = %s
+            GROUP BY bc.badge_id, b.badge_name
+            HAVING COUNT(DISTINCT bc.criteria_id) = COUNT(DISTINCT CASE WHEN ta.track_activity_id IS NOT NULL THEN bc.criteria_id ELSE NULL END)
             """
             cursor.execute(sql, (child_id, child_id))
             eligible_badges = cursor.fetchall()
             for badge in eligible_badges:
-                # Optionally, update badge progress or award badges here
+                # Update badge progress or award badges
                 update_badge_awarded(child_id, badge['badge_id'])
             return eligible_badges
     except mysql.connector.Error as e:
