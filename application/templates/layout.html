@@ -26,7 +26,7 @@
           <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/logout">Logout</a>
       </div>
       <div class="d-flex">
-          <a class="nav-link p-0" href="#"><i class="fa-solid fa-chevron-right  me-1"></i>Next</a> <!-- Placeholder - code needs adjusting to go forward to next page -->
+          <a class="nav-link p-0" href="#">Next<i class="fa-solid fa-chevron-right  ms-1"></i></a> <!-- Placeholder - code needs adjusting to go forward to next page -->
       </div>
   </div>
 </nav>
@@ -45,6 +45,7 @@
     <img src="{{ url_for('static', filename='images/monster-two-thirds-right.png') }}" class="monster-image two-thirds-right">
     -->
     <img src="{{ url_for('static', filename='images/monster-bottom-right.png') }}" class="monster-image bottom-right">
+    <img src="{{ url_for('static', filename='images/monster-bottom-center.png') }}" class="monster-image-footer bottom-center">
 
 {% block body_content %}
 {% endblock %}

@@ -20,17 +20,8 @@ a {
     text-decoration: none;
 }
 
-.hero-section h1, .hero-section p {
-    color: var(--light);
-}
-
-h1 {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-}
-
 
 /* MOOD MONSTER IMAGES AROUND BORDER */
-
 
 .page-wrapper {
     position: relative;
@@ -38,27 +29,35 @@ h1 {
     /*min-height: 100vh;*/
 }
 
-.spacer {
+/* fixes issue with space below monster images */
+.spacer-register {
+  height: 180px; /* add empty space below registration form */
+}
+
+.spacer-login {
   height: 580px; /* add empty space below login form */
 }
 
-.container, .container-fluid {
-    position: relative;
-    z-index: 1; /* text and containers above images */
+.spacer-mood {
+  height: 1010px; /* add empty space to mood diary with no entries */
 }
 
-.monster-image {
+/*.container, .container-fluid {
+    position: relative;
+    z-index: 1;
+}*/
+
+.monster-image, .monster-image-footer {
     position: absolute;
     width: 20vw;
     height: auto;
-    z-index: 2; /* image behind content */
+    z-index: 1;
 }
 
 .text-content {
     position: relative; /* Ensures z-index is effective */
-    z-index: 3; /* Highest to ensure it appears above images */
+    z-index: 2; /* Highest to ensure it appears above images */
  }
-
 
 .top-left { top: 0; left: 0; }
 .one-third-left { top: 40%; left: 0; transform: translateY(-50%); }
@@ -70,20 +69,7 @@ h1 {
 .two-thirds-right { top: 66%; right: 0; transform: translateY(-50%); }
 .bottom-right { bottom: 0; right: 0; }
 
-/*
-@media (max-width: 768px) {
-    .monster-image { width: 50px; }
-    .one-third-left, .two-thirds-left, .one-third-right, .two-thirds-right {
-        top: calc(33% + 20px);
-    }
-}
-*/
-
-@media (max-width: 767px) {
-    .monster-image {
-        display: none;  /* hide images on screens narrower than 768px */
-    }
-}
+.bottom-center { bottom: 0; left: 41%;}
 
 
 /* WEBSITE COLOUR SCHEME */
@@ -187,6 +173,15 @@ h1 {
 
 
 /* ------ FONTS ------ */
+
+.monster-text {
+    padding: 0 5px;
+    font-size: 1rem;
+}
+
+h1 {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Bungee", sans-serif;
@@ -544,16 +539,45 @@ label {
 
 /* ------ MEDIA QUERIES ------ */
 
-/* adjust padding on smaller screens */
+/*@media (min-width: 1279px) {
+    .monster-text {
+    font-size: 8rem;
+    }
+}*/
 
-
-/*@media (max-width: 576px) {
-    .container-fluid {
-        padding-top: 0;
-        padding-bottom: 0;
+@media (min-width: 1024px) {
+    .monster-text {
+    font-size: 5.8rem;
     }
 }
-*/
+
+@media (min-width: 768px) {
+    .monster-text {
+    font-size: 4.6rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .monster-image {
+        display: none;  /* hide images on screens narrower than 768px */
+    }
+    .monster-text {
+    font-size: 4rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .monster-text {
+    font-size: 3.4rem;
+    }
+}
+
+@media (max-width: 280px) {
+    .monster-text {
+    font-size: 2.5rem;
+    }
+}
+
 
 
 
