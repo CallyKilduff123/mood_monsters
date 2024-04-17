@@ -13,20 +13,42 @@
         <div class="col-md-10">
             <h1 class="text-center titles colour-2 pb-5">Your Child's Last Logged Mood</h1>
             <div class="row justify-content-center">
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100 text-center">
-                        <!-- Image dynamically loaded from database -->
-                        <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="">
-                        <div class="card-body mood-diary-info">
-                            <!-- Mood name dynamically loaded from database -->
-                            <h4 class="card-title titles colour-6">(Dynamic Mood)</h4>
-                            <p class="diary-date">Date Logged: <br>Update to dynamic date</p>
-                        </div>
-                    </div>
+    <div class="col-md-6 mb-4">
+        {% if last_mood %}
+            <div class="card h-100 text-center">
+                <!-- Image dynamically loaded from database -->
+                <img class="card-img-top img-fluid" src="{{ url_for('static', filename=last_mood['mood_image_url']) }}" alt="Mood Image">
+                <div class="card-body mood-diary-info">
+                    <!-- Mood name dynamically loaded from database -->
+                    <h4 class="card-title titles colour-6">{{ last_mood.mood_name }}</h4>
+                    <p class="diary-date">Date Logged: <br>{{ last_mood.date_logged.strftime('%Y-%m-%d %H:%M') }}</p>
                 </div>
             </div>
+        {% else %}
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <p>No mood logs available.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!--            <div class="row justify-content-center">-->
+<!--                <div class="col-md-6 mb-4">-->
+<!--                    <div class="card h-100 text-center">-->
+<!--                        &lt;!&ndash; Image dynamically loaded from database &ndash;&gt;-->
+<!--                        <img class="card-img-top img-fluid" src="/static/images/2_sad_monster.jpeg" alt="">-->
+<!--                        <div class="card-body mood-diary-info">-->
+<!--                            &lt;!&ndash; Mood name dynamically loaded from database &ndash;&gt;-->
+<!--                            <h4 class="card-title titles colour-6">(Dynamic Mood)</h4>-->
+<!--                            <p class="diary-date">Date Logged: <br>Update to dynamic date</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="pt-4">
-                <p class="colour-light">Your child's emotions are important. Send a personalized message to cheer them up, soothe their worries, or celebrate their happiness.</p>
+                <p class="colour-light">Your child's emotions are important. Send a personalised message to cheer them up, soothe their worries, or celebrate their happiness.</p>
                 <p class="colour-light">Choose your words with love and encouragement, reminding them that they are supported no matter how they feel.</p>
             </div>
         </div>
@@ -62,7 +84,7 @@
                         <a href="{{ url_for('mood_diary', child_id=child_info.child_id) }}" class="text-decoration-none text-white">View Your Child's Mood Diary</a>
                     </div>
                     <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 d-flex justify-content-center w-100">
-                        <a href="#">View Your Child's Badges</a>
+                        <a href="{{ url_for('badges_page', child_id=child_info.child_id) }}">View Your Child's Badges</a>
                     </div>
                 </div>
             </div>

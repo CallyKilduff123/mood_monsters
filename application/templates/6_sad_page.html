@@ -42,7 +42,7 @@
                 <div class="row justify-content-center">
                 <!-- Mood Journal Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/journal_entry.jpeg" alt="Monster writes in a Journal">
                     </div>
                     <div>
                         <p class="colour-light">Let's look at feelings of sadness in your journal.</p>
@@ -50,11 +50,11 @@
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
-                    <form action="/submit-journal" method="POST" class="journal-entry">
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id) }}" method="post">
                         <p class="text-center">Today, I feel sad.</p>
                         <div class="entry">
                             <label for="reason">I feel sad because:</label>
-                            <textarea id="reason" name="reason" placeholder="Enter your reason here"></textarea>
+                            <textarea id="reason" name="journal_text" placeholder="Enter your reason here"></textarea>
                         </div>
                         <div class="entry">
                             <label for="action">When I feel sad, I want to:</label>
@@ -62,11 +62,12 @@
                         </div>
                         <div class="entry">
                             <label for="solution">To make me feel happy, I can:</label>
-                            <textarea id="solution" name="solution" placeholder="Enter your solution"></textarea>
+                            <textarea id="solution" name="action" placeholder="Enter your solution"></textarea>
                         </div>
                         <div>
-                        <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
-                        <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">Print</a>
+                            <input type="hidden" name="activity_id" value="1">
+                            <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
+                            <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">Print</a>
                         </div>
                     </form>
                 </div>
@@ -79,19 +80,47 @@
 <div class="container-fluid pb-0">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
-                <h1 class="text-center pb-4 titles colour-2">Activity for when you feel sad</h1>
+            <div class="col-md-8">
+                <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
                 <div class="row justify-content-center">
-                <!-- Activity Image -->
-                    <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
-                    </div>
-                    <div>
-                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>
-                        <p class="colour-light">Play your favourite song and dance!</p>
-                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>
-                    </div>
-                </div>
+    {% if activity %}
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
+        <!-- Dynamic Activity Image -->
+        <div class="col-lg-6 col-md-6 pt-2">
+            <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
+        </div>
+        <div>
+            <!-- Dynamic Activity Details -->
+            <p class="colour-light">{{ activity['activity_name'] }}</p>
+            <p class="colour-light">{{ activity['description'] }}</p>
+            <p class="colour-light">{{ activity['instructions'] }}</p>
+        </div>
+                        <div class="text-center">
+                            <input type="hidden" name="activity_id" value="{{ activity['activity_id'] }}">
+                <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
+            </div>
+        </form>
+    {% else %}
+        <!-- Fallback content if no activity is available -->
+        <div class="col-lg-6 col-md-6 pt-2">
+            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="No Activity Available">
+        </div>
+        <div>
+            <p class="colour-light">No activities available right now.</p>
+        </div>
+    {% endif %}
+</div>
+<!--                <div class="row justify-content-center">-->
+<!--                &lt;!&ndash; Activity Image &ndash;&gt;-->
+<!--                    <div class="col-lg-6 col-md-6 pt-2">-->
+<!--                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>-->
+<!--                        <p class="colour-light">Play your favourite song and dance!</p>-->
+<!--                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
