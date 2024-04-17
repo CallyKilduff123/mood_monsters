@@ -94,13 +94,13 @@ VALUES
 SELECT * FROM mood_and_activity;
 
 
-INSERT INTO badge_criteria (badge_id, mood_id, activity_id, criteria_type)
+INSERT INTO badge_criteria (badge_id, mood_id, activity_id)
 VALUES
-(1, 3, 1, "journal"),
-(2, 2, 1, "journal"),
-(3, 4, 1, "journal"),
-(4, 3, 3, "activity"),
-(5, 2, 2, "activity"),
-(6, 4, 4, "activity");
+(1, 3, 1),
+(2, 2, 1),
+(3, 4, 1),
+(4, 3, 3),
+(5, 2, 2),
+(6, 4, 4);
 
 SELECT * FROM badge_criteria;

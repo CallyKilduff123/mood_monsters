@@ -50,7 +50,7 @@
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
-                    <form action="/submit-journal" method="POST" class="journal-entry">
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
                         <p class="text-center">Today, I feel sad.</p>
                         <div class="entry">
                             <label for="reason">I feel sad because:</label>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="entry">
                             <label for="action">When I feel sad, I want to:</label>
-                            <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
+                            <textarea id="action" name="journal_text" placeholder="What do you want to do?"></textarea>
                         </div>
                         <div class="entry">
                             <label for="solution">To make me feel happy, I can:</label>
@@ -83,6 +83,7 @@
                 <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
                 <div class="row justify-content-center">
     {% if activity %}
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
         <!-- Dynamic Activity Image -->
         <div class="col-lg-6 col-md-6 pt-2">
             <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
@@ -93,10 +94,14 @@
             <p class="colour-light">{{ activity['description'] }}</p>
             <p class="colour-light">{{ activity['instructions'] }}</p>
         </div>
+                        <div class="text-center">
+                <button type="submit" class="btn btn-success">I did it!</button>
+            </div>
+        </form>
     {% else %}
         <!-- Fallback content if no activity is available -->
         <div class="col-lg-6 col-md-6 pt-2">
-            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/default_sad_image.jpeg" alt="No Activity Available">
+            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="No Activity Available">
         </div>
         <div>
             <p class="colour-light">No activities available right now.</p>

@@ -141,7 +141,6 @@ CREATE TABLE badge_criteria (
     badge_id INT NOT NULL,
     mood_id INT,
     activity_id INT,
-    criteria_type ENUM('activity', 'journal') NOT NULL,  -- 'activity' for activity completion, 'journal' for journal entries
     FOREIGN KEY (badge_id) REFERENCES badge(badge_id),
     FOREIGN KEY (mood_id) REFERENCES mood(mood_id),
     FOREIGN KEY (activity_id) REFERENCES activity(activity_id)
