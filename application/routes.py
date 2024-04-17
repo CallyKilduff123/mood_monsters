@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from application.data_access import (child_login, grownup_login, add_family,
                                      get_child_info_by_family_id, get_grownup_info_by_family_id,
                                      log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
-                                     validate_child_family_association)
+                                     validate_child_family_association, get_random_activity_for_mood)
 from datetime import datetime, timedelta
 from application import app
 
@@ -134,7 +134,10 @@ def sad_page(family_id):
 
         # Log the mood when navigating to the sad page
         log_mood_to_db(child_id, 'Sad')  # Log the mood without checking the success
-        return render_template('6_sad_page.html', first_name=first_name, family_id=family_id)
+        # get random activity in activity section
+        activity = get_random_activity_for_mood('2')
+
+        return render_template('6_sad_page.html', first_name=first_name, family_id=family_id, activity=activity)
     else:
         return redirect(url_for('login_route'))
 

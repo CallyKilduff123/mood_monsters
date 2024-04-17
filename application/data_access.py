@@ -1,6 +1,7 @@
 import mysql.connector
 from datetime import datetime
 from flask import request, redirect, url_for, render_template, session
+import random
 
 
 def get_db_connection():
@@ -249,3 +250,71 @@ def get_messages_for_child(child_id):
     finally:
         cursor.close()
         conn.close()
+
+
+def get_random_activity_for_mood(mood_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        # Query to get all activity_ids associated with the mood_id
+        query = """
+        SELECT activity_id
+        FROM mood_and_activity
+        WHERE mood_id = %s
+        """
+        cursor.execute(query, (mood_id,))
+        activity_ids = cursor.fetchall()
+
+        # Randomly select one activity_id from the list
+        if activity_ids:
+            selected_activity_id = random.choice(activity_ids)['activity_id']
+
+            # Fetch the details of the selected activity
+            activity_query = """
+            SELECT activity_id, activity_name, activity_image_url, description, instructions
+            FROM activity
+            WHERE activity_id = %s
+            """
+            cursor.execute(activity_query, (selected_activity_id,))
+            activity = cursor.fetchone()
+            return activity
+        else:
+            return None
+    except Exception as e:
+        print(f"Error fetching activity: {e}")
+        return None
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+# def get_random_activity_for_mood(mood_name):
+#     conn = get_db_connection()
+#     cursor = conn.cursor(dictionary=True)
+#     # Establish a new database connection
+#     try:
+#         query = """
+#         SELECT activity_id, activity_name, activity_image_url, description, instructions
+#         FROM activity
+#         JOIN mood_and_activity ON activity.activity_id = mood_and_activity.activity_id
+#         JOIN mood ON mood_and_activity.mood_id = mood.mood_id
+#         WHERE mood.mood_name = %s
+#         """
+#         cursor.execute(query, (mood_name,))
+#
+#         activities = cursor.fetchall()
+#         if activities:
+#             activity = random.choice(activities)
+#         else:
+#             activity = None
+#         return activity
+#     except Exception as e:
+#         print(f"Error fetching activity: {e}")
+#         return None
+#
+#     finally:
+#         if cursor:
+#             cursor.close()
+#         if conn:
+#             conn.close()

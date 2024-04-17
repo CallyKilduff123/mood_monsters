@@ -82,16 +82,38 @@
             <div class="col-md-8">
                 <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
                 <div class="row justify-content-center">
-                <!-- Activity Image -->
-                    <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
-                    </div>
-                    <div>
-                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>
-                        <p class="colour-light">Play your favourite song and dance!</p>
-                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>
-                    </div>
-                </div>
+    {% if activity %}
+        <!-- Dynamic Activity Image -->
+        <div class="col-lg-6 col-md-6 pt-2">
+            <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
+        </div>
+        <div>
+            <!-- Dynamic Activity Details -->
+            <p class="colour-light">{{ activity['activity_name'] }}</p>
+            <p class="colour-light">{{ activity['description'] }}</p>
+            <p class="colour-light">{{ activity['instructions'] }}</p>
+        </div>
+    {% else %}
+        <!-- Fallback content if no activity is available -->
+        <div class="col-lg-6 col-md-6 pt-2">
+            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/default_sad_image.jpeg" alt="No Activity Available">
+        </div>
+        <div>
+            <p class="colour-light">No activities available right now.</p>
+        </div>
+    {% endif %}
+</div>
+<!--                <div class="row justify-content-center">-->
+<!--                &lt;!&ndash; Activity Image &ndash;&gt;-->
+<!--                    <div class="col-lg-6 col-md-6 pt-2">-->
+<!--                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>-->
+<!--                        <p class="colour-light">Play your favourite song and dance!</p>-->
+<!--                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
