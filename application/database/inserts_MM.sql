@@ -76,13 +76,19 @@ SELECT * FROM activity;
 INSERT INTO mood_and_activity (mood_id, activity_id)
 VALUES
 (2, 2),
+(2, 4),
 (2, 5),
+(2, 6),
 (2, 7),
 (3, 3),
 (3, 4),
+(3, 5),
 (3, 6),
+(3, 7),
+(4, 3),
 (4, 4),
 (4, 5),
+(4, 6),
 (4, 7);
 
 SELECT * FROM mood_and_activity;
