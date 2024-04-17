@@ -8,7 +8,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="password",  # Uncomment and set your password here
+        # password="password",  # Uncomment and set your password here
         database="mood_monsters"
     )
 
@@ -330,6 +330,7 @@ def check_badge_criteria(child_id, track_activity_id):
                         (SELECT DISTINCT mood_id FROM mood_logged WHERE child_id = %s)
                 GROUP BY badge.badge_id
                  HAVING completed_count >= required_count
+
             """
             cursor.execute(sql, (child_id, child_id))
             eligible_badges = cursor.fetchall()
