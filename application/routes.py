@@ -129,6 +129,7 @@ def sad_page(family_id):
         # else:
         #     flash('Failed to log mood.', 'error')
         mood_logged_id = log_mood_to_db(child_id, 'Sad')
+        print(session)
         if mood_logged_id:
             flash('Mood logged successfully.', 'success')
         # Get a random activity associated with the "Sad" mood
@@ -257,10 +258,12 @@ def log_activity_route(child_id, mood_logged_id, activity_id):
     journal_text = request.form.get('journal_text', None)
     track_activity_id = log_activity(child_id, mood_logged_id, activity_id, journal_text)
     if track_activity_id:
-        check_badge_criteria(child_id)
+        check_badge_criteria(child_id, track_activity_id)
         message = 'Activity completed successfully!'
+        # print('Activity completed successfully!')
     else:
         message = 'Failed to log activity.'
+        # print('Failed to log activity.')
 
     flash(message)
     return redirect(url_for('child_dashboard', family_id=family_id))
@@ -268,10 +271,19 @@ def log_activity_route(child_id, mood_logged_id, activity_id):
 
 @app.route('/badges_page/<int:child_id>')
 def badges_page(child_id):
-    # Check session or other authentication mechanism to ensure the user has rights to view this page
-    if 'child_id' in session and session['child_id'] == child_id or 'grown_up_id' in session:
-        badges = get_awarded_badges(child_id)
-        return render_template('11_badges_page.html', badges=badges, child_id=child_id)
-    else:
-        return redirect(url_for('login'))
+    # Retrieve family_id from session
+    family_id = session.get('family_id')
 
+    # First, check if the family_id exists in the session
+    if not family_id:
+        flash("Unauthorized access or missing family information.", "error")
+        return redirect(url_for('login_route'))
+
+    # Validate that the requested child belongs to the logged-in user's family
+    if not validate_child_family_association(child_id, family_id):
+        flash('You do not have permission to view this page.', "error")
+        return redirect(url_for('grownup_dashboard', family_id=family_id))
+
+    # If everything is valid, retrieve and display the badges
+    badges = get_awarded_badges(child_id)
+    return render_template('11_badges_page.html', badges=badges, child_id=child_id, family_id=family_id)
