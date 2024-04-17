@@ -124,10 +124,12 @@ SELECT * FROM mood_and_activity;
 CREATE TABLE track_activity (
     	track_activity_id INT AUTO_INCREMENT PRIMARY KEY,
     	child_id INT NOT NULL,
-    	mood_and_activity_id INT NOT NULL,
+    	mood_logged_id INT NOT NULL,
+        activity INT NOT NULL,
     	date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
     	FOREIGN KEY (child_id) REFERENCES child(child_id),
-    	FOREIGN KEY (mood_and_activity_id) REFERENCES mood_and_activity(mood_and_activity_id)
+    	FOREIGN KEY (mood_logged_id) REFERENCES mood_logged(mood_logged_id),
+    	FOREIGN KEY (activity_id) REFERENCES activity(activity_id),
 );
 
 SELECT * FROM track_activity;
@@ -137,13 +139,13 @@ CREATE TABLE badge_progress (
     badge_progress_id INT AUTO_INCREMENT PRIMARY KEY,
     child_id INT NOT NULL,
     badge_id INT NOT NULL,
-    activity_id INT NOT NULL,
-    mood_logged_id INT NOT NULL,
+    track_activity_id INT NOT NULL,
     date_completed DATETIME,
+    award_badge BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (child_id) REFERENCES child(child_id),
     FOREIGN KEY (badge_id) REFERENCES badge(badge_id),
-    FOREIGN KEY (activity_id) REFERENCES activity(activity_id),
-    FOREIGN KEY (mood_logged_id) REFERENCES mood_logged(mood_logged_id)
+    FOREIGN KEY (track_activity_id) REFERENCES track_activity(track_activity_id)
 );
 
 SELECT * FROM badge_progress;
+
