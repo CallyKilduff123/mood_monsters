@@ -8,7 +8,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        # password="password",  # Uncomment and set your password here
+        password="password",  # Uncomment and set your password here
         database="mood_monsters"
     )
 
@@ -141,26 +141,60 @@ def get_child_info_by_family_id(family_id):
         conn.close()
 
 
+# LETICIA NEW LOGIC
 def log_mood_to_db(child_id, mood_name):
     conn = get_db_connection()
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Find the mood_id from the mood table using a safe, parameterized query
+            # Check if the mood has already been logged for the current session
+            if 'logged_moods' in session:
+                if mood_name in session['logged_moods']:
+                    # Mood already logged for this session, return True
+                    return True
+            else:
+                session['logged_moods'] = []
+
+            # Mood not logged yet for this session, proceed with logging
             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
-            mood_id = cursor.fetchone()
-            if mood_id:
-                # Insert the mood log with the retrieved mood_id
-                cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
-                               (mood_id['mood_id'], child_id))
-                conn.commit()
-                return True
-        return False
+            mood_id = cursor.fetchone()['mood_id']
+            cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+                           (mood_id, child_id))
+            conn.commit()
+
+            # Add the mood to the list of logged moods for this session
+            session['logged_moods'].append(mood_name)
+
+            return True
     except Exception as e:
         print(f"Error logging mood: {e}")
         conn.rollback()
         return False
     finally:
         conn.close()
+
+
+
+# CALLY CODE
+# def log_mood_to_db(child_id, mood_name):
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor(dictionary=True) as cursor:
+#             # Find the mood_id from the mood table using a safe, parameterized query
+#             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
+#             mood_id = cursor.fetchone()
+#             if mood_id:
+#                 # Insert the mood log with the retrieved mood_id
+#                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+#                                (mood_id['mood_id'], child_id))
+#                 conn.commit()
+#                 return True
+#         return False
+#     except Exception as e:
+#         print(f"Error logging mood: {e}")
+#         conn.rollback()
+#         return False
+#     finally:
+#         conn.close()
 
 
 def get_logged_moods(child_id):

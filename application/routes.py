@@ -69,7 +69,7 @@ def login_route():
 
 @app.route('/logout')
 def logout():
-    session.clear() # Clear the session, removing stored user information
+    session.clear()  # Clear the session, removing stored user information
     return redirect(url_for('home'))  # Redirect to home page
 
 
@@ -97,7 +97,6 @@ def child_dashboard(family_id):
             return redirect(url_for('grownup_dashboard', family_id=family_id))  # Redirect to grownup dashboard
     else:
         return redirect(url_for('login_route'))  # Redirect to login page if unauthorized
-
 
 
 @app.route('/grownup_dashboard/<int:family_id>')
