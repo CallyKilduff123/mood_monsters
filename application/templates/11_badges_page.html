@@ -1,17 +1,31 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<h1>Your Awarded Badges</h1>
+
+<div class="container-fluid py-4">
+    <div class="container col-md-8">
+        <div class="text-center">
+            <h1 class="titles colour-2 m-4">Your Awarded Badges</h1>
+        </div>
+
     {% if badges %}
         <div>
             {% for badge in badges %}
                 <div style="margin-bottom: 20px;">
-                    <h3>{{ badge.badge_name }}</h3>
-                    <img src="{{ url_for('static', filename=badge.badge_image_url) }}" alt="{{ badge.badge_name }}" style="width: 100px;">
-                    <p>{{ badge.badge_description }}</p>
+                    <h3 class="titles colour-3">{{ badge.badge_name }}</h3>
+                    <img class="rounded border custom-border" src="{{ url_for('static', filename=badge.badge_image_url) }}" alt="{{ badge.badge_name }}" style="width: 100px;">
+                    <p class="colour-light">{{ badge.badge_description }}</p>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No badges awarded yet.</p>
+        <p class="colour-light">No badges awarded yet.</p>
     {% endif %}
+
+
+    <div class="spacer-badges"></div>
+    </div>
+</div>
+
+
+
 {% endblock %}
