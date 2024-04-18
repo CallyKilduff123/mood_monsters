@@ -1,5 +1,25 @@
 {% extends "layout.html" %}
 {% block body_content %}
+<div class="container-xxl d-flex justify-content-center">
+    <!-- Icon button -->
+    <i class="fas fa-bell" id="notification-icon"></i><p>{{ unread_notification_count }}</p>
+
+<!-- Notifications container -->
+<div id="notifications-container">
+    {% if unread_notification_count > 0 %}
+   {% for notification in notifications %}
+            {% if not notification.is_read %}
+                <div class="notification" data-notification-id="{{ notification.notification_id }}">
+                    <p>You have a new message (Sent on {{ notification.date_logged }})</p>
+                    <button class="mark-as-read" onclick="markNotificationAsRead({{ notification.notification_id }})">Mark as Read</button>
+                </div>
+            {% endif %}
+    {% endfor %}
+    {% else %}
+    <p>No unread notifications.</p>
+    {% endif %}
+</div>
+</div>
 <div class="container-xxl pt-4">
     <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -175,6 +195,48 @@
 
 <!--    javascript function for popups-->
 <script>
+        // Get the icon and notifications container elements
+    const icon = document.getElementById('notification-icon');
+    const notificationsContainer = document.getElementById('notifications-container');
+
+    // Add click event listener to the icon
+    icon.addEventListener('click', function() {
+    // Toggle the visibility of the notifications container
+    if (notificationsContainer.style.display === 'none') {
+    notificationsContainer.style.display = 'block';
+    } else {
+    notificationsContainer.style.display = 'none';
+    }
+    });
+
+    function markNotificationAsRead(notificationId) {
+    fetch(`/mark_notification_as_read/${notificationId}`, {
+    method: 'POST',
+    })
+    .then(response => {
+    if (response.ok) {
+    console.log('Notification marked as read');
+    // Optionally update the UI
+    } else {
+    console.error('Error marking notification as read:', response.statusText);
+    }
+    })
+    .catch(error => {
+    console.error('Error marking notification as read:', error);
+    });
+
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+    }
+
+    function unreadNotifications() {
+    var unreadNotificationCount = 0;
+    notifications.forEach(function(notification) {
+    if (!notification.is_read) {
+    unreadNotificationCount++;
+    }
+    });
+    return unreadNotificationCount;
+    }
 
     function showPopupSad() {
         document.getElementById("popup-sad").style.display = "block";
