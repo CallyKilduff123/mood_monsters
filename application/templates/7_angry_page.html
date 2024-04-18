@@ -1,4 +1,22 @@
 {% extends "layout.html" %}
 {% block body_content %}
-
+<form action="/submit-journal" method="POST" class="journal-entry">
+                        <p class="text-center">Today, I feel sad.</p>
+                        <div class="entry">
+                            <label for="reason">I feel sad because:</label>
+                            <textarea id="reason" name="reason" placeholder="Enter your reason here"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="action">When I feel sad, I want to:</label>
+                            <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="solution">To make me feel happy, I can:</label>
+                            <textarea id="solution" name="solution" placeholder="Enter your solution"></textarea>
+                        </div>
+                        <div>
+                        <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
+                        <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">Print</a>
+                        </div>
+                    </form>
 {% endblock %}

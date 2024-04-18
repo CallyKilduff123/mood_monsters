@@ -44,16 +44,17 @@
                     <form action="{{ url_for('login_route') }}" method="POST">
                         <input type="hidden" name="login_type" value="grownup"> <!-- Added hidden field for grownup login -->
                         <label for="grown_up_username">Username:</label><br>
-                        <input type="text" id="grown_up_username" name="username" required><br><br>
+                        <input type="text" id="grown_up_username" name="username" required>
 
                         <label for="pin">PIN:</label><br>
-                        <input type="password" id="pin" name="pin" required>
+                        <input type="password" id="pin" name="pin" required><br><br>
 
                         <input type="submit" value="Login" class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5">
                     </form>
                 </div>
             </div>
         </div>
+    <div class="spacer-login"></div>
     </div>
 </div>
 

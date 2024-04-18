@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 {% block body_content %}
-
-<div class="row">
-    <a href="{{ url_for('badges_page', child_id=child_id) }}">Link to Badges Page</a>
-    {% for badge in user_badges %}
-    <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100 text-center">
-            <img class="card-img-top img-fluid" src="/static/images/{{ badge.image_filename }}" alt="{{ badge.badge_type }}">
-            <div class="card-body">
-                <h4 class="card-title titles colour-{{ badge.colour }}">{{ badge.badge_type }}</h4>
-            </div>
+<h1>Your Awarded Badges</h1>
+    {% if badges %}
+        <div>
+            {% for badge in badges %}
+                <div style="margin-bottom: 20px;">
+                    <h3>{{ badge.badge_name }}</h3>
+                    <img src="{{ url_for('static', filename=badge.badge_image_url) }}" alt="{{ badge.badge_name }}" style="width: 100px;">
+                    <p>{{ badge.badge_description }}</p>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-</div>
+    {% else %}
+        <p>No badges awarded yet.</p>
+    {% endif %}
 {% endblock %}

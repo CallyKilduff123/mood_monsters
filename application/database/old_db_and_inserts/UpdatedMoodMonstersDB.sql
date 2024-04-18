@@ -100,47 +100,53 @@ SELECT * FROM badge;
 
 -- CHANGED COMMUNICATION ACTIVITY TO 54321 Activity and ADDED Activity_image with default NULL 
 CREATE TABLE activity (
-    activity_id INT AUTO_INCREMENT PRIMARY KEY,
-    activity_name ENUM('Log Mood', 'Journal Entry', '54321 Activity', 'Breathing Activity', 'Dance Activity') NOT NULL,
-	activity_image VARCHAR(255)
+   activity_id INT AUTO_INCREMENT PRIMARY KEY,
+   activity_name VARCHAR(255) NULL,
+   activity_image_url VARCHAR(255) NULL,
+   description VARCHAR(255) NULL,
+   instructions VARCHAR(255) NULL
 );
 
 SELECT * FROM activity;
 
--- NEW TABLE ADDED FOR ACTIVITY AND MOOD (SELF_POPULATED)
- CREATE TABLE activity_and_mood (
-    activity_and_mood_id INT AUTO_INCREMENT PRIMARY KEY,
+
+-- NEW TABLE ADDED FOR MOOD AND ACTIVITY - I switched these to mood first then activity
+ CREATE TABLE mood_and_activity (
+    mood_and_activity_id INT AUTO_INCREMENT PRIMARY KEY,
     activity_id INT NOT NULL,
     mood_id INT NOT NULL,
-    FOREIGN KEY (activity_id) REFERENCES activity(activity_id),
     FOREIGN KEY (mood_id) REFERENCES mood(mood_id)
+    FOREIGN KEY (activity_id) REFERENCES activity(activity_id),
 );
 
-SELECT * FROM activity_and_mood;
+SELECT * FROM mood_and_activity;
+
 
 -- ADDED THE TRACK_ACTIVITY TABLE (SELF-POPULATED)
 CREATE TABLE track_activity (
     	track_activity_id INT AUTO_INCREMENT PRIMARY KEY,
     	child_id INT NOT NULL,
-    	activity_and_mood_id INT NOT NULL,
+    	mood_and_activity_id INT NOT NULL,
     	date_completed DATETIME DEFAULT CURRENT_TIMESTAMP,
     	FOREIGN KEY (child_id) REFERENCES child(child_id),
-    	FOREIGN KEY (activity_and_mood_id) REFERENCES activity_and_mood(activity_and_mood_id)
+    	FOREIGN KEY (mood_and_activity_id) REFERENCES mood_and_activity(mood_and_activity_id)
 );
 
 SELECT * FROM track_activity;
 
 
--- REMOVED is_complete BOOLEAN DEFAULT FALSE FROM TABLE (SELF-POPULATED)
+-- ADDED mood_logged_id
 CREATE TABLE badge_progress (
-    progress_id INT AUTO_INCREMENT PRIMARY KEY,
+    badge_progress_id INT AUTO_INCREMENT PRIMARY KEY,
     child_id INT NOT NULL,
     badge_id INT NOT NULL,
     activity_id INT NOT NULL,
+    mood_logged_id INT NOT NULL,
     date_completed DATETIME,
     FOREIGN KEY (child_id) REFERENCES child(child_id),
     FOREIGN KEY (badge_id) REFERENCES badge(badge_id),
     FOREIGN KEY (activity_id) REFERENCES activity(activity_id)
+    FOREIGN KEY (mood_logged_id) REFERENCES mood_logged(mood_logged_id),
 );
 
 SELECT * FROM badge_progress;
