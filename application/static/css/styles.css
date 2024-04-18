@@ -34,29 +34,29 @@ a {
   height: 180px; /* add empty space below registration form */
 }
 
-.spacer-login {
-  height: 580px; /* add empty space below login form */
+.spacer-login, .spacer-badges {
+  height: 583px; /* add empty space below login form */
 }
 
 .spacer-mood {
   height: 1010px; /* add empty space to mood diary with no entries */
 }
 
-/*.container, .container-fluid {
+.container, .container-fluid {
     position: relative;
     z-index: 1;
-}*/
+}
 
 .monster-image, .monster-image-footer {
     position: absolute;
     width: 20vw;
     height: auto;
-    z-index: 1;
+    z-index: 2;
 }
 
 .text-content {
     position: relative; /* Ensures z-index is effective */
-    z-index: 2; /* Highest to ensure it appears above images */
+    z-index: 3; /* Highest to ensure it appears above images */
  }
 
 .top-left { top: 0; left: 0; }
@@ -422,7 +422,8 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    height: 100%;
     z-index: 1;
 }
 

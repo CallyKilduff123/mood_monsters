@@ -50,7 +50,7 @@
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
-                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id) }}" method="post">
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id) }}" method="post" class="journal-entry">
                         <p class="text-center">Today, I feel sad.</p>
                         <div class="entry">
                             <label for="reason">I feel sad because:</label>
@@ -80,21 +80,23 @@
 <div class="container-fluid pb-0">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
-                <div class="row justify-content-center">
+                <!-- move div below logic...
+                <div class="row justify-content-center">-->
     {% if activity %}
                     <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
         <!-- Dynamic Activity Image -->
-        <div class="col-lg-6 col-md-6 pt-2">
-            <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
-        </div>
-        <div>
-            <!-- Dynamic Activity Details -->
-            <p class="colour-light">{{ activity['activity_name'] }}</p>
-            <p class="colour-light">{{ activity['description'] }}</p>
-            <p class="colour-light">{{ activity['instructions'] }}</p>
-        </div>
+                        <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 pt-2">
+                            <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
+                        </div>
+                        <div>
+                            <!-- Dynamic Activity Details -->
+                            <p class="colour-light">{{ activity['activity_name'] }}</p>
+                            <p class="colour-light">{{ activity['description'] }}</p>
+                            <p class="colour-light">{{ activity['instructions'] }}</p>
+                        </div>
                         <div class="text-center">
                             <input type="hidden" name="activity_id" value="{{ activity['activity_id'] }}">
                 <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
@@ -148,9 +150,9 @@
 </div>
 
 <!-- Links Section (No Wave) -->
-<div class="container-fluid pb-5">
-    <div class="d-flex justify-content-center align-items-center pb-5">
-        <div class="col-md-10 text-center pb-3">
+<div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="col-md-8 text-center">
             <!-- buttons -->
             <div class="btn btn-primary rounded-pill border-2 m-1 px-4 py-2 mb-5 fixed-width-wide">
                 <a href="{{ url_for('child_dashboard', family_id=family_id) }}">Back to my mood monsters</a>
