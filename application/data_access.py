@@ -254,10 +254,10 @@ def get_messages_for_child(child_id):
 
 
 def get_notifications_for_child(child_id):
-    conn = None
+    conn = get_db_connection()
     notifications = None
     try:
-        conn = get_db_connection()
+
         with conn.cursor(dictionary=True) as cursor:  # Use dictionary=True to fetch rows as dictionaries
             cursor.execute("""SELECT notification_id, message_id, date_logged, is_read 
                               FROM notifications WHERE child_id = %s""", (child_id,))
@@ -271,9 +271,8 @@ def get_notifications_for_child(child_id):
 
 
 def create_notification(child_id, message_id):
-    conn = None
+    conn = get_db_connection()
     try:
-        conn = get_db_connection()
         with conn.cursor() as cursor:
             cursor.execute("""INSERT INTO notifications (child_id, message_id, date_logged, is_read) 
                               VALUES (%s, %s, NOW(), FALSE)
@@ -288,9 +287,8 @@ def create_notification(child_id, message_id):
 
 def mark_notification_as_read(notification_id):
     # Function to mark a notification as read
-    conn = None
+    conn = get_db_connection()
     try:
-        conn = get_db_connection()
         with conn.cursor() as cursor:
             cursor.execute("""UPDATE notifications SET is_read = TRUE WHERE notification_id = %s""",
                            (notification_id,))
@@ -377,6 +375,10 @@ def log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text=No
 #         cursor.close()
 #         conn.close()
 
+# change to get mood name by logged mood
+# join mood and mood logged tables - return mood name
+# pass new variable into the log activity app route so that the mood is fetched by name
+# so that when you return a mood-specific page, you do not log that mood to the database
 def get_mood_id_by_mood_logged_id(mood_logged_id):
     conn = get_db_connection()
     try:

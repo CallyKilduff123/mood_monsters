@@ -63,13 +63,13 @@ SELECT * FROM mood;
 
 
 CREATE TABLE notifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
     child_id INT,
-    mood_id INT,
+    message_id INT,
     date_logged TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_read BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (child_id) REFERENCES child(child_id),
-    FOREIGN KEY (mood_id) REFERENCES mood(mood_id)
+    FOREIGN KEY (message_id) REFERENCES message(message_id)
 );
 
 SELECT * FROM notifications;
