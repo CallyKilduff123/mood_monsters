@@ -287,6 +287,10 @@ a.nav-link {
     color: var(--light) !important;
 }
 
+.mark-as-read {
+    font-size: 0.8rem;
+}
+
 
 /* ------ BORDERS ------ */
 
