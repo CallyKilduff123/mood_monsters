@@ -4,7 +4,8 @@ from application.data_access import (child_login, grownup_login, add_family,
                                      log_mood_to_db, get_logged_moods, send_message, get_messages_for_child,
                                      validate_child_family_association, get_random_activity_for_mood,
                                      get_awarded_badges, log_activity, check_badge_criteria,
-                                     get_mood_id_by_mood_logged_id)
+                                     get_mood_id_by_mood_logged_id, mark_notification_as_read,
+                                     create_notification, get_notifications_for_child)
 from datetime import datetime, timedelta
 from application import app
 
@@ -79,13 +80,24 @@ def child_dashboard(family_id):
     if 'family_id' in session and session['family_id'] == family_id:
         # Fetch child and related family information using family_id
         child_info = get_child_info_by_family_id(family_id)
-        first_name = session.get('first_name')  # Default to 'Unknown' if not set
-        grown_up_info = get_grownup_info_by_family_id(family_id)
-        messages = get_messages_for_child(child_info['child_id'])
-        return render_template('5_child_dashboard.html', child_info=child_info,
-                               first_name=first_name, grown_up_info=grown_up_info, messages=messages, family_id=family_id)
+        if child_info:
+            first_name = session.get('first_name', 'Unknown')  # Default to 'Unknown' if not set
+            grown_up_info = get_grownup_info_by_family_id(family_id)
+            messages = get_messages_for_child(child_info['child_id'])
+            # Fetch notifications for the child
+            notifications = get_notifications_for_child(child_info['child_id'])
+            # Calculate the number of unread notifications
+            unread_notification_count = sum(1 for notification in notifications if not notification['is_read'])
+            return render_template('5_child_dashboard.html', child_info=child_info,
+                                   first_name=first_name, grown_up_info=grown_up_info, messages=messages,
+                                   notifications=notifications, family_id=family_id,
+                                   unread_notification_count=unread_notification_count)
+        else:
+            flash("Child information not found.", "error")
+            return redirect(url_for('grownup_dashboard', family_id=family_id))  # Redirect to grownup dashboard
     else:
         return redirect(url_for('login_route'))  # Redirect to login page if unauthorized
+
 
 
 @app.route('/grownup_dashboard/<int:family_id>')
@@ -237,15 +249,27 @@ def send_message_route():
     grown_up_id = request.form['grown_up_id']
     message = request.form['message']
 
-    # Assuming send_message is imported correctly and working
-    if send_message(child_id, grown_up_id, message):
-        # Assume a flash method or similar feedback mechanism
+    message_id = send_message(grown_up_id, child_id, message)
+    if message_id:
+        create_notification(child_id, message_id)
         flash("Message sent successfully!", "success")
     else:
         flash("Failed to send message. Please try again.", "error")
 
     return redirect(url_for('grownup_dashboard', family_id=session['family_id']))
 
+
+@app.route('/mark_notification_as_read/<int:notification_id>', methods=['POST'])
+def read_notification(notification_id):
+    try:
+        # Call function to mark notification as read
+        mark_notification_as_read(notification_id)
+        return 'Notification marked as read', 200
+    except Exception as e:
+        # Handle exceptions, log errors, etc.
+        print(f"Error marking notification as read: {e}")
+        # Return an error response
+        return 'Error marking notification as read', 500
 
 # badges page and logic:
 
