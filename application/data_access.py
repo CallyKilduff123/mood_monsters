@@ -253,6 +253,57 @@ def get_messages_for_child(child_id):
         conn.close()
 
 
+def get_notifications_for_child(child_id):
+    conn = None
+    notifications = None
+    try:
+        conn = get_db_connection()
+        with conn.cursor(dictionary=True) as cursor:  # Use dictionary=True to fetch rows as dictionaries
+            cursor.execute("""SELECT notification_id, message_id, date_logged, is_read 
+                              FROM notifications WHERE child_id = %s""", (child_id,))
+            notifications = cursor.fetchall()
+    except Exception as e:
+        print(f"Error while fetching notifications: {e}")
+    finally:
+        if conn:
+            conn.close()
+    return notifications
+
+
+def create_notification(child_id, message_id):
+    conn = None
+    try:
+        conn = get_db_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("""INSERT INTO notifications (child_id, message_id, date_logged, is_read) 
+                              VALUES (%s, %s, NOW(), FALSE)
+                              """, (child_id, message_id))
+            conn.commit()
+    except Exception as e:
+        print(f"Error while creating notification: {e}")
+    finally:
+        if conn:
+            conn.close()
+
+
+def mark_notification_as_read(notification_id):
+    # Function to mark a notification as read
+    conn = None
+    try:
+        conn = get_db_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("""UPDATE notifications SET is_read = TRUE WHERE notification_id = %s""",
+                           (notification_id,))
+            conn.commit()
+            print("Notification marked as true")
+    except Exception as e:
+        # Handle exceptions, log errors, etc.
+        print(f"Error while marking notification as read: {e}")
+    finally:
+        if conn:
+            conn.close()
+
+
 def get_random_activity_for_mood(mood_id):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
