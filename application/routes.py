@@ -13,6 +13,16 @@ from application import app
 @app.route('/')
 @app.route('/home')
 def home():
+    # LETICIA - LOGIC FOR HOME TO RETURN GROWN UP TO GROWNUP DASHBOARD AND CHILD TO CHILD DASHBOARD
+    if 'user_type' in session:
+        if session['user_type'] == 'child':
+            family_id = session.get('family_id')
+            if family_id:
+                return redirect(url_for('child_dashboard', family_id=family_id))
+        elif session['user_type'] == 'grownup':
+            family_id = session.get('family_id')
+            if family_id:
+                return redirect(url_for('grownup_dashboard', family_id=family_id))
     return render_template('1_home.html', title='Home', body_class="pink-body")
 
 
@@ -54,6 +64,8 @@ def register():
 #         elif request.form.get('login_type') == 'child':
 #             return child_login()
 #     return render_template('2_login.html', title='Login')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
     if request.method == 'POST':

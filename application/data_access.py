@@ -173,7 +173,6 @@ def log_mood_to_db(child_id, mood_name):
         conn.close()
 
 
-
 # CALLY CODE
 # def log_mood_to_db(child_id, mood_name):
 #     conn = get_db_connection()
