@@ -1,4 +1,170 @@
 {% extends "layout.html" %}
 {% block body_content %}
 
+<div class="container-fluid wave-bottom gradient-colour-1 py-5">
+     <div class="container col-md-8">
+        <div class="row justify-content-center text-content py-1">
+            <h1 class="text-center titles colour-2 pb-4">Activity page to address feelings of worry</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center px-2">
+        <!-- Sad Monster -->
+        <div class="col-lg-4 col-md-6 mb-5">
+            <img class="img-fluid rounded border custom-border mt-3 mb-3" src="/static/images/4_worried_monster.jpeg" alt="Worried Monster">
+            <p class="colour-light text-center">Today {{ first_name }}, you feel worried</p>
+            <br>
+        </div>
+    </div>
+</div>
+<!-- What Page Does Section (No Wave) -->
+<div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-center pt-1">
+            <div class="col-md-10">
+                <h1 class="text-center titles colour-2">Coping Strategies for Feeling Worried</h1>
+                <div class="pt-5">
+                    <p class="colour-light">Feeling worried is like having butterflies in your tummy because you're thinking about something that makes you feel scared, stressed or unsure.
+                        It is never nice to feel worried, but sometimes we all do.</p>
+                    <br>
+                    <p class="colour-light">Let's look at why you feel worried, and some activities to make you feel better. Share these with your grown-up so that they can help you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mood Journal Section (Wave Top & Wave Bottom) -->
+<div class="container-fluid wave-top-bottom gradient-colour-2 pb-2 mb-2">
+    <div class="container pb-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-md-10 py-5">
+                <h1 class="text-center py-4 titles colour-2">Exploring Feeling Worried</h1>
+                <div class="row justify-content-center">
+                <!-- Mood Journal Image -->
+                    <div class="col-lg-6 col-md-6 pt-2">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/journal_entry.jpeg" alt="Monster writes in a Journal">
+                    </div>
+                    <div>
+                        <p class="colour-light">Let's look at feelings of worry in your journal.</p>
+                        <p class="colour-light">Use your journal to talk to your grown-up about how you are feeling.</p>
+                        <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
+                    </div>
+                    <!-- journal -->
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}" method="post" class="journal-entry">
+                        <p class="text-center">Today, I feel worried.</p>
+                        <div class="entry">
+                            <label for="reason">I feel worried because:</label>
+                            <textarea id="reason" name="journal_text" placeholder="Enter your reason here"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="action">When I feel worried, I want to:</label>
+                            <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
+                        </div>
+                        <div class="entry">
+                            <label for="solution">To make me feel better, I can:</label>
+                            <textarea id="solution" name="action" placeholder="Enter your solution"></textarea>
+                        </div>
+                        <div>
+                            <input type="hidden" name="activity_id" value="1">
+                            <input type="submit" value="Submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">
+                            <a href="/printable-journal" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">Print</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Activity Section (No Wave) -->
+<div class="container-fluid pb-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
+                <!-- move div below logic...
+                <div class="row justify-content-center">-->
+    {% if activity %}
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id, activity_id=activity['activity_id']) }}" method="post">
+        <!-- Dynamic Activity Image -->
+                        <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 pt-2">
+                            <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
+                        </div>
+                        <div>
+                            <!-- Dynamic Activity Details -->
+                            <p class="colour-light">{{ activity['activity_name'] }}</p>
+                            <p class="colour-light">{{ activity['description'] }}</p>
+                            <p class="colour-light">{{ activity['instructions'] }}</p>
+                        </div>
+                        <div class="text-center">
+                            <input type="hidden" name="activity_id" value="{{ activity['activity_id'] }}">
+                <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
+            </div>
+        </form>
+    {% else %}
+        <!-- Fallback content if no activity is available -->
+        <div class="col-lg-6 col-md-6 pt-2">
+            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/4_worried_monster.jpeg" alt="No Activity Available">
+        </div>
+        <div>
+            <p class="colour-light">No activities available right now.</p>
+        </div>
+    {% endif %}
+</div>
+<!--                <div class="row justify-content-center">-->
+<!--                &lt;!&ndash; Activity Image &ndash;&gt;-->
+<!--                    <div class="col-lg-6 col-md-6 pt-2">-->
+<!--                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>-->
+<!--                        <p class="colour-light">Play your favourite song and dance!</p>-->
+<!--                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mood Diary Section (Wave Top & Wave Bottom) -->
+<div class="container-fluid wave-top-bottom gradient-colour-1 pt-3 pb-2 mb-2">
+    <div class="container pb-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-md-10 py-5">
+                <h1 class="text-center py-4 titles colour-2">Worried Animal Fact</h1>
+                <div class="row justify-content-center">
+                <!-- Animal Fact Image -->
+                    <div class="col-lg-6 col-md-6 pt-2">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/worried_hare.jpg" alt="Worried Hare with Babies">
+                    </div>
+                    <div>
+                        <p class="text-center titles colour-2"><strong>Did you know?</strong></p>
+                        <p class="colour-light">Some years are stressful for the Snowshoe hare. They have fewer babies during these years when they feel worried</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Links Section (No Wave) -->
+<div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="col-md-8 text-center">
+            <!-- buttons -->
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-4 py-2 mb-5 fixed-width-wide">
+                <a href="{{ url_for('child_dashboard', family_id=family_id) }}">Back to my mood monsters</a>
+            </div>
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-4 py-2 mb-5 fixed-width-wide">
+                <a href="{{ url_for('mood_diary', family_id=family_id) }}">I want to see my mood diary</a>
+            </div>
+            <div class="btn btn-primary rounded-pill border-2 m-1 px-4 py-2 mb-5 fixed-width-wide">
+                <a href="{{ url_for('badges_page', child_id=session['child_id']) }}">I want to see my badges</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

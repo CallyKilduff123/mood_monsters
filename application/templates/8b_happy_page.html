@@ -4,14 +4,14 @@
 <div class="container-fluid wave-bottom gradient-colour-1 py-5">
      <div class="container col-md-8">
         <div class="row justify-content-center text-content py-1">
-            <h1 class="text-center titles colour-2 pb-4">Activity page to address feelings of sadness</h1>
+            <h1 class="text-center titles colour-2 pb-4">Activity page to address feelings of happiness</h1>
         </div>
     </div>
     <div class="row justify-content-center px-2">
         <!-- Sad Monster -->
         <div class="col-lg-4 col-md-6 mb-5">
-            <img class="img-fluid rounded border custom-border mt-3 mb-3" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
-            <p class="colour-light text-center">Today {{ first_name }}, you feel sad</p>
+            <img class="img-fluid rounded border custom-border mt-3 mb-3" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
+            <p class="colour-light text-center">Today {{ first_name }}, you feel happy</p>
             <br>
         </div>
     </div>
@@ -21,12 +21,12 @@
     <div class="container">
         <div class="row justify-content-center pt-1">
             <div class="col-md-10">
-                <h1 class="text-center titles colour-2">Coping Strategies for Feeling Sad</h1>
+                <h1 class="text-center titles colour-2">Strategies for Feeling Happy</h1>
                 <div class="pt-5">
-                    <p class="colour-light">Feeling sad is like having a little raincloud over your head because something made you feel a bit down or upset.
-                        It is never nice to feel sad, but sometimes we all do.</p>
+                    <p class="colour-light">Being happy is like having a big smile because something really awesome happened, making you feel super excited and full of joy!
+                        It is always nice to feel happy, so let's enjoy it!</p>
                     <br>
-                    <p class="colour-light">Let's look at why you feel sad, and some activities to make you feel better. Share these with your grown-up so that they can help you.</p>
+                    <p class="colour-light">Let's look at why you feel happy, and some activities you can use to remind you of this feeling. Share these with your grown-up so that they can help you.</p>
                 </div>
             </div>
         </div>
@@ -38,30 +38,30 @@
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-md-10 py-5">
-                <h1 class="text-center py-4 titles colour-2">Exploring Feeling Sad</h1>
+                <h1 class="text-center py-4 titles colour-2">Exploring Feeling Happy</h1>
                 <div class="row justify-content-center">
                 <!-- Mood Journal Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/journal_entry.jpeg" alt="Monster writes in a Journal">
                     </div>
                     <div>
-                        <p class="colour-light">Let's look at feelings of sadness in your journal.</p>
+                        <p class="colour-light">Let's look at feelings of happiness in your journal.</p>
                         <p class="colour-light">Use your journal to talk to your grown-up about how you are feeling.</p>
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
                     <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}" method="post" class="journal-entry">
-                        <p class="text-center">Today, I feel sad.</p>
+                        <p class="text-center">Today, I feel happy.</p>
                         <div class="entry">
-                            <label for="reason">I feel sad because:</label>
+                            <label for="reason">I feel happy because:</label>
                             <textarea id="reason" name="journal_text" placeholder="Enter your reason here"></textarea>
                         </div>
                         <div class="entry">
-                            <label for="action">When I feel sad, I want to:</label>
+                            <label for="action">When I feel happy, I want to:</label>
                             <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
                         </div>
                         <div class="entry">
-                            <label for="solution">To make me feel happy, I can:</label>
+                            <label for="solution">To keep me feeling happy, I can:</label>
                             <textarea id="solution" name="action" placeholder="Enter your solution"></textarea>
                         </div>
                         <div>
@@ -75,6 +75,7 @@
         </div>
     </div>
 </div>
+
 <!-- Activity Section (No Wave) -->
 <div class="container-fluid pb-0">
     <div class="container">
@@ -104,7 +105,7 @@
     {% else %}
         <!-- Fallback content if no activity is available -->
         <div class="col-lg-6 col-md-6 pt-2">
-            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="No Activity Available">
+            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/4_worried_monster.jpeg" alt="No Activity Available">
         </div>
         <div>
             <p class="colour-light">No activities available right now.</p>
@@ -132,15 +133,15 @@
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-md-10 py-5">
-                <h1 class="text-center py-4 titles colour-2">Sad Animal Fact</h1>
+                <h1 class="text-center py-4 titles colour-2">Happy Animal Fact</h1>
                 <div class="row justify-content-center">
                 <!-- Animal Fact Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/sad_cow.jpg" alt="Sad Cow">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/happy_otter.jpeg" alt="Happy Otter holding Stone">
                     </div>
                     <div>
                         <p class="text-center titles colour-2"><strong>Did you know?</strong></p>
-                        <p class="colour-light">Cows have a best friend. Cows get sad when their best friend is not around.</p>
+                        <p class="colour-light">Otters have a favourite stone that they carry with them to make themselves happy</p>
                     </div>
                 </div>
             </div>
@@ -165,6 +166,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

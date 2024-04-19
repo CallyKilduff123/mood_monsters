@@ -4,14 +4,14 @@
 <div class="container-fluid wave-bottom gradient-colour-1 py-5">
      <div class="container col-md-8">
         <div class="row justify-content-center text-content py-1">
-            <h1 class="text-center titles colour-2 pb-4">Activity page to address feelings of sadness</h1>
+            <h1 class="text-center titles colour-2 pb-4">Activity page to address feeling lonely</h1>
         </div>
     </div>
     <div class="row justify-content-center px-2">
         <!-- Sad Monster -->
         <div class="col-lg-4 col-md-6 mb-5">
-            <img class="img-fluid rounded border custom-border mt-3 mb-3" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">
-            <p class="colour-light text-center">Today {{ first_name }}, you feel sad</p>
+            <img class="img-fluid rounded border custom-border mt-3 mb-3" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
+            <p class="colour-light text-center">Today {{ first_name }}, you feel lonely</p>
             <br>
         </div>
     </div>
@@ -21,12 +21,12 @@
     <div class="container">
         <div class="row justify-content-center pt-1">
             <div class="col-md-10">
-                <h1 class="text-center titles colour-2">Coping Strategies for Feeling Sad</h1>
+                <h1 class="text-center titles colour-2">Coping Strategies for Feeling Lonely</h1>
                 <div class="pt-5">
-                    <p class="colour-light">Feeling sad is like having a little raincloud over your head because something made you feel a bit down or upset.
-                        It is never nice to feel sad, but sometimes we all do.</p>
+                    <p class="colour-light">Feeling lonely is like floating alone on a little boat in a big lake. You see other boats around, but they seem too far away.
+                        It is never nice to feel lonely, but sometimes we all do.</p>
                     <br>
-                    <p class="colour-light">Let's look at why you feel sad, and some activities to make you feel better. Share these with your grown-up so that they can help you.</p>
+                    <p class="colour-light">Let's look at why you feel lonely, and some activities to make you feel better. Share these with your grown-up so that they can help you.</p>
                 </div>
             </div>
         </div>
@@ -38,26 +38,26 @@
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-md-10 py-5">
-                <h1 class="text-center py-4 titles colour-2">Exploring Feeling Sad</h1>
+                <h1 class="text-center py-4 titles colour-2">Exploring Feeling lonely</h1>
                 <div class="row justify-content-center">
                 <!-- Mood Journal Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/journal_entry.jpeg" alt="Monster writes in a Journal">
                     </div>
                     <div>
-                        <p class="colour-light">Let's look at feelings of sadness in your journal.</p>
+                        <p class="colour-light">Let's look at feeling lonely in your journal.</p>
                         <p class="colour-light">Use your journal to talk to your grown-up about how you are feeling.</p>
                         <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
                     <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}" method="post" class="journal-entry">
-                        <p class="text-center">Today, I feel sad.</p>
+                        <p class="text-center">Today, I feel lonely.</p>
                         <div class="entry">
-                            <label for="reason">I feel sad because:</label>
+                            <label for="reason">I feel lonely because:</label>
                             <textarea id="reason" name="journal_text" placeholder="Enter your reason here"></textarea>
                         </div>
                         <div class="entry">
-                            <label for="action">When I feel sad, I want to:</label>
+                            <label for="action">When I feel lonely, I want to:</label>
                             <textarea id="action" name="action" placeholder="What do you want to do?"></textarea>
                         </div>
                         <div class="entry">
@@ -75,6 +75,7 @@
         </div>
     </div>
 </div>
+
 <!-- Activity Section (No Wave) -->
 <div class="container-fluid pb-0">
     <div class="container">
@@ -132,15 +133,15 @@
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
             <div class="col-md-10 py-5">
-                <h1 class="text-center py-4 titles colour-2">Sad Animal Fact</h1>
+                <h1 class="text-center py-4 titles colour-2">Lonely Animal Fact</h1>
                 <div class="row justify-content-center">
                 <!-- Animal Fact Image -->
                     <div class="col-lg-6 col-md-6 pt-2">
-                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/sad_cow.jpg" alt="Sad Cow">
+                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/lonely_panda.jpeg" alt="Lonely Panda">
                     </div>
                     <div>
                         <p class="text-center titles colour-2"><strong>Did you know?</strong></p>
-                        <p class="colour-light">Cows have a best friend. Cows get sad when their best friend is not around.</p>
+                        <p class="colour-light">In China, Pandas are the symbol for loneliness because they spend most of their lives alone in the forest.</p>
                     </div>
                 </div>
             </div>
@@ -165,6 +166,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
