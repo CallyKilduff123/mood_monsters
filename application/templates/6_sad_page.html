@@ -77,7 +77,7 @@
 </div>
 
 <!-- Activity Section (No Wave) -->
-<div class="container-fluid pb-0">
+<div class="container-fluid pb-0" id="activity-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -85,7 +85,7 @@
                 <!-- move div below logic...
                 <div class="row justify-content-center">-->
     {% if activity %}
-                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}" method="post">
+                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_logged_id=mood_logged_id, activity_id=activity['activity_id']) }}#activity-section" method="post">
         <!-- Dynamic Activity Image -->
                         <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 pt-2">
