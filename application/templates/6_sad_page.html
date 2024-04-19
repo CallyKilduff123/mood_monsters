@@ -161,7 +161,7 @@
                 <a href="{{ url_for('mood_diary', family_id=family_id) }}">I want to see my mood diary</a>
             </div>
             <div class="btn btn-primary rounded-pill border-2 m-1 px-4 py-2 mb-5 fixed-width-wide">
-                <a href="#">I want to see my badges</a>
+                <a href="{{ url_for('badges_page', child_id=session['child_id']) }}">I want to see my badges</a>
             </div>
         </div>
     </div>
