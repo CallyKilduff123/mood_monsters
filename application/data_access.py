@@ -202,6 +202,7 @@ def get_logged_moods(child_id):
             JOIN mood ON mood_logged.mood_id = mood.mood_id
             WHERE mood_logged.child_id = %s
             ORDER BY date_logged DESC
+            LIMIT 24
         """, (child_id,))
         return cursor.fetchall()
     except Exception as e:
