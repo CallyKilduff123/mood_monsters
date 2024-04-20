@@ -156,7 +156,8 @@ def log_mood_to_db(child_id, mood_name):
             mood_id = result['mood_id']
 
             # Log the mood
-            cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())", (mood_id, child_id))
+            cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
+                           (mood_id, child_id))
             conn.commit()
             print(f"Mood logged successfully: {mood_id}")
             return mood_id
@@ -166,7 +167,6 @@ def log_mood_to_db(child_id, mood_name):
         return None
     finally:
         conn.close()
-
 
 
 # CALLY CODE
@@ -390,6 +390,7 @@ def log_activity(child_id, mood_id, activity_id, journal_text=None):
         cursor.close()
         conn.close()
 
+
 # def log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text=None):
 #     conn = get_db_connection()
 #     try:
@@ -448,32 +449,57 @@ def check_badge_criteria(child_id):
     conn = get_db_connection()
     try:
         with conn.cursor(dictionary=True) as cursor:
+            # retrieves information about badge criteria and completed activities for a given child.
+            # It counts the completed activities associated with each badge and checks if the count meets the required criteria for awarding the badge.
+            # The LEFT JOIN with the track_activity table ensures that all badge criteria are considered,
+            # even if there are no matching completed activities.
             sql = """
-            SELECT bc.badge_id, b.badge_name, COUNT(bc.criteria_id) AS required_count,
-                   COUNT(DISTINCT ta.track_activity_id) AS completed_count
-            FROM badge_criteria bc
-            JOIN badge b ON bc.badge_id = b.badge_id
-            LEFT JOIN track_activity ta ON ta.activity_id = bc.activity_id AND ta.mood_id = bc.mood_id AND ta.child_id = %s
-            GROUP BY bc.badge_id
-            HAVING completed_count >= required_count
+               SELECT 
+                    bc.badge_id, 
+                    b.badge_name, 
+                    COUNT(bc.criteria_id) AS required_count,
+                    COUNT(DISTINCT ta.track_activity_id) AS completed_count,
+                    MAX(CASE WHEN ta.activity_id = bc.activity_id AND ta.mood_id = bc.mood_id THEN ta.track_activity_id END) AS track_activity_id
+                FROM 
+                    badge_criteria bc
+                JOIN 
+                    badge b ON bc.badge_id = b.badge_id
+                LEFT JOIN 
+                    track_activity ta ON (ta.activity_id = bc.activity_id OR ta.mood_id = bc.mood_id) AND ta.child_id = %s
+                GROUP BY 
+                    bc.badge_id
+                HAVING 
+                    completed_count >= required_count
+
             """
             cursor.execute(sql, (child_id,))
             eligible_badges = cursor.fetchall()
 
+            # Logging
+            # Logging
+            print("Eligible Badges:")
             for badge in eligible_badges:
                 print(f"Badge ID: {badge['badge_id']}, Badge Name: {badge['badge_name']}")
-                update_badge_awarded(child_id, badge['badge_id'])
+                print(f"Required Count: {badge['required_count']}, Completed Count: {badge['completed_count']}")
+
+            # Award badges
+            for badge in eligible_badges:
+                track_activity_id = badge.get('track_activity_id')
+                if track_activity_id:
+                    update_badge_awarded(child_id, badge['badge_id'], track_activity_id)
+                else:
+                    print(f"No matching activity found for Badge ID: {badge['badge_id']}")
 
             return eligible_badges
     except Exception as e:
         print(f"Error checking badge criteria for Child {child_id}: {e}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        conn.close()  # Close the connection, as cursor will be closed by 'with' statement
 
 
-def update_badge_awarded(child_id, badge_id):
+# LETICIA - NEW CODE UPDATED
+def update_badge_awarded(child_id, badge_id, track_activity_id):
     conn = get_db_connection()
     try:
         with conn.cursor() as cursor:
@@ -489,10 +515,10 @@ def update_badge_awarded(child_id, badge_id):
 
             # Award the badge
             insert_sql = """
-            INSERT INTO badge_progress (child_id, badge_id, award_badge, date_completed)
-            VALUES (%s, %s, TRUE, NOW())
+            INSERT INTO badge_progress (child_id, badge_id, track_activity_id, award_badge, date_completed)
+            VALUES (%s, %s, %s, TRUE, NOW())
             """
-            cursor.execute(insert_sql, (child_id, badge_id))
+            cursor.execute(insert_sql, (child_id, badge_id, track_activity_id))
             conn.commit()
             print(f"Badge awarded successfully. Child ID: {child_id}, Badge ID: {badge_id}")
     except Exception as e:
@@ -501,6 +527,37 @@ def update_badge_awarded(child_id, badge_id):
     finally:
         cursor.close()
         conn.close()
+
+
+# CALLY CODE
+# def update_badge_awarded(child_id, badge_id):
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor() as cursor:
+#             # Ensure the badge has not been previously awarded
+#             check_awarded_sql = """
+#             SELECT 1 FROM badge_progress
+#             WHERE child_id = %s AND badge_id = %s AND award_badge = TRUE
+#             """
+#             cursor.execute(check_awarded_sql, (child_id, badge_id))
+#             if cursor.fetchone():
+#                 print(f"Badge already awarded. Child ID: {child_id}, Badge ID: {badge_id}")
+#                 return
+#
+#             # Award the badge
+#             insert_sql = """
+#             INSERT INTO badge_progress (child_id, badge_id, award_badge, date_completed)
+#             VALUES (%s, %s, TRUE, NOW())
+#             """
+#             cursor.execute(insert_sql, (child_id, badge_id))
+#             conn.commit()
+#             print(f"Badge awarded successfully. Child ID: {child_id}, Badge ID: {badge_id}")
+#     except Exception as e:
+#         print(f"Error updating badge progress: {e}")
+#         conn.rollback()
+#     finally:
+#         cursor.close()
+#         conn.close()
 
 
 # def update_badge_awarded(child_id, badge_id, track_activity_id):
