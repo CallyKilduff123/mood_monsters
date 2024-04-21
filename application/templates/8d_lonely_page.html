@@ -51,8 +51,8 @@
                         <p class="colour-light">You can write it here, or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
-                    <div class="mx-2">
-                        <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}" method="post" class="journal-entry">
+                    <div class="mx-2" id="journal-section">
+                        <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}#journal-section" method="post" class="journal-entry">
                             <p class="text-center">Today, I feel lonely.</p>
                             <div class="entry">
                                 <label for="reason">I feel lonely because:</label>
