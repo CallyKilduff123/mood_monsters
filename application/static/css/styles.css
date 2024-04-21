@@ -3,31 +3,62 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--colour-1); /* lightened yellow */
+    display: flex; /* makes the body element a flex container */
+    flex-direction: column; /* sets the direction of the flex items */
 }
 
 .pink-body {
-    background-color: var(--colour-1);
+    background-color: var(--colour-1); /* for bg colour of pre-login pages - applies a background colour to elements with class .pink-body */
 }
 
 .purple-body {
-    background-color: var(--colour-5);
+    background-color: var(--colour-5); /* for bg colour of post-login pages - applies a default background colour to elements with class .purple-body */
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none; /* removes underline from anchor tags */
 }
 
 
 /* MOOD MONSTER IMAGES AROUND BORDER */
 
+/* z-index - necessary to layer monster images over containers and under text - higher sits on top of lower */
+
+/* .page-wrapper applied to layout.html and layout-pre-login.html to apply monster images */
 .page-wrapper {
-    position: relative;
-    z-index: 0;
-    /*min-height: 100vh;*/
+    position: relative; /* positions the element relative to its normal position */
+    z-index: 0; /* sets the stack order of the element */
 }
+
+.container, .container-fluid {
+    position: relative; /* positions the element relative to its normal position */
+    z-index: 1; /* sets stack order and ensures it appears above .page-wrapper */
+}
+
+.monster-image, .monster-image-footer {
+    position: absolute; /* positions the element in an absolute position */
+    width: 20vw; /* sets the width of the monster images to 20% of the viewport width */
+    height: auto; /* maintains the aspect ratio of image */
+    z-index: 2; /* sets stack order and ensures it appears above .container and .container-fluid */
+}
+
+.text-content {
+    position: relative; /* ensures z-index is effective */
+    z-index: 3; /* highest to ensure it appears above any images - essential for Mood Monsters heading on home page */
+ }
+
+/* monster image positions */
+.top-left { top: 0; left: 0; }
+.one-third-left { top: 42%; left: 0; transform: translateY(-50%); } /* translateY(-50%) used to move the element up by half of its own height for vertical centering - sit too low on screen without */
+.two-thirds-left { top: 68%; left: 0; transform: translateY(-50%); }
+.bottom-left { bottom: 0; left: 0; }
+
+.top-right { top: 0; right: 0; }
+.one-third-right { top: 39%; right: 0; transform: translateY(-50%); }
+.two-thirds-right { top: 70%; right: 0; transform: translateY(-50%); }
+.bottom-right { bottom: 0; right: 0; }
+
+.bottom-center { bottom: 0; left: 41%;}
 
 /* fixes issue with space below monster images */
 .spacer-register {
@@ -43,39 +74,8 @@ a {
 }
 
 .spacer-mood-entry {
-    height: 715px;
+    height: 715px; /* add empty space to mood diary with entries */
 }
-
-/* -------------------------------------------- */
-
-.container, .container-fluid {
-    position: relative;
-    z-index: 1;
-}
-
-.monster-image, .monster-image-footer {
-    position: absolute;
-    width: 20vw;
-    height: auto;
-    z-index: 2;
-}
-
-.text-content {
-    position: relative; /* Ensures z-index is effective */
-    z-index: 3; /* Highest to ensure it appears above images */
- }
-
-.top-left { top: 0; left: 0; }
-.one-third-left { top: 40%; left: 0; transform: translateY(-50%); }
-.two-thirds-left { top: 66%; left: 0; transform: translateY(-50%); }
-.bottom-left { bottom: 0; left: 0; }
-
-.top-right { top: 0; right: 0; }
-.one-third-right { top: 36%; right: 0; transform: translateY(-50%); }
-.two-thirds-right { top: 66%; right: 0; transform: translateY(-50%); }
-.bottom-right { bottom: 0; right: 0; }
-
-.bottom-center { bottom: 0; left: 41%;}
 
 
 /* WEBSITE COLOUR SCHEME */
@@ -87,9 +87,9 @@ a {
     --colour-4: #118AB2; /* blue */
     --colour-5: #6A4C93; /* purple - additional colour */
     --colour-6: #FB5607; /* orange - additional colour */
-    --light: #FDFDFF;
-    --dark: #073B4C;
-    --red: #F04A49;
+    --light: #FDFDFF; /* off white */
+    --dark: #073B4C; /* dark blue */
+    --red: #F04A49; /* red */
 }
 
 /* ------ TEXT COLOUR CLASSES TO USE IN SPANS ------ */
@@ -143,30 +143,39 @@ a {
     background: linear-gradient(45deg, #563e77, var(--colour-4)); /* darkened default purple colour for contrast between sections */
 }
 
-/* pink/blue gradient */
+/* pink/orange gradient (NOT USED) */
 .gradient-colour-3 {
     background: linear-gradient(45deg, var(--colour-1), var(--colour-6));
 }
 
 /* ------ WAVE DIVIDERS ------ */
 
-/* UPDATED wave - size 70px, curvature highest setting */
+/* https://css-generators.com/wavy-shapes/ */
+/* UPDATED waves - size 70px, curvature highest setting */
+
+/* .wave-bottom creates a wave effect at the bottom of the element */
 .wave-bottom {
+  /* defines a mask using radial gradients */
   --mask:
+    /* creates a radial gradient for the wave effect */
     radial-gradient(156.52px at 50% calc(100% - 210px),#000 99%,#0000 101%) calc(50% - 140px) 0/280px 100%,
     radial-gradient(156.52px at 50% calc(100% + 140px),#0000 99%,#000 101%) 50% calc(100% - 70px)/280px 100% repeat-x;
+  /* applies the mask for webkit browsers */
   -webkit-mask: var(--mask);
-          mask: var(--mask);
+  /* applies the mask for all other browsers */
+  mask: var(--mask);
 }
 
+/* .wave-top creates a wave effect at the top of the element */
 .wave-top {
   --mask:
     radial-gradient(156.52px at 50% 210px,#000 99%,#0000 101%) calc(50% - 140px) 0/280px 100%,
     radial-gradient(156.52px at 50% -140px,#0000 99%,#000 101%) 50% 70px/280px 100% repeat-x;
   -webkit-mask: var(--mask);
-          mask: var(--mask);
+   mask: var(--mask);
 }
 
+/* .wave-top-bottom creates a wave effect at the top and bottom of the element */
 .wave-top-bottom {
   --mask:
     radial-gradient(156.52px at 50% 210px,#000 99%,#0000 101%) calc(50% - 140px) 0/280px 51% repeat-x,
@@ -174,275 +183,279 @@ a {
     radial-gradient(156.52px at 50% calc(100% - 210px),#000 99%,#0000 101%) calc(50% - 140px) 100%/280px 51% repeat-x,
     radial-gradient(156.52px at 50% calc(100% + 140px),#0000 99%,#000 101%) 50% calc(100% - 70px)/280px calc(51% - 70px) repeat-x;
   -webkit-mask: var(--mask);
-          mask: var(--mask);
+  mask: var(--mask);
 }
 
 
 /* ------ FONTS ------ */
 
 .monster-text {
-    padding: 0 5px;
-    font-size: 1rem;
+    padding: 0 0.5rem; /* padding around text - top/bottom is 0 and left/right is 0.5rem (8px) */
+    font-size: 1rem; /* default font size of root element - 1 rem equals 16px - scalable */
 }
 
 h1 {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* adds a shadow to the text - blur of 2px and 50% transparency of black */
 }
 
+/* setting font for all headings */
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Bungee", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: "Bungee", sans-serif; /* sets the font family */
+    font-weight: 400; /* sets the font weight */
+    font-style: normal; /* sets the font style */
 }
 
+/* setting font for paragraphs, anchor and .entry class */
 p, a, .entry {
-    font-family: "Baloo 2", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1.5rem;
-    color: var(--light);
+    font-family: "Baloo 2", sans-serif; /* sets the font family */
+    font-weight: 400; /* sets the font weight */
+    font-style: normal; /* sets the font style */
+    font-size: 1.5rem; /* default font size of 1.5rem - 24px */
+    color: var(--light); /* sets the colour of the text */
 }
 
+/* applied to all section headers eg. VIEW YOUR MOOD DIARY */
 .titles {
-    text-transform: uppercase;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase; /* ensures all text is in capitals */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); /* adds a shadow to the text - blur of 1px and 80% transparency of black */
 }
 
 
 /* ------ NAVBAR (& FOOTER) ------ */
 
 .navbar-custom, footer {
-    background-color: var(--dark);
-    font-size: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    background-color: var(--dark); /* sets the colour of the text */
+    font-size: 1rem; /* default font size of 1rem - 16px */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); /* adds a subtle shadow to the navbar */
     position: relative; /* Set position to relative */
     z-index: 1000; /* Set a high z-index to bring it to the front */
 }
 
 .navbar-custom .navbar-nav {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: row; /* sets the direction of items in the navbar to a row */
+    align-items: center; /* centers the items in the navbar vertically */
 }
 
 .navbar-nav .nav-link + .nav-link::before {
-    content: "|";
-    padding: 0 30px 0 25px;
+    content: "|"; /* adds a vertical bar before each nav link */
+    padding: 0 30px 0 25px; /* sets the padding around the vertical bar - specific px to correct spacing */
 }
 
 footer p {
-    color: var(--light);
-    font-size: 16px;
+    color: var(--light); /* sets the colour of the text */
+    font-size: 1rem; /* default font size of 1rem - 16px */
 }
 
 a.nav-link {
-    color: var(--light) !important;
+    color: var(--light) !important; /* sets the colour of the nav links and overrides any other specified colour */
 }
 
 
 /* ------ BUTTONS ------ */
 
 .center-button {
-    display: flex;
-    justify-content: center; /* Aligns horizontally */
-    width: 100%; /* Takes full width of the parent */
+    display: flex; /* uses flexbox for layout */
+    justify-content: center; /* aligns horizontally */
+    width: 100%; /* takes full width of the parent */
 }
 
 .fixed-width {
-    width: 180px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    width: 180px; /* sets a fixed width */
+    display: inline-flex; /* uses inline-flex for layout */
+    justify-content: center; /* centers content horizontally */
+    align-items: center; /* centers content vertically */
 }
 
 .fixed-width-wide {
-    width: 270px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    width: 270px; /* sets a fixed width */
+    display: inline-flex; /* uses inline-flex for layout */
+    justify-content: center; /* centers content horizontally */
+    align-items: center; /* centers content vertically */
 }
 
 .btn-primary {
-    background-color: var(--colour-6) !important;
-    border-color: var(--dark) !important;
-    border-style: solid;
-    font-size: 1.5rem;
+    background-color: var(--colour-6) !important; /* overrides the background colour of the button */
+    border-color: var(--dark) !important; /* overrides the border colour of the button */
+    border-style: solid; /* sets the border style to solid */
+    font-size: 1.5rem; /* default font size of 1.5rem - 24px */
 }
 
 .btn-primary a {
-    color: var(--light) !important;
+    color: var(--light) !important; /* overrides the colour of the button text */
 }
 
 .btn-primary:hover {
-    background-color: var(--colour-4) !important;
-    border-color: var(--colour-6) !important;
+    background-color: var(--colour-4) !important; /* overrides the background colour on hover */
+    border-color: var(--colour-6) !important; /* overrides the border colour on hover */
 }
 
 .btn-primary:focus {
-    background-color: var(--colour-4) !important;
-    border-color: var(--colour-6) !important;
+    background-color: var(--colour-4) !important; /* overrides the background colour on focus */
+    border-color: var(--colour-6) !important; /* overrides the border colour on focus */
 }
 
 .btn-primary:active {
-    background-color: var(--colour-4) !important;
-    border-color: var(--colour-6) !important;
+    background-color: var(--colour-4) !important; /* overrides the background colour on click */
+    border-color: var(--colour-6) !important; /* overrides the border colour on click */
 }
 
 .btn-primary-toggle {
-    background-color: var(--colour-4) !important;
-    border-color: var(--colour-6) !important;
-    color: var(--light) !important;
+    background-color: var(--colour-4) !important; /* overrides the background colour of the button */
+    border-color: var(--colour-6) !important; /* overrides the border colour of the button */
+    color: var(--light) !important; /* overrides the colour of the button text */
 }
 
 .mark-as-read {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* sets a smaller font size which reduces overall button size */
 }
 
 
 /* ------ BORDERS ------ */
 
 .custom-border {
-        border-width: 3px !important;
-        border-style: solid !important;
-        border-color: var(--colour-6) !important;
-        border-radius: 20px !important;
+        border-width: 3px !important; /* overrides the border width */
+        border-style: solid !important; /* overrides the border style */
+        border-color: var(--colour-6) !important; /* overrides the border colour */
+        border-radius: 20px !important; /* rounds the corners of the border */
 }
 
 .card {
-    border-width: 3px !important;
-        border-style: solid !important;
-        border-color: var(--colour-6) !important;
-        border-radius: 20px !important;
+        border-width: 3px !important; /* overrides the border width */
+        border-style: solid !important; /* overrides the border style */
+        border-color: var(--colour-6) !important; /* overrides the border colour */
+        border-radius: 20px !important; /* rounds the corners of the border */
 }
 
 
 /* ------ ACCORDION ------ */
 
 .accordion p {
-    color: var(--dark);
+    color: var(--dark); /* sets the colour of the text */
 }
 
 .accordion-item .accordion-button {
-    background-color: var(--colour-5) !important;
-    color: var(--light) !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    background-color: var(--colour-5) !important; /* overrides the background colour of the accordion button (now purple) */
+    color: var(--light) !important; /* overrides the colour of the accordion button text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* adds a shadow to the text - blur of 1px and 70% transparency of black */
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: var(--colour-6) !important;
-    color: var(--light);
-    box-shadow: none;
+    background-color: var(--colour-6) !important; /* overrides the background colour of the accordion button when not collapsed (now orange) */
+    color: var(--light); /* sets the colour of the text */
+    box-shadow: none; /* removes the shadow when not collapsed */
 }
 
 .accordion-button:hover {
-    background-color: var(--colour-4);
-    color: var(--light);
+    background-color: var(--colour-4) !important; /* sets the background colour on hover */
 }
 
 
 /* ------ FORM INPUT FIELDS ------ */
 
 .border-primary {
-    border-color: var(--primary) !important;
+    border-color: var(--primary) !important; /* overrides the border colour */
 }
 
+/* creates a border around register/login forms against purple background */
 .section-form {
-    box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
-    border: 3px solid var(--colour-3);
-    border-radius: 10px;
+    box-shadow: 0 0 45px rgba(0, 0, 0, 0.08); /* adds a shadow to the form */
+    border: 3px solid var(--colour-3); /* sets the border of the form (--colour-3 is green) */
+    border-radius: 10px; /* rounds the corners of the border */
 }
 
 
 /* ------ FORM FIELDS ------ */
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
+input[type="text"], /* selects text input fields */
+input[type="email"], /* selects email input fields */
+input[type="password"], /* selects password input fields */
+input[type="date"], /* selects date input fields */
 textarea {
-  width: 100%;
-  padding: 8px; /* give height to text box, space around text input */
-  margin-bottom: 16px;
-  border: 2px solid var(--colour-6);
+  width: 100%; /* takes full width of the parent */
+  padding: 0.5rem; /* give height to text box, space around text input */
+  margin-bottom: 1rem; /* space between form fields */
+  border: 2px solid var(--colour-6); /* sets the border colour */
   border-radius: 10px; /* round the borders */
-  font-size: 16px;
+  font-size: 1rem; /* default font size of 1rem - 16px */
 }
 
 label {
-    color: var(--light);
+    color: var(--light); /* sets the colour of the text */
 }
 
 
 /* ------ JOURNAL FORM FIELDS & GROWN-UP SUPPORT MESSAGE ------ */
 
 .journal-entry {
-    border: 3px solid var(--colour-1);
-    border-radius: 20px;
-    padding: 20px;
-    background-color: var(--light);
-    max-width: 100%;
-    margin: 20px auto;
+    border: 3px solid var(--colour-1); /* sets the border colour */
+    border-radius: 20px; /* round the borders */
+    padding: 1.25rem; /* padding around the text - default font size of 1.25 rem is 20px */
+    background-color: var(--light); /* sets the background colour */
+    max-width: 100%; /* takes full width of the parent */
+    margin: 1.25rem auto; /* space around the journal entry */
 }
 
 .entry {
-    display: block;
-    margin: 10px 0;
+    display: block; /* ensures the element is displayed as a block */
+    margin: 0.75rem 0; /* top/bottom 0.75rem (12px), left/right 0px */
+    padding: 0.5rem;
 }
 
 .entry label {
-    display: block;
-    color: var(--dark);
+    display: block;  /* ensures the label has its own line */    
+    color: var(--dark); 
     margin-bottom: 5px;
 }
 
 .entry textarea {
-    font-size: 1.3rem;
-    width: 100%;
-    height: 70px;
+    font-size: 1.5rem; /* default font size of 1.5rem - 24px */
+    width: 100%; /* takes full width of the parent */
+    min-height: 70px;
     padding: 8px;
     border: 3px solid var(--colour-6);
-    resize: vertical;
+    resize: vertical; /* allows the textarea to be resized vertically */
 }
 
 .grownup-entry textarea {
-    height: 150px;
+    height: 150px; /* sets the height of the textarea */
 }
 
 
 /* ------ CARD IMAGE ZOOM ANIMATION ------ */
 
 .card {
-    position: relative;
-    overflow: hidden;
+    position: relative; /* ensures the card is a positioned element */
+    overflow: hidden; /* ensures the image is clipped if it's larger than the card */
 }
 
 .card-img-top {
-    width: 100%;  /* Ensures the image is responsive */
-    height: auto;  /* Maintains the aspect ratio */
-    transition: transform 0.5s ease; /* Ensures the scaling effect is smooth */
+    width: 100%;  /* ensures the image is responsive */
+    height: auto;  /* maintains the aspect ratio */
+    transition: transform 0.5s ease; /* ensures the scaling effect is smooth */
 }
 
 .card-img-top:hover {
-    transform: scale(1.1); /* Enlarges the image by 10% */
-    z-index: 0;  /* Ensure the image is behind the card-body */
+    transform: scale(1.1); /* enlarges the image by 10% */
+    z-index: 0;  /* ensure the image is behind the card-body */
 }
 
 .card-body {
-    background-color: #FFF;  /* Fully opaque white */
-    padding: 20px;  /* Spacing inside the card-body */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    z-index: 1;
+    background-color: #FFF;  /* fully opaque white */
+    padding: 1.25rem;  /* spacing inside the card-body */
+    display: flex; /* uses flexbox for layout */
+    flex-direction: column; /* sets the direction of the flex items */
+    align-items: center; /* centers the items horizontally */
+    justify-content: space-between; /* spaces the items evenly */
+    height: 100%; /* ensures the card-body takes up the full height */
+    z-index: 1; /* ensures the card-body is in front of the image */
 }
 
 
 /* ------ MOOD DIARY ------ */
 
 .card-body .diary-date {
-    font-size: 1.1rem;
-    margin: 0;
+    font-size: 1.1rem; /* default font size of 1.1rem - 17.6px */
+    margin: 0; /* removes margin */
 }
 
 
@@ -452,7 +465,7 @@ label {
   position: fixed;
   padding: 10px;
   min-width: 280px; /* Ensures the popup doesn't get too narrow */
-  max-width: 380px;
+  max-width: 340px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%); /* Centers the popup perfectly */
@@ -523,48 +536,42 @@ label {
 /* ------ SPEECH BUBBLE ------ */
 
 .bubble {
-	min-height: 100px;
-	min-width: 70%;
-	min-width: 200px;
-	background: var(--light);
-	display: block;
-	margin: 0 auto;
+	min-height: 100px; /* sets the minimum height of the bubble */
+	min-width: 70%; /* sets the minimum width of the bubble as percentage */
+	min-width: 200px; /* sets the minimum width of the bubble as pixels */
+	background: var(--light); 
+	display: block; /* ensures the element is displayed as a block */
+	margin: 0 auto; /* centers the bubble */
 	border-radius: 20px;
 	margin-top: 25px;
-	text-align: center;
+	text-align: center; /* centers the text */
 	padding: 15px 30px;
-	box-sizing: border-box;
+	box-sizing: border-box; /* ensures padding and border are included in the width and height */
 }
 
 .pointer {
-	height: 40px;
-	width: 40px;
+	height: 40px; /* sets the height of the pointer */
+	width: 40px; /* sets the width of the pointer */
 	background: var(--light);
 	margin: 0 auto;
-	transform: rotate(45deg);
-	border-radius: 0 0 5px 0;
-	margin-top: -22px;
-	position: relative;
-	left: calc(0.5vw - 50px);
+	transform: rotate(45deg); /* rotates the pointer 45 degrees */
+	border-radius: 0 0 5px 0; /* rounds the corners of the pointer */
+	margin-top: -22px; /* moves the pointer up */
+	position: relative; /* ensures the pointer is a positioned element */
+	left: calc(0.5vw - 50px); /* positions the pointer */
 }
 
 /* ------ MEDIA QUERIES ------ */
 
-/*@media (min-width: 1279px) {
+@media (min-width: 1024px) { 
     .monster-text {
-    font-size: 8rem;
-    }
-}*/
-
-@media (min-width: 1024px) {
-    .monster-text {
-    font-size: 5.8rem;
+        font-size: 5.8rem; /* sets the font size to 5.8rem - 93.6px */
     }
 }
 
 @media (min-width: 768px) {
     .monster-text {
-    font-size: 4.6rem;
+        font-size: 4.6rem; /* sets the font size to 4.6rem - 73.6px */
     }
 }
 
@@ -572,20 +579,25 @@ label {
     .monster-image {
         display: none;  /* hide images on screens narrower than 768px */
     }
+    /* removes spacers for monster images needed on larger screens*/
+    .spacer-register, .spacer-login, .spacer-badges, .spacer-mood, .spacer-mood-entry {
+        display: none;
+    }
+
     .monster-text {
-    font-size: 4rem;
+        font-size: 4rem; /* sets the font size to 4rem - 64px */
     }
 }
 
 @media (max-width: 430px) {
     .monster-text {
-    font-size: 3.4rem;
+        font-size: 3.4rem; /* sets the font size to 3.4rem - 54.4px */
     }
 }
 
 @media (max-width: 280px) {
     .monster-text {
-    font-size: 2.5rem;
+        font-size: 2.5rem; /* sets the font size to 2.5rem - 40px */
     }
 }
 
