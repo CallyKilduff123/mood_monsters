@@ -111,6 +111,17 @@
                     <p class="colour-light">No activities available right now.</p>
                 </div>
             {% endif %}
+                {% if notification_message %}
+                <div id="notification" class="container col-md-6">
+                    {{ notification_message }}
+                </div>
+                <script>
+                    // Show notification for 3 seconds
+                    setTimeout(function() {
+                        document.getElementById('notification').style.display = 'none';
+                    }, 3000);
+                </script>
+                {% endif %}
             </div>
         </div>
     </div>
