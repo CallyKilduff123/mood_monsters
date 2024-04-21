@@ -30,6 +30,25 @@ a {
     z-index: 0; /* sets the stack order of the element */
 }
 
+/* fixes issue with space below monster images */
+.spacer-register {
+    height: 245px; /* add empty space below registration form */
+}
+
+.spacer-login, .spacer-badges {
+    height: 585px; /* add empty space below login form */
+}
+
+.spacer-mood {
+    height: 1010px; /* add empty space to mood diary with no entries */
+}
+
+.spacer-mood-entry {
+    height: 715px;
+}
+
+/* -------------------------------------------- */
+
 .container, .container-fluid {
     position: relative; /* positions the element relative to its normal position */
     z-index: 1; /* sets stack order and ensures it appears above .page-wrapper */
