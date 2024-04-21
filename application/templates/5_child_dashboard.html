@@ -40,14 +40,25 @@
         </div>
     </div>
     <div class="row px-5 mt-4">
+
         <!-- Happy Monster -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
                 <img class="card-img-top img-fluid" src="/static/images/1_happy_monster.jpeg" alt="Happy Monster">
                 <div class="card-body">
                     <h4 class="card-title titles colour-6">Happy</h4>
-                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('happy')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupHappy()">Select</button>
                 </div>
+            </div>
+        </div>
+
+        <div id="popup-happy" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Is this correct?</p>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelHappy()">Yes, I feel happy</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelHappy()">No, I do not feel happy</button>
+                <br>
+                <a href="#" onclick="hidePopupHappy()">Close</a>
             </div>
         </div>
 
@@ -98,11 +109,21 @@
         <!--   Ashamed monster     -->
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 text-center">
-                <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpg" alt="Ashamed Monster">
+                <img class="card-img-top img-fluid" src="/static/images/5_mood_monster_ashamed.jpeg" alt="Ashamed Monster">
                 <div class="card-body">
                     <h4 class="card-title titles colour-1">Ashamed</h4>
-                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('Ashamed')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupAshamed()">Select</button>
                 </div>
+            </div>
+        </div>
+
+        <div id="popup-ashamed" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Is this correct?</p>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelAshamed()">Yes, I feel ashamed</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelAshamed()">No, I do not feel ashamed</button>
+                <br>
+                <a href="#" onclick="hidePopupAshamed()">Close</a>
             </div>
         </div>
 
@@ -134,8 +155,19 @@
                 <img class="card-img-top img-fluid" src="/static/images/6_mood_monster_lonely.jpeg" alt="Lonely Monster">
                 <div class="card-body">
                     <h4 class="card-title titles colour-4">Lonely</h4>
-                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="selectMood('lonely')">Select</button>
+                    <button class="btn btn-primary rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="showPopupLonely()">Select</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Popup for lonely monster with additional div for styling -->
+        <div id="popup-lonely" class="popup" style="display: none;">
+            <div class="popup-content">
+                <p>Is this correct?</p>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="yesFeelLonely()">Yes, I feel lonely</button>
+                <button class="btn rounded-pill border-2 mt-2 px-4 py-2 fs-5" onclick="noFeelLonely()">No, I do not feel lonely</button>
+                <br>
+                <a href="#" onclick="hidePopupLonely()">Close</a>
             </div>
         </div>
     </div>
@@ -148,7 +180,8 @@
             <div class="col-md-10">
                 <h1 class="text-center titles colour-2">View Your Mood Diary</h1>
                 <div class="pt-4">
-                    <p class="colour-light">Mood diary blurb / images go here...</p>
+                    <p class="colour-light">Your mood diary is a place where you can track your mood over time. </p>
+                    <p class="colour-light">It is a safe space for you and your grown-up to see changes in your mood on different days, and maybe see triggers for certain moods.</p>
                 </div>
                 <div class="center-button">
                 <div class="btn btn-primary rounded-pill border-2 m-4 px-5 py-3 fixed-width-wide">
@@ -167,7 +200,8 @@
             <div class="col-md-10 py-4">
                 <h1 class="text-center p-4 titles colour-2">View Your Achievements</h1>
                 <div class="pt-2">
-                    <p class="colour-light text-content">Achievements blurb / badge images go here...</p>
+                    <p class="colour-light text-content">It is not easy to address moods that make us feel bad. The Mood Monsters are very proud of you for your bravery.</p>
+                <p class="colour-light text-content">Logging moods and doing activities will help you to build up badges. Keep going little emotion explorer!</p>
                 </div>
                 <!-- button -->
                 <div class="center-button">
@@ -300,6 +334,58 @@
 
     function yesFeelAngry() {
         window.location.href = "/angry_page/{{ session['family_id'] }}";
+    }
+
+
+        function showPopupHappy() {
+        document.getElementById("popup-happy").style.display = "block";
+    }
+
+    function hidePopupHappy() {
+        document.getElementById("popup-happy").style.display = "none";
+    }
+
+    function noFeelHappy() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+    }
+
+    function yesFeelHappy() {
+        window.location.href = "/happy_page/{{ session['family_id'] }}";
+    }
+
+
+
+        function showPopupAshamed() {
+        document.getElementById("popup-ashamed").style.display = "block";
+    }
+
+    function hidePopupAshamed() {
+        document.getElementById("popup-ashamed").style.display = "none";
+    }
+
+    function noFeelAshamed() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+    }
+
+    function yesFeelAshamed() {
+        window.location.href = "/ashamed_page/{{ session['family_id'] }}";
+    }
+
+
+          function showPopupLonely() {
+        document.getElementById("popup-lonely").style.display = "block";
+    }
+
+    function hidePopupLonely() {
+        document.getElementById("popup-lonely").style.display = "none";
+    }
+
+    function noFeelLonely() {
+    window.location.href = "/child_dashboard/{{ session['family_id'] }}";
+    }
+
+    function yesFeelLonely() {
+        window.location.href = "/lonely_page/{{ session['family_id'] }}";
     }
 </script>
 

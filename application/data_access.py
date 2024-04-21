@@ -8,7 +8,11 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
+<<<<<<< HEAD
         #password="password",  # Uncomment and set your password here
+=======
+        # password="password",  # Uncomment and set your password here
+>>>>>>> main
         database="mood_monsters"
     )
 
@@ -146,56 +150,31 @@ def log_mood_to_db(child_id, mood_name):
     conn = get_db_connection()
     try:
         with conn.cursor(dictionary=True) as cursor:
-            # Check if the mood has already been logged for the current session
-            if 'logged_moods' in session:
-                if mood_name in session['logged_moods']:
-                    # Mood already logged for this session, return True
-                    return True
-            else:
-                session['logged_moods'] = []
-
-            # Mood not logged yet for this session, proceed with logging
+            # Fetch the mood_id from the database
             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
-            mood_id = cursor.fetchone()['mood_id']
+            result = cursor.fetchone()
+            if not result:
+                print(f"Mood name '{mood_name}' not found in database.")
+                return None  # Mood name not found in database
+
+            mood_id = result['mood_id']
+
+            # Log the mood
             cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
                            (mood_id, child_id))
             conn.commit()
-
-            # Add the mood to the list of logged moods for this session
-            session['logged_moods'].append(mood_name)
-
-            return True
+            print(f"Mood logged successfully: {mood_id}")
+            return mood_id
     except Exception as e:
         print(f"Error logging mood: {e}")
         conn.rollback()
-        return False
+        return None
     finally:
         conn.close()
 
 
-
 # CALLY CODE
-# def log_mood_to_db(child_id, mood_name):
-#     conn = get_db_connection()
-#     try:
-#         with conn.cursor(dictionary=True) as cursor:
-#             # Find the mood_id from the mood table using a safe, parameterized query
-#             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
-#             mood_id = cursor.fetchone()
-#             if mood_id:
-#                 # Insert the mood log with the retrieved mood_id
-#                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
-#                                (mood_id['mood_id'], child_id))
-#                 conn.commit()
-#                 return True
-#         return False
-#     except Exception as e:
-#         print(f"Error logging mood: {e}")
-#         conn.rollback()
-#         return False
-#     finally:
-#         conn.close()
-
+# only shows one mood per date in the mood diary:
 
 def get_logged_moods(child_id):
     conn = get_db_connection()
@@ -203,10 +182,17 @@ def get_logged_moods(child_id):
     try:
         cursor.execute("""
             SELECT mood_name, mood_image_url, date_logged
-            FROM mood_logged
-            JOIN mood ON mood_logged.mood_id = mood.mood_id
-            WHERE mood_logged.child_id = %s
+            FROM (
+                SELECT mood.mood_name, mood.mood_image_url, mood_logged.date_logged,
+                    ROW_NUMBER() OVER (PARTITION BY DATE(mood_logged.date_logged) ORDER BY mood_logged.date_logged DESC) AS row_num
+                FROM mood_logged
+                JOIN mood ON mood_logged.mood_id = mood.mood_id
+                WHERE mood_logged.child_id = %s
+                ORDER BY mood_logged.date_logged DESC
+            ) AS subquery
+            WHERE row_num = 1
             ORDER BY date_logged DESC
+            LIMIT 24;
         """, (child_id,))
         return cursor.fetchall()
     except Exception as e:
@@ -215,6 +201,27 @@ def get_logged_moods(child_id):
     finally:
         cursor.close()
         conn.close()
+
+# shows all moods logged - including with activities:
+# def get_logged_moods(child_id):
+#     conn = get_db_connection()
+#     cursor = conn.cursor(dictionary=True)
+#     try:
+#         cursor.execute("""
+#             SELECT mood_name, mood_image_url, date_logged
+#             FROM mood_logged
+#             JOIN mood ON mood_logged.mood_id = mood.mood_id
+#             WHERE mood_logged.child_id = %s
+#             ORDER BY date_logged DESC
+#             LIMIT 24
+#         """, (child_id,))
+#         return cursor.fetchall()
+#     except Exception as e:
+#         print(f"Error fetching moods: {e}")
+#         return None
+#     finally:
+#         cursor.close()
+#         conn.close()
 
 
 def validate_child_family_association(child_id, family_id):
@@ -375,24 +382,44 @@ def get_random_activity_for_mood(mood_id):
 
 
 # testing badge logic:
-def log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text=None):
+def log_activity(child_id, mood_id, activity_id, journal_text=None):
     conn = get_db_connection()
     try:
         with conn.cursor() as cursor:
-            # Updated SQL query to include mood_id
             sql = """
-            INSERT INTO track_activity (child_id, mood_logged_id, mood_id, activity_id, journal_text, date_completed)
-            VALUES (%s, %s, %s, %s, %s, NOW())
+            INSERT INTO track_activity (child_id, mood_id, activity_id, journal_text, date_completed)
+            VALUES (%s, %s, %s, %s, NOW())
             """
-            cursor.execute(sql, (child_id, mood_logged_id, mood_id, activity_id, journal_text))
+            cursor.execute(sql, (child_id, mood_id, activity_id, journal_text))
             conn.commit()
             return cursor.lastrowid  # Returns the ID of the newly inserted row
-    except mysql.connector.Error as e:
+    except Exception as e:
         print("Error logging activity:", e)
+        conn.rollback()
         return None
     finally:
         cursor.close()
         conn.close()
+
+
+# def log_activity(child_id, mood_logged_id, mood_id, activity_id, journal_text=None):
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor() as cursor:
+#             # Updated SQL query to include mood_id
+#             sql = """
+#             INSERT INTO track_activity (child_id, mood_logged_id, mood_id, activity_id, journal_text, date_completed)
+#             VALUES (%s, %s, %s, %s, %s, NOW())
+#             """
+#             cursor.execute(sql, (child_id, mood_logged_id, mood_id, activity_id, journal_text))
+#             conn.commit()
+#             return cursor.lastrowid  # Returns the ID of the newly inserted row
+#     except mysql.connector.Error as e:
+#         print("Error logging activity:", e)
+#         return None
+#     finally:
+#         cursor.close()
+#         conn.close()
 
 
 # def get_mood_id_and_name_by_mood_logged_id(mood_logged_id):
@@ -429,99 +456,83 @@ def get_mood_id_by_mood_logged_id(mood_logged_id):
 
 
 # ADDED FOR AN ERROR - LETICIA
-def check_badge_criteria(child_id, track_activity_id):
+def check_badge_criteria(child_id):
     conn = get_db_connection()
     try:
         with conn.cursor(dictionary=True) as cursor:
+            # retrieves information about badge criteria and completed activities for a given child.
+            # It counts the completed activities associated with each badge and checks if the count meets the required criteria for awarding the badge.
+            # The LEFT JOIN with the track_activity table ensures that all badge criteria are considered,
+            # even if there are no matching completed activities.
             sql = """
-                SELECT badge.badge_id, badge.badge_name, COUNT(distinct badge_criteria.criteria_id) AS required_count,
-                       COUNT(distinct track_activity.track_activity_id) AS completed_count
-                FROM badge_criteria
-                JOIN badge ON badge.badge_id = badge_criteria.badge_id
-                LEFT JOIN track_activity ON track_activity.activity_id = badge_criteria.activity_id
-                                           AND track_activity.mood_id = badge_criteria.mood_id
-                                           AND track_activity.child_id = %s
-                GROUP BY badge.badge_id
-                HAVING completed_count >= required_count
+               SELECT 
+                    bc.badge_id, 
+                    b.badge_name, 
+                    COUNT(bc.criteria_id) AS required_count,
+                    COUNT(DISTINCT ta.track_activity_id) AS completed_count,
+                    MAX(CASE WHEN ta.activity_id = bc.activity_id AND ta.mood_id = bc.mood_id THEN ta.track_activity_id END) AS track_activity_id
+                FROM 
+                    badge_criteria bc
+                JOIN 
+                    badge b ON bc.badge_id = b.badge_id
+                LEFT JOIN 
+                    track_activity ta ON (ta.activity_id = bc.activity_id OR ta.mood_id = bc.mood_id) AND ta.child_id = %s
+                GROUP BY 
+                    bc.badge_id
+                HAVING 
+                    completed_count >= required_count
+
             """
             cursor.execute(sql, (child_id,))
             eligible_badges = cursor.fetchall()
 
+            # Logging
+            # Logging
             print("Eligible Badges:")
             for badge in eligible_badges:
                 print(f"Badge ID: {badge['badge_id']}, Badge Name: {badge['badge_name']}")
-                update_badge_awarded(child_id, badge['badge_id'], track_activity_id)
+                print(f"Required Count: {badge['required_count']}, Completed Count: {badge['completed_count']}")
+
+            # Award badges
+            for badge in eligible_badges:
+                track_activity_id = badge.get('track_activity_id')
+                if track_activity_id:
+                    update_badge_awarded(child_id, badge['badge_id'], track_activity_id)
+                else:
+                    print(f"No matching activity found for Badge ID: {badge['badge_id']}")
 
             return eligible_badges
-    except mysql.connector.Error as e:
-        print("Error checking badge criteria:", e)
+    except Exception as e:
+        print(f"Error checking badge criteria for Child {child_id}: {e}")
         return None
     finally:
-        cursor.close()
-        conn.close()
+        conn.close()  # Close the connection, as cursor will be closed by 'with' statement
 
 
-# def check_badge_criteria(child_id):
-#     conn = get_db_connection()
-#     try:
-#         with conn.cursor(dictionary=True) as cursor:
-#             # Check if all required activities or journal entries for each badge are completed
-#             sql = """
-#             SELECT badge_id, badge_name, COUNT(DISTINCT badge_criteria.criteria_id) AS required_count,
-#                    COUNT(DISTINCT track_activity.track_activity_id) AS completed_count
-#             FROM badge_criteria
-#             JOIN badge ON badge.badge_id = badge_criteria.badge_id
-#             LEFT JOIN track_activity ta ON track_activity.activity_id = badge_criteria.activity_id
-#                                        AND track_activity.mood_logged_id IN (SELECT mood_logged.mood_logged_id FROM
-#                                        mood_logged WHERE mood_logged.mood_id = badge_criteria.mood_id
-#                                        AND mood_logged.child_id = %s)
-#             WHERE badge_criteria.child_id = %s
-#             GROUP BY badge_criteria.badge_id
-#             HAVING completed_count >= required_count
-#             """
-#             cursor.execute(sql, (child_id, child_id))
-#             eligible_badges = cursor.fetchall()
-#             for badge in eligible_badges:
-#                 # Optionally, update badge progress or award badges here
-#                 update_badge_awarded(child_id, badge['badge_id'])
-#             return eligible_badges
-#     except mysql.connector.Error as e:
-#         print("Error checking badge criteria:", e)
-#         return None
-#     finally:
-#         cursor.close()
-#         conn.close()
-
+# LETICIA - NEW CODE UPDATED
 def update_badge_awarded(child_id, badge_id, track_activity_id):
     conn = get_db_connection()
     try:
         with conn.cursor() as cursor:
-            # Check if an entry exists in the badge_progress table for the given child and badge
-            check_sql = """
-            SELECT badge_progress_id FROM badge_progress
-            WHERE child_id = %s AND badge_id = %s
+            # Ensure the badge has not been previously awarded
+            check_awarded_sql = """
+            SELECT 1 FROM badge_progress
+            WHERE child_id = %s AND badge_id = %s AND award_badge = TRUE
             """
-            cursor.execute(check_sql, (child_id, badge_id))
-            existing_entry = cursor.fetchone()
+            cursor.execute(check_awarded_sql, (child_id, badge_id))
+            if cursor.fetchone():
+                print(f"Badge already awarded. Child ID: {child_id}, Badge ID: {badge_id}")
+                return
 
-            if existing_entry:
-                # Update the existing entry to mark the badge as awarded
-                update_sql = """
-                UPDATE badge_progress
-                SET award_badge = TRUE, date_completed = NOW()
-                WHERE badge_progress_id = %s
-                """
-                cursor.execute(update_sql, (existing_entry[0],))
-            else:
-                # Insert a new entry in the badge_progress table
-                insert_sql = """
-                INSERT INTO badge_progress (child_id, badge_id, track_activity_id, award_badge, date_completed)
-                VALUES (%s, %s, %s, TRUE, NOW())
-                """
-                cursor.execute(insert_sql, (child_id, badge_id, track_activity_id))
-
+            # Award the badge
+            insert_sql = """
+            INSERT INTO badge_progress (child_id, badge_id, track_activity_id, award_badge, date_completed)
+            VALUES (%s, %s, %s, TRUE, NOW())
+            """
+            cursor.execute(insert_sql, (child_id, badge_id, track_activity_id))
             conn.commit()
-    except mysql.connector.Error as e:
+            print(f"Badge awarded successfully. Child ID: {child_id}, Badge ID: {badge_id}")
+    except Exception as e:
         print(f"Error updating badge progress: {e}")
         conn.rollback()
     finally:
@@ -534,13 +545,64 @@ def update_badge_awarded(child_id, badge_id, track_activity_id):
 #     conn = get_db_connection()
 #     try:
 #         with conn.cursor() as cursor:
-#             update_sql = """
-#             UPDATE badge_progress
-#             SET award_badge = TRUE, date_completed = NOW()
+#             # Ensure the badge has not been previously awarded
+#             check_awarded_sql = """
+#             SELECT 1 FROM badge_progress
+#             WHERE child_id = %s AND badge_id = %s AND award_badge = TRUE
+#             """
+#             cursor.execute(check_awarded_sql, (child_id, badge_id))
+#             if cursor.fetchone():
+#                 print(f"Badge already awarded. Child ID: {child_id}, Badge ID: {badge_id}")
+#                 return
+#
+#             # Award the badge
+#             insert_sql = """
+#             INSERT INTO badge_progress (child_id, badge_id, award_badge, date_completed)
+#             VALUES (%s, %s, TRUE, NOW())
+#             """
+#             cursor.execute(insert_sql, (child_id, badge_id))
+#             conn.commit()
+#             print(f"Badge awarded successfully. Child ID: {child_id}, Badge ID: {badge_id}")
+#     except Exception as e:
+#         print(f"Error updating badge progress: {e}")
+#         conn.rollback()
+#     finally:
+#         cursor.close()
+#         conn.close()
+
+
+# def update_badge_awarded(child_id, badge_id, track_activity_id):
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor() as cursor:
+#             # Check if an entry exists in the badge_progress table for the given child and badge
+#             check_sql = """
+#             SELECT badge_progress_id FROM badge_progress
 #             WHERE child_id = %s AND badge_id = %s
 #             """
-#             cursor.execute(update_sql, (child_id, badge_id))
+#             cursor.execute(check_sql, (child_id, badge_id))
+#             existing_entry = cursor.fetchone()
+#
+#             if existing_entry:
+#                 # Update the existing entry to mark the badge as awarded
+#                 update_sql = """
+#                 UPDATE badge_progress
+#                 SET award_badge = TRUE, date_completed = NOW()
+#                 WHERE badge_progress_id = %s
+#                 """
+#                 cursor.execute(update_sql, (existing_entry[0],))
+#             else:
+#                 # Insert a new entry in the badge_progress table
+#                 insert_sql = """
+#                 INSERT INTO badge_progress (child_id, badge_id, track_activity_id, award_badge, date_completed)
+#                 VALUES (%s, %s, %s, TRUE, NOW())
+#                 """
+#                 cursor.execute(insert_sql, (child_id, badge_id, track_activity_id))
+#
 #             conn.commit()
+#     except mysql.connector.Error as e:
+#         print(f"Error updating badge progress: {e}")
+#         conn.rollback()
 #     finally:
 #         cursor.close()
 #         conn.close()

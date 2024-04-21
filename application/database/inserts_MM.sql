@@ -75,6 +75,11 @@ SELECT * FROM activity;
 -- INSERTED ACTIVITY AND MOOD TABLE WITH NO VALUES AT THIS STAGE
 INSERT INTO mood_and_activity (mood_id, activity_id)
 VALUES
+(1, 2),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
 (2, 2),
 (2, 4),
 (2, 5),
@@ -89,7 +94,17 @@ VALUES
 (4, 4),
 (4, 5),
 (4, 6),
-(4, 7);
+(4, 7),
+(5, 3),
+(5, 4),
+(5, 5),
+(5, 6),
+(5, 7),
+(6, 3),
+(6, 4),
+(6, 5),
+(6, 6),
+(6, 7);
 
 SELECT * FROM mood_and_activity;
 
