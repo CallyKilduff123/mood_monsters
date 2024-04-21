@@ -493,11 +493,16 @@ def check_badge_criteria(child_id):
             for badge in eligible_badges:
                 track_activity_id = badge.get('track_activity_id')
                 if track_activity_id:
-                    update_badge_awarded(child_id, badge['badge_id'], track_activity_id)
+                    badge_updated = update_badge_awarded(child_id, badge['badge_id'], track_activity_id)
+                    if badge_updated:
+                        badge_recently_added = True  # Set the variable to True if update is successful
+                    else:
+                        badge_recently_added = False
+                        print(f"Failed to update badge progress for Badge ID: {badge['badge_id']}")
                 else:
                     print(f"No matching activity found for Badge ID: {badge['badge_id']}")
 
-            return eligible_badges
+                return eligible_badges, badge_recently_added
     except Exception as e:
         print(f"Error checking badge criteria for Child {child_id}: {e}")
         return None
@@ -518,7 +523,7 @@ def update_badge_awarded(child_id, badge_id, track_activity_id):
             cursor.execute(check_awarded_sql, (child_id, badge_id))
             if cursor.fetchone():
                 print(f"Badge already awarded. Child ID: {child_id}, Badge ID: {badge_id}")
-                return
+                return False  # Badge already awarded, so return False
 
             # Award the badge
             insert_sql = """
@@ -528,12 +533,15 @@ def update_badge_awarded(child_id, badge_id, track_activity_id):
             cursor.execute(insert_sql, (child_id, badge_id, track_activity_id))
             conn.commit()
             print(f"Badge awarded successfully. Child ID: {child_id}, Badge ID: {badge_id}")
+            return True  # Badge successfully awarded, so return True
     except Exception as e:
         print(f"Error updating badge progress: {e}")
         conn.rollback()
+        return False  # Return False in case of any error
     finally:
         cursor.close()
         conn.close()
+
 
 
 # CALLY CODE
