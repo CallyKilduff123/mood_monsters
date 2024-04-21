@@ -16,11 +16,12 @@
         </div>
     </div>
 </div>
+
 <!-- What Page Does Section (No Wave) -->
 <div class="container-fluid">
     <div class="container">
         <div class="row justify-content-center pt-1">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h1 class="text-center titles colour-2">Coping Strategies for Feeling Ashamed</h1>
                 <div class="pt-5">
                     <p class="colour-light">Feeling ashamed is like carrying a heavy backpack that no one else can see, because you think you did something wrong.
@@ -37,17 +38,17 @@
 <div class="container-fluid wave-top-bottom gradient-colour-2 pb-2 mb-2">
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
-            <div class="col-md-10 py-5">
+            <div class="col-md-8 py-5">
                 <h1 class="text-center py-4 titles colour-2">Exploring Feeling Ashamed</h1>
                 <div class="row justify-content-center">
                 <!-- Mood Journal Image -->
-                    <div class="col-lg-6 col-md-6 pt-2">
+                    <div class="col-lg-6 col-md-8 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/journal_entry.jpeg" alt="Monster writes in a Journal">
                     </div>
                     <div>
                         <p class="colour-light">Let's look at feelings of shame in your journal.</p>
                         <p class="colour-light">Use your journal to talk to your grown-up about how you are feeling.</p>
-                        <p class="colour-light">You can write it here or you can print off a journal page to write in at home</p>
+                        <p class="colour-light">You can write it here, or you can print off a journal page to write in at home</p>
                     </div>
                     <!-- journal -->
                     <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id) }}" method="post" class="journal-entry">
@@ -77,18 +78,16 @@
 </div>
 
 <!-- Activity Section (No Wave) -->
-<div class="container-fluid pb-0">
+<div class="container-fluid pb-0" id="activity-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h1 class="text-center pb-4 titles colour-2">Today's Activity To Help Your Mood</h1>
-                <!-- move div below logic...
-                <div class="row justify-content-center">-->
-    {% if activity %}
-                    <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id, activity_id=activity['activity_id']) }}" method="post">
-        <!-- Dynamic Activity Image -->
-                        <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-6 pt-2">
+                {% if activity %}
+                <form action="{{ url_for('log_activity_route', child_id=child_id, mood_id=mood_id, activity_id=activity['activity_id']) }}#activity-section" method="post">
+                    <!-- Dynamic Activity Image -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8 pt-2">
                             <img class="img-fluid rounded border custom-border mb-5" src="{{ url_for('static', filename=activity['activity_image_url']) }}" alt="{{ activity['activity_name'] }}">
                         </div>
                         <div>
@@ -99,44 +98,34 @@
                         </div>
                         <div class="text-center">
                             <input type="hidden" name="activity_id" value="{{ activity['activity_id'] }}">
-                <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
-            </div>
-        </form>
-    {% else %}
-        <!-- Fallback content if no activity is available -->
-        <div class="col-lg-6 col-md-6 pt-2">
-            <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="No Activity Available">
-        </div>
-        <div>
-            <p class="colour-light">No activities available right now.</p>
-        </div>
-    {% endif %}
-</div>
-<!--                <div class="row justify-content-center">-->
-<!--                &lt;!&ndash; Activity Image &ndash;&gt;-->
-<!--                    <div class="col-lg-6 col-md-6 pt-2">-->
-<!--                        <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="Sad Monster">-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <p class="colour-light">Dancing releases happy hormones (called endorphins).</p>-->
-<!--                        <p class="colour-light">Play your favourite song and dance!</p>-->
-<!--                        <p class="colour-light">Get your grown up to dance too - that will make you laugh!</p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                            <button type="submit" class="btn btn-primary rounded-pill border-2 mx-4 my-1 px-5 py-3 fixed-width">I did it!</button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <!-- Fallback content if no activity is available -->
+                <div class="col-lg-6 col-md-6 pt-2">
+                    <img class="img-fluid rounded border custom-border mb-5" src="/static/images/2_sad_monster.jpeg" alt="No Activity Available">
+                </div>
+                <div>
+                    <p class="colour-light">No activities available right now.</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- Mood Diary Section (Wave Top & Wave Bottom) -->
 <div class="container-fluid wave-top-bottom gradient-colour-1 pt-3 pb-2 mb-2">
     <div class="container pb-5">
         <div class="row justify-content-center py-5">
-            <div class="col-md-10 py-5">
+            <div class="col-md-8 py-5">
                 <h1 class="text-center py-4 titles colour-2">Ashamed Animal Fact</h1>
                 <div class="row justify-content-center">
                 <!-- Animal Fact Image -->
-                    <div class="col-lg-6 col-md-6 pt-2">
+                    <div class="col-lg-6 col-md-8 pt-2">
                         <img class="img-fluid rounded border custom-border mb-5" src="/static/images/ashamed_dog.jpg" alt="Ashamed Dog">
                     </div>
                     <div>
