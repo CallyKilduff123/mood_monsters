@@ -31,16 +31,22 @@ a {
 
 /* fixes issue with space below monster images */
 .spacer-register {
-  height: 180px; /* add empty space below registration form */
+    height: 245px; /* add empty space below registration form */
 }
 
 .spacer-login, .spacer-badges {
-  height: 583px; /* add empty space below login form */
+    height: 585px; /* add empty space below login form */
 }
 
 .spacer-mood {
-  height: 1010px; /* add empty space to mood diary with no entries */
+    height: 1010px; /* add empty space to mood diary with no entries */
 }
+
+.spacer-mood-entry {
+    height: 715px;
+}
+
+/* -------------------------------------------- */
 
 .container, .container-fluid {
     position: relative;

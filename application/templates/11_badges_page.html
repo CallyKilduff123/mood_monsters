@@ -2,15 +2,15 @@
 {% block body_content %}
 
 <div class="container-fluid py-4">
-    <div class="container col-md-8">
+    <div class="container col-md-6">
         <div class="text-center">
-            <h1 class="titles colour-2 m-4">Your Awarded Badges</h1>
+            <h1 class="titles colour-2 mt-4 mb-5">Your Awarded Badges</h1>
         </div>
 
     {% if badges %}
         <div>
             {% for badge in badges %}
-                <div style="margin-bottom: 20px;">
+                <div class="mb-5">
                     <h3 class="titles colour-3">{{ badge.badge_name }}</h3>
                     <img class="rounded border custom-border" src="{{ url_for('static', filename=badge.badge_image_url) }}" alt="{{ badge.badge_name }}" style="width: 100px;">
                     <p class="colour-light">{{ badge.badge_description }}</p>
