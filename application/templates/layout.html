@@ -19,7 +19,9 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
       <div class="d-flex">
-          <a class="nav-link p-0"><i class="fa-solid fa-chevron-left  me-1" onclick="javascript:history.back()"></i>Back</a> <!-- Placeholder - code needs adjusting to go back to previous page -->
+          <a class="nav-link p-0" onclick="javascript:history.back()" style="cursor: pointer;">
+              <i class="fa-solid fa-chevron-left  me-1"></i>Back
+          </a>
       </div>
       <div class="navbar-nav mx-auto">
             <!--  LOGIC FOR HOME TO TAKE GROWNUP TO GROWNUP DASHBOARD AND CHILD TO CHILD DASHBOARD        -->
@@ -28,11 +30,13 @@
           {% elif session.user_type == 'grownup' %}
             <a class="nav-link {% if page == 'grownup_dashboard' %}active{% endif %}" aria-current="page" href="{{ url_for('grownup_dashboard', family_id=session.family_id) }}">Home</a>
           {% endif %}
-          <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/logout">Logout</a>
+            <a class="nav-link p-0 {% if page == 'login' %}active{% endif %}" aria-current="page" href="/logout">Logout</a>
       </div>
+      <!--
       <div class="d-flex">
-          <a class="nav-link p-0" href="#">Next<i class="fa-solid fa-chevron-right  ms-1"></i></a> <!-- Placeholder - code needs adjusting to go forward to next page -->
+          <a class="nav-link p-0" href="#">Next<i class="fa-solid fa-chevron-right  ms-1"></i></a>
       </div>
+      -->
   </div>
 </nav>
 
