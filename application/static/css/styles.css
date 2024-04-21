@@ -31,7 +31,7 @@ a {
 
 /* fixes issue with space below monster images */
 .spacer-register {
-    height: 180px; /* add empty space below registration form */
+    height: 245px; /* add empty space below registration form */
 }
 
 .spacer-login, .spacer-badges {
