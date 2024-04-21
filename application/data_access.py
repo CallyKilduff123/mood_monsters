@@ -170,27 +170,7 @@ def log_mood_to_db(child_id, mood_name):
 
 
 # CALLY CODE
-# def log_mood_to_db(child_id, mood_name):
-#     conn = get_db_connection()
-#     try:
-#         with conn.cursor(dictionary=True) as cursor:
-#             # Find the mood_id from the mood table using a safe, parameterized query
-#             cursor.execute("SELECT mood_id FROM mood WHERE mood_name = %s", (mood_name,))
-#             mood_id = cursor.fetchone()
-#             if mood_id:
-#                 # Insert the mood log with the retrieved mood_id
-#                 cursor.execute("INSERT INTO mood_logged (mood_id, child_id, date_logged) VALUES (%s, %s, NOW())",
-#                                (mood_id['mood_id'], child_id))
-#                 conn.commit()
-#                 return True
-#         return False
-#     except Exception as e:
-#         print(f"Error logging mood: {e}")
-#         conn.rollback()
-#         return False
-#     finally:
-#         conn.close()
-
+# only shows one mood per date in the mood diary:
 
 def get_logged_moods(child_id):
     conn = get_db_connection()
@@ -198,11 +178,17 @@ def get_logged_moods(child_id):
     try:
         cursor.execute("""
             SELECT mood_name, mood_image_url, date_logged
-            FROM mood_logged
-            JOIN mood ON mood_logged.mood_id = mood.mood_id
-            WHERE mood_logged.child_id = %s
+            FROM (
+                SELECT mood.mood_name, mood.mood_image_url, mood_logged.date_logged,
+                    ROW_NUMBER() OVER (PARTITION BY DATE(mood_logged.date_logged) ORDER BY mood_logged.date_logged DESC) AS row_num
+                FROM mood_logged
+                JOIN mood ON mood_logged.mood_id = mood.mood_id
+                WHERE mood_logged.child_id = %s
+                ORDER BY mood_logged.date_logged DESC
+            ) AS subquery
+            WHERE row_num = 1
             ORDER BY date_logged DESC
-            LIMIT 24
+            LIMIT 24;
         """, (child_id,))
         return cursor.fetchall()
     except Exception as e:
@@ -211,6 +197,27 @@ def get_logged_moods(child_id):
     finally:
         cursor.close()
         conn.close()
+
+# shows all moods logged - including with activities:
+# def get_logged_moods(child_id):
+#     conn = get_db_connection()
+#     cursor = conn.cursor(dictionary=True)
+#     try:
+#         cursor.execute("""
+#             SELECT mood_name, mood_image_url, date_logged
+#             FROM mood_logged
+#             JOIN mood ON mood_logged.mood_id = mood.mood_id
+#             WHERE mood_logged.child_id = %s
+#             ORDER BY date_logged DESC
+#             LIMIT 24
+#         """, (child_id,))
+#         return cursor.fetchall()
+#     except Exception as e:
+#         print(f"Error fetching moods: {e}")
+#         return None
+#     finally:
+#         cursor.close()
+#         conn.close()
 
 
 def validate_child_family_association(child_id, family_id):
