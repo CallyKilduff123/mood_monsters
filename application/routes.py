@@ -153,13 +153,12 @@ def sad_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('6_sad_page.html', family_id=family_id, child_id=child_id, activity=activity,
-                               first_name=first_name, mood_id=mood_id,  badge_received=badge_received,
-                               notification_message=notification_message)
+                               first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
@@ -187,13 +186,12 @@ def angry_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('7_angry_page.html', family_id=family_id, child_id=child_id, activity=activity,
-                               first_name=first_name, mood_id=mood_id,  badge_received=badge_received,
-                               notification_message=notification_message)
+                               first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
@@ -221,13 +219,12 @@ def worried_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('8_worried_page.html', family_id=family_id, child_id=child_id,
-                               activity=activity, first_name=first_name, mood_id=mood_id,  badge_received=badge_received,
-                               notification_message=notification_message)
+                               activity=activity, first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
@@ -274,13 +271,12 @@ def happy_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('8b_happy_page.html', family_id=family_id, child_id=child_id,
-                               activity=activity, first_name=first_name, mood_id=mood_id,  badge_received=badge_received,
-                               notification_message=notification_message)
+                               activity=activity, first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
@@ -308,13 +304,12 @@ def ashamed_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('8c_ashamed_page.html', family_id=family_id, child_id=child_id, activity=activity,
-                               first_name=first_name, mood_id=mood_id, badge_received=badge_received,
-                               notification_message=notification_message)
+                               first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
@@ -342,13 +337,12 @@ def lonely_page(family_id):
         first_name = session.get('first_name', 'Unknown')
 
         # Check badge criteria and set badge_received flag accordingly
-        badge_received = check_badge_criteria(child_id)
+        # badge_received = check_badge_criteria(child_id)
         # Set notification message if badge is received
-        notification_message = "Congratulations! You just received a badge." if badge_received else ""
+        # notification_message = "Congratulations! You just received a badge." if badge_received else ""
 
         return render_template('8d_lonely_page.html', family_id=family_id, child_id=child_id, activity=activity,
-                               first_name=first_name, mood_id=mood_id,badge_received=badge_received,
-                               notification_message=notification_message)
+                               first_name=first_name, mood_id=mood_id)
     else:
         flash('Unauthorized access.', 'error')
         return redirect(url_for('login_route'))
