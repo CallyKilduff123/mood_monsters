@@ -5,9 +5,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 ## Project Description 
-What your application does,
-Why you used the technologies you used,
-Some of the challenges you faced and features you hope to implement in the future.
+Last year NHS England found that one in five 8-16year olds had a probable mental disorder. Mental disorders are intrinsically linked to disturbance in mood. We decided to act for children younger than 8 and created a platform to guide them through their journey of emotional exploration. 
+
+If our Mood Monsters could support young children to learn to identify, and acknowledge their mood, and provide them with coping strategies through play, maybe, just maybe we could reduce this shocking figure. 
+
+We have targeted young children, but we don’t expect them to go on this journey alone, so we have built a platform that they navigate with their nominated grown-up, who also deserves our support.
 
 ### Technologies Used:  
 <!-- <a href=""> <img src="" alt=""></a> -->
@@ -39,23 +41,22 @@ $ Select "requirements.txt" text file and install Flask, flask-wtf, wtforms, mys
 ```
 3. Run SQL Database for functionality  
 ```
-$ Open mood_monsters File from PyCharm Community Edition IDE #(requires PyCharm to be installed)
-$ Select "requirements.txt" text file and install Flask, flask-wtf, wtforms, mysql-connector-python #(requires to be installed)
-$ npm install #(requires node to be installed)
-$ npm start #(server will be listening on localhost:3001)
+$ Open MySQL Workbench from the application folder in PyCharm
+$ Select the Database Folder from mood_monsters Python Project #(within application)
+$ Select "MoodMonsterDB.sql" file and Copy & Paste content to MYSQL Workbench
+$ Run the code in MySQL Workbench to create the tables 
+$ From database folder in PyCharm (as before) open the "inserts_MM.sql" file and Copy & Paste content to MySQL Workbench
+$ Run the code to populate the important tables and to provide small database of sample users. 
 ```
 4. Start the front end server 
 ```
-In a new terminal window: 
-$ cd ..
-$ nvm use
-$ cd client
-$ npm install
-$ npm start #(web app will open in the browser at localhost:3000)
+$ Navigate to app.py within mood_monsters python project in PyCharm
+$ Run line 4 the main trick
+$ Select URL from the console  
 ``` 
-Provide instructions and examples so users/contributors can use the project. This will make it easy for them in case they encounter a problem – they will always have a place to reference what is expected.
+<div align="center">
 
-You can also make use of visual aids by including materials like screenshots to show examples of the running project and also the structure and design principles used in your project.
-
+  
 ## Contributors
 [![Cally](https://img.icons8.com/nolan/25/github.png)](https://github.com/CallyKilduff123) Cally [![Leticia](https://img.icons8.com/nolan/25/github.png)](https://github.com/Leticia-Santos922) Leticia [![Yulianna](https://img.icons8.com/nolan/25/github.png)](https://github.com/yuliannagarcia) Yulianna [![Bek](https://img.icons8.com/nolan/25/github.png)](https://github.com/BekstersLab) Bek [![Jiya](https://img.icons8.com/nolan/25/github.png)](https://github.com/Jiyabharti) Jiya 
+</div>
