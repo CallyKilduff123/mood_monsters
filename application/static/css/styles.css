@@ -26,25 +26,9 @@ a {
 
 /* .page-wrapper applied to layout.html and layout-pre-login.html to apply monster images */
 .page-wrapper {
+    flex: 1;
     position: relative; /* positions the element relative to its normal position */
     z-index: 0; /* sets the stack order of the element */
-}
-
-/* fixes issue with space below monster images */
-.spacer-register {
-    height: 245px; /* add empty space below registration form */
-}
-
-.spacer-login, .spacer-badges {
-    height: 585px; /* add empty space below login form */
-}
-
-.spacer-mood {
-    height: 1010px; /* add empty space to mood diary with no entries */
-}
-
-.spacer-mood-entry {
-    height: 715px;
 }
 
 /* -------------------------------------------- */
@@ -76,25 +60,6 @@ a {
 .one-third-right { top: 39%; right: 0; transform: translateY(-50%); }
 .two-thirds-right { top: 70%; right: 0; transform: translateY(-50%); }
 .bottom-right { bottom: 0; right: 0; }
-
-.bottom-center { bottom: 0; left: 41%;}
-
-/* fixes issue with space below monster images */
-.spacer-register {
-    height: 245px; /* add empty space below registration form */
-}
-
-.spacer-login, .spacer-badges {
-    height: 585px; /* add empty space below login form */
-}
-
-.spacer-mood {
-    height: 1010px; /* add empty space to mood diary with no entries */
-}
-
-.spacer-mood-entry {
-    height: 715px; /* add empty space to mood diary with entries */
-}
 
 
 /* WEBSITE COLOUR SCHEME */
