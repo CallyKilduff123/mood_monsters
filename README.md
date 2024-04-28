@@ -5,9 +5,10 @@
 
 <img src="https://github.com/CallyKilduff123/mood_monsters/blob/main/MMBanner.png"  alt="banner">
 
+## Brief Demo
 <div align=center>
 
-  ## Brief Demo
+
   ### Home Page 
   ![gifOfHomePage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
   ### Register and Login Page
