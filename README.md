@@ -1,17 +1,17 @@
 <!-- TITLE -->
 <div align=center>
-<h1>Mood Monsters <br> Sky Get Into Tech Final Project</h1> 
+<h1>Welcome to our app Mood Monsters <br> Sky Get Into Tech Final Project</h1> 
 </div>
 
 <img src="https://github.com/CallyKilduff123/mood_monsters/blob/main/MMBanner.png"  alt="banner">
 
 <!-- PROJECT DESCRIPTION -->
 ## Project Description 
-Last year NHS England found that one in five 8-16year olds had a probable mental disorder. Mental disorders are intrinsically linked to disturbance in mood. We decided to act for children younger than 8 and created a platform to guide them through their journey of emotional exploration. 
+👾 Mood Monsters is an app which provides a safe space to guide young children (6-8y) to identify and acknowledge their moods, and provide them with coping strategies through play with the support of their nominated grown-up.
 
-If our Mood Monsters could support young children to learn to identify, and acknowledge their mood, and provide them with coping strategies through play, maybe, just maybe we could reduce this shocking figure. 
+🤔 Reason: Last year, NHS England found that one in five 8-16-year-olds had a probable mental disorder. Mental disorders are intrinsically linked to disturbances in mood. We decided to act for children younger than 8 and created a platform to guide them through their journey of emotional exploration to see if we could, maybe, just maybe, reduce this shocking figure.
 
-We have targeted young children, but we don’t expect them to go on this journey alone, so we have built a platform that they navigate with their nominated grown-up, who also deserves our support.
+⚡Users: We have targeted young children, but we don't expect them to go on this journey alone, so we have built a platform that they navigate with their nominated grown-up, who also deserves our support.
 
 ### Technologies Used:  
 [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)](https://docs.python.org/3.13/)
