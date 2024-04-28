@@ -5,24 +5,6 @@
 
 <img src="https://github.com/CallyKilduff123/mood_monsters/blob/main/MMBanner.png"  alt="banner">
 
-## Brief Demo
-<div align=center>
-
-
-  ### Home Page 
-  ![gifOfHomePage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
-  ### Register and Login Page
-  ![gifOfRegisterAndLoginPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2Q3aHMxcjk3aWJleWUydHgxc2VnbHA4ZmltMzFoaWJoZjJhMjE4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Gjn5UWWWLlE4oScuoe/giphy.gif)
-  ### Child Dashboard
-  ![gifOfChildDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
-  <br> Additional features can on this page, including badges, mood diary and message notifications [find out more](#How-To-Use) &nbsp; 
-  ### Child Activity Page 
-   ![gifOfActivityPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYno0c2RvcHAyZGJtN2lpdG9icXZxb21qaW90NmhmanE0ODBlN2hnaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xjmK4FIGgVZiT6Tm9U/giphy.gif)
-  ### Grown-Up Dashboard
-  ![gifOfGrownUpDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHpub2xhdnVtaWUzNHNiMXk0eTZvczA5MzN0cGtudXRrZzMxN2MyayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AGzDhjs4dTR215aMoP/giphy.gif)
-</div>
-
-
 <!-- PROJECT DESCRIPTION -->
 ## Project Description 
 Last year NHS England found that one in five 8-16year olds had a probable mental disorder. Mental disorders are intrinsically linked to disturbance in mood. We decided to act for children younger than 8 and created a platform to guide them through their journey of emotional exploration. 
@@ -42,6 +24,22 @@ We have targeted young children, but we don’t expect them to go on this journe
 [![Miro](https://img.shields.io/badge/Miro-F7C922?style=for-the-badge&logo=Miro&logoColor=050036)](https://miro.com/)
 [![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/)
 
+## Brief Demo
+<div align=center>
+
+
+  ### Home Page 
+  ![gifOfHomePage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
+  ### Register and Login Page
+  ![gifOfRegisterAndLoginPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2Q3aHMxcjk3aWJleWUydHgxc2VnbHA4ZmltMzFoaWJoZjJhMjE4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Gjn5UWWWLlE4oScuoe/giphy.gif)
+  ### Child Dashboard
+  ![gifOfChildDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
+  <br> Additional features can on this page, including badges, mood diary and message notifications [find out more](#How-To-Use) &nbsp; 
+  ### Child Activity Page 
+   ![gifOfActivityPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYno0c2RvcHAyZGJtN2lpdG9icXZxb21qaW90NmhmanE0ODBlN2hnaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xjmK4FIGgVZiT6Tm9U/giphy.gif)
+  ### Grown-Up Dashboard
+  ![gifOfGrownUpDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHpub2xhdnVtaWUzNHNiMXk0eTZvczA5MzN0cGtudXRrZzMxN2MyayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AGzDhjs4dTR215aMoP/giphy.gif)
+</div>
 
 <!-- HOW TO USE THE APP --> 
 ## How To Use 
