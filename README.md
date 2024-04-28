@@ -3,6 +3,7 @@
 <h1>Mood Monsters <br> Sky Get Into Tech Final Project</h1> 
 </div>
 
+<img src="https://github.com/CallyKilduff123/mood_monsters/blob/main/MMBanner.png"  alt="banner">
 
 <div align=center>
 
