@@ -3,6 +3,24 @@
 <h1>Mood Monsters <br> Sky Get Into Tech Final Project</h1> 
 </div>
 
+
+<div align=center>
+
+  ## Brief Demo
+  ### Home Page 
+  ![gifOfHomePage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
+  ### Register and Login Page
+  ![gifOfRegisterAndLoginPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2Q3aHMxcjk3aWJleWUydHgxc2VnbHA4ZmltMzFoaWJoZjJhMjE4OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Gjn5UWWWLlE4oScuoe/giphy.gif)
+  ### Child Dashboard
+  ![gifOfChildDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlbHY1aXBkZ2Z6dHdqbGI1bDljYjFxZWkyMndpajFib25zaG13diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CuL7tnMQzy7hoDr3ZA/giphy.gif)
+  <br> Additional features can on this page, including badges, mood diary and message notifications [find out more](#How-To-Use) &nbsp; 
+  ### Child Activity Page 
+   ![gifOfActivityPage](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYno0c2RvcHAyZGJtN2lpdG9icXZxb21qaW90NmhmanE0ODBlN2hnaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xjmK4FIGgVZiT6Tm9U/giphy.gif)
+  ### Grown-Up Dashboard
+  ![gifOfGrownUpDashboard](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHpub2xhdnVtaWUzNHNiMXk0eTZvczA5MzN0cGtudXRrZzMxN2MyayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AGzDhjs4dTR215aMoP/giphy.gif)
+</div>
+
+
 <!-- PROJECT DESCRIPTION -->
 ## Project Description 
 Last year NHS England found that one in five 8-16year olds had a probable mental disorder. Mental disorders are intrinsically linked to disturbance in mood. We decided to act for children younger than 8 and created a platform to guide them through their journey of emotional exploration. 
@@ -12,18 +30,16 @@ If our Mood Monsters could support young children to learn to identify, and ackn
 We have targeted young children, but we don’t expect them to go on this journey alone, so we have built a platform that they navigate with their nominated grown-up, who also deserves our support.
 
 ### Technologies Used:  
-<!-- <a href=""> <img src="" alt=""></a> -->
-<!-- TODO: Find which way is better to do badges  -->
-<!--ANOTHER WAY TO DO BADGE WHICH SEEMS BETTER  ![<Badge Name>](https://img.shields.io/badge/<Badge Text>-<Background Color>?style=for-the-badge&logo=<Icon Name>&logoColor=<Logo Color>)  -->
-<!--ANOTHER WAY TO DO BADGE WHICH SEEMS BETTER  [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/https://www.linkedin.com/in/rebecca-solomon-75aa56191/)  -->
-<a href="https://docs.python.org/3.13/"> <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Python Badge"></a> 
-<a href="https://www.w3schools.com/js/"><img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="JavaScript Logo"></a>
-<a href="https://www.mysql.com/"> <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MYSQL Logo"></a>
-<a href="https://html.com/html5/"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5 Logo"></a>
-<a href="https://getbootstrap.com/"> <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap Logo"></a>
-<a href="https://www.postman.com/"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" alt="Postman Logo"></a>
-<a href="https://flask.palletsprojects.com/en/3.0.x/"> <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask Logo"></a>
-<a href="https://miro.com/"> <img src="https://img.shields.io/badge/Miro-F7C922?style=for-the-badge&logo=Miro&logoColor=050036" alt="Miro Logo"></a>
+[![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)](https://docs.python.org/3.13/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.w3schools.com/js/)
+[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](href="https://www.mysql.com/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](https://www.postman.com/)
+[![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/en/3.0.x/)
+[![Miro](https://img.shields.io/badge/Miro-F7C922?style=for-the-badge&logo=Miro&logoColor=050036)](https://miro.com/)
+[![Trello](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/)
+
 
 <!-- HOW TO USE THE APP --> 
 ## How To Use 
